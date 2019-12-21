@@ -1,29 +1,10 @@
+import BuildSupport._
 import Dependencies._
 
-ThisBuild / scalaVersion := "2.13.1"
+ThisBuild / scalaVersion := "2.12.10"
 ThisBuild / version := "0.1.0-SNAPSHOT"
-ThisBuild / organization := "com.example"
-ThisBuild / organizationName := "example"
-
-lazy val commonSettings = Seq(
-  crossScalaVersions := List("2.12.10", "2.13.1"),
-  scalacOptions := Seq(
-    "-encoding",
-    "UTF-8",
-    "-feature",
-    "-language:existentials",
-    "-language:higherKinds",
-    "-language:implicitConversions",
-    "-language:experimental.macros",
-    "-unchecked",
-    "-Ywarn-dead-code",
-    "-Ywarn-value-discard",
-    "-Xfatal-warnings",
-    "-deprecation",
-    "-Xlint:-unused,_"
-  ),
-  scalacOptions in Test --= Seq("-Ywarn-dead-code", "-Ywarn-value-discard")
-)
+ThisBuild / organization := "com.avast"
+ThisBuild / organizationName := "avast"
 
 lazy val root = (project in file("."))
   .settings(commonSettings)
@@ -92,3 +73,20 @@ lazy val slf4j = (project in file("slf4j"))
   )
   .settings(commonSettings)
   .dependsOn(api, core)
+
+lazy val site = (project in file("site"))
+  .enablePlugins(
+    MicrositesPlugin,
+    MdocPlugin,
+    SiteScaladocPlugin,
+    ScalaUnidocPlugin
+  )
+  .settings(publish / skip := true)
+  .settings(micrositeSettings: _*)
+  .settings(
+    // do not provide scaladoc for example
+    unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(
+      example
+    )
+  )
+  .dependsOn(api, core, generic, monix, slf4j)
