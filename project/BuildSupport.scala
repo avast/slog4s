@@ -20,7 +20,7 @@ object BuildSupport {
       "-unchecked",
       "-Ywarn-dead-code",
       "-Ywarn-value-discard",
-      "-Xfatal-warnings",
+      //"-Xfatal-warnings",
       "-deprecation",
       "-Xlint:-unused,_"
     ),
@@ -35,16 +35,21 @@ object BuildSupport {
     micrositeGithubOwner := "avast",
     micrositeGithubRepo := "slog4s",
     micrositeUrl := "https://avast.github.io",
+    micrositeDocumentationUrl := "overview.html",
     micrositeBaseUrl := "/slog4s",
     micrositeFooterText := None,
     micrositeGitterChannel := false,
+    micrositeTheme := "pattern",
     fork in mdoc := true,
     mdocIn := file("site") / "docs",
-    siteSubdirName in SiteScaladoc := "api/latest",
+    mdocVariables := Map("VERSION" -> version.value),
+    mdocAutoDependency := false,
+    micrositeDataDirectory := file("site"),
     siteSubdirName in ScalaUnidoc := "api/latest",
     addMappingsToSiteDir(
       mappings in (ScalaUnidoc, packageDoc),
       siteSubdirName in ScalaUnidoc
     )
   )
+
 }

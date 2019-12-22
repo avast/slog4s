@@ -13,7 +13,6 @@ import slog.{LevelLogBuilder, LocationAwareLogger}
 
 import scala.jdk.CollectionConverters._
 
-
 class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
 
   describe("slf4j logger") {

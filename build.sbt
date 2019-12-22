@@ -74,6 +74,16 @@ lazy val slf4j = (project in file("slf4j"))
   .settings(commonSettings)
   .dependsOn(api, core)
 
+lazy val siteUtils = (project in file("site") / "utils")
+  .settings(
+    libraryDependencies ++= Seq(
+      circeParser,
+      libmdoc,
+      logback,
+      logstash
+    )
+  )
+
 lazy val site = (project in file("site"))
   .enablePlugins(
     MicrositesPlugin,
@@ -89,4 +99,4 @@ lazy val site = (project in file("site"))
       example
     )
   )
-  .dependsOn(api, core, generic, monix, slf4j)
+  .dependsOn(api, core, generic, monix, slf4j, siteUtils)
