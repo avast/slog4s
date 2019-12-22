@@ -1,8 +1,5 @@
-name: Build
-on:
-  push:
-    branches:
-      - master
+name: Pull request
+on: [pull_request]
 
 jobs:
   build:
