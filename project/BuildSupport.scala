@@ -35,7 +35,7 @@ object BuildSupport {
     micrositeGithubOwner := "avast",
     micrositeGithubRepo := "slog4s",
     micrositeUrl := "https://avast.github.io",
-    micrositeDocumentationUrl := "overview.html",
+    micrositeDocumentationUrl := "api/latest",
     micrositeBaseUrl := "/slog4s",
     micrositeFooterText := None,
     micrositeGitterChannel := false,

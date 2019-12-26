@@ -83,6 +83,7 @@ lazy val siteUtils = (project in file("site") / "utils")
       logstash
     )
   )
+  .dependsOn(slf4j)
 
 lazy val site = (project in file("site"))
   .enablePlugins(

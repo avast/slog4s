@@ -8,8 +8,9 @@ class EvalLog extends PostModifier {
   override val name: String = "evallog"
 
   override def process(ctx: PostModifierContext): String = {
+    val all = ctx.variables.exists(_.name == "all")
     val out = Helpers.output()
-    val (location, prettyOutput) = out
+    val rawMessages = out
       .split('\n')
       .map { line =>
         val json = io.circe.parser.parse(line).right.get
@@ -17,12 +18,21 @@ class EvalLog extends PostModifier {
         val lineNumber = json.hcursor.downField("x-line").as[Int].right.get
         ((file, lineNumber), json.spaces2SortKeys)
       }
-      .filterNot {
-        case (location, _) =>
-          EvalLog.seen.containsKey(location)
+    val logMessages =
+      if (all) {
+        rawMessages
+      } else {
+        rawMessages
+          .filter {
+            case (location, _) =>
+              !EvalLog.seen.containsKey(location)
+          }
+          .take(1)
       }
-      .head
-    EvalLog.seen.putIfAbsent(location, ())
+    logMessages.foreach {
+      case (location, _) => EvalLog.seen.putIfAbsent(location, ())
+    }
+    val prettyOutput = logMessages.map(_._2).mkString("\n")
     s"""
       |```scala
       |${ctx.originalCode.text}
