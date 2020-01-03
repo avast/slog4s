@@ -1,8 +1,7 @@
 name: Release
 on:
   push:
-    branches:
-      - master
+    tags: ["v*"]
 
 jobs:
   build:
@@ -20,6 +19,15 @@ jobs:
           ruby-version: '2.6'
       - name: Install jekyll
         run: gem install jekyll -v 4.0.0
+      - name: Install GPG
+        uses: olafurpg/setup-gpg@v2
+      - name: Release
+        env:
+          PGP_SECRET: ${{ secrets.PGP_SECRET }}
+          PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+          SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+          SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        run: sbt ci-release
       - name: Publish microsite
         env:
           DEPLOY_KEY: ${{ secrets.DEPLOY_KEY }}

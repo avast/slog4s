@@ -2,28 +2,45 @@ import BuildSupport._
 import Dependencies._
 
 ThisBuild / scalaVersion := "2.12.10"
-ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "com.avast"
 ThisBuild / organizationName := "avast"
+
+inThisBuild(
+  List(
+    organization := "com.avast",
+    homepage := Some(url("https://github.com/avast/slog4s")),
+    licenses := List(
+      "MIT" -> url("https://github.com/avast/slog4s/blob/master/LICENSE")
+    ),
+    developers := List(
+      Developer(
+        "hanny24",
+        "Jan Strnad",
+        "strnad@avast.com",
+        url("https://github.com/hanny24")
+      )
+    )
+  )
+)
 
 lazy val root = (project in file("."))
   .settings(commonSettings)
   .settings(
-    name := "slog",
+    name := "slog4s",
     crossScalaVersions := Nil
   )
   .aggregate(api, core, example, generic, monix, slf4j)
 
 lazy val api = (project in file("api"))
   .settings(
-    name := "slog-api"
+    name := "slog4s-api"
   )
   .settings(commonSettings)
   .dependsOn(core)
 
 lazy val core = (project in file("core"))
   .settings(
-    name := "slog-core",
+    name := "slog4s-core",
     libraryDependencies += catsCore,
     libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
   )
@@ -31,15 +48,16 @@ lazy val core = (project in file("core"))
 
 lazy val example = (project in file("example"))
   .settings(
-    name := "slog-example",
+    name := "slog4s-example",
     libraryDependencies ++= Seq(catsCore, logback, logstash, monixDependency)
   )
   .settings(commonSettings)
+  .settings(publish / skip := true)
   .dependsOn(api, generic, slf4j, monix)
 
 lazy val generic = (project in file("generic"))
   .settings(
-    name := "slog-generic",
+    name := "slog4s-generic",
     libraryDependencies += magnolia,
     libraryDependencies ++= Seq(
       scalaTest % Test
@@ -50,14 +68,14 @@ lazy val generic = (project in file("generic"))
 
 lazy val monix = (project in file("monix"))
   .settings(
-    name := "slog-slf4j",
+    name := "slog4s-monix",
     libraryDependencies ++= Seq(catsMtl, monixDependency)
   )
   .settings(commonSettings)
 
 lazy val slf4j = (project in file("slf4j"))
   .settings(
-    name := "slog-slf4j",
+    name := "slog4s-slf4j",
     libraryDependencies ++= Seq(
       catsCore,
       catsEffect,
@@ -76,6 +94,7 @@ lazy val slf4j = (project in file("slf4j"))
 
 lazy val siteUtils = (project in file("site") / "utils")
   .settings(
+    publish / skip := true,
     libraryDependencies ++= Seq(
       circeParser,
       libmdoc,
