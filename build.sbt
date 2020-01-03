@@ -6,6 +6,19 @@ ThisBuild / version := "0.1.0-SNAPSHOT"
 ThisBuild / organization := "com.avast"
 ThisBuild / organizationName := "avast"
 
+inThisBuild(List(
+  organization := "com.avast",
+  homepage := Some(url("https://github.com/avast/slog4s")),
+  licenses := List("MIT" -> url("https://github.com/avast/slog4s/blob/master/LICENSE")),
+  developers := List(
+    Developer(
+      "hanny24",
+      "Jan Strnad",
+      "strnad@avast.com",
+      url("https://github.com/hanny24"))
+  )
+))
+
 lazy val root = (project in file("."))
   .settings(commonSettings)
   .settings(
