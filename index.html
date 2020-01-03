@@ -5,8 +5,8 @@ mean we are limited to JVM or logback! Au contraire!</p>
 
 <p>Add new library dependencies to your <code class="highlighter-rouge">build.sbt</code></p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog-api"</span> <span class="o">%</span> <span class="s">"0.0.0+8-8eb21f3a-SNAPSHOT"</span><span class="o">,</span> 
-                            <span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog-slf4j"</span> <span class="o">%</span> <span class="s">"0.0.0+8-8eb21f3a-SNAPSHOT"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog-api"</span> <span class="o">%</span> <span class="s">"0.0.11"</span><span class="o">,</span> 
+                            <span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog-slf4j"</span> <span class="o">%</span> <span class="s">"0.0.11"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>We will be using logback with <a href="https://github.com/logstash/logstash-logback-encoder">logstash encoder</a>. So make sure 
@@ -35,9 +35,9 @@ it’s in your dependency list and it’s configured properly.</p>
 can create a named <code class="highlighter-rouge">Logger</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">loggerFactory</span> <span class="k">=</span> <span class="nc">Slf4jFactory</span><span class="o">[</span><span class="kt">IO</span><span class="o">].</span><span class="py">noContext</span><span class="o">.</span><span class="py">make</span>
-<span class="c1">// loggerFactory: LoggerFactory[IO] = slog.slf4j.Slf4jFactory$Slf4jFactoryBuilderWithContext$$anon$1@3dfe55d9</span>
+<span class="c1">// loggerFactory: LoggerFactory[IO] = slog.slf4j.Slf4jFactory$Slf4jFactoryBuilderWithContext$$anon$1@5662ae89</span>
 <span class="k">val</span> <span class="nv">logger</span> <span class="k">=</span> <span class="nv">loggerFactory</span><span class="o">.</span><span class="py">make</span><span class="o">(</span><span class="s">"test-logger"</span><span class="o">)</span>
-<span class="c1">// logger: Logger[IO] = slog.Logger@1255d767</span>
+<span class="c1">// logger: Logger[IO] = slog.Logger@77ec3156</span>
 </code></pre></div></div>
 
 <p>It’s finally time to log something!</p>
@@ -47,7 +47,7 @@ can create a named <code class="highlighter-rouge">Logger</code>.</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-03T12:35:06.932Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-03T12:46:05.284Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
@@ -67,7 +67,7 @@ We can also provide an exception:</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-03T12:35:06.971Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-03T12:46:05.326Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"ERROR"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">40000</span><span class="p">,</span><span class="w">
@@ -92,7 +92,7 @@ We can also provide an exception:</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-03T12:35:06.986Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-03T12:46:05.346Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"bool_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
