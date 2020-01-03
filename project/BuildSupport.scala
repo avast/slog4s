@@ -20,7 +20,7 @@ object BuildSupport {
       "-unchecked",
       "-Ywarn-dead-code",
       "-Ywarn-value-discard",
-      //"-Xfatal-warnings",
+      "-Xfatal-warnings",
       "-deprecation",
       "-Xlint:-unused,_"
     ),

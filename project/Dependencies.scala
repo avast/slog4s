@@ -5,7 +5,7 @@ object Dependencies {
   lazy val catsEffect = "org.typelevel" %% "cats-effect" % "2.0.0"
   lazy val catsMtl = "org.typelevel" %% "cats-mtl-core" % "0.7.0"
   lazy val circeParser = "io.circe" %% "circe-parser" % "0.12.3" // used for site only
-  lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.3.15"
+  lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.3.16"
   lazy val logback = "ch.qos.logback" % "logback-classic" % "1.2.3"
   lazy val logstash = "net.logstash.logback" % "logstash-logback-encoder" % "6.3"
   lazy val magnolia = "com.propensive" %% "magnolia" % "0.12.5"
