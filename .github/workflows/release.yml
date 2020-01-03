@@ -21,6 +21,10 @@ jobs:
         run: gem install jekyll -v 4.0.0
       - name: Install GPG
         uses: olafurpg/setup-gpg@v2
+      - name: Compile
+        run: sbt +compile
+      - name: Run tests
+        run: sbt scalafmtCheckAll +test
       - name: Release
         env:
           PGP_SECRET: ${{ secrets.PGP_SECRET }}
