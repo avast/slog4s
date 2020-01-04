@@ -9,7 +9,7 @@ trait WhenEnabledLogBuilder[F[_]] { self =>
   def log(msg: String): F[Unit] = apply(_.log(msg))
   def log(ex: Throwable, msg: String): F[Unit] = apply(_.log(ex, msg))
 
-  def withArg[T: StructureEncoder](
+  def withArg[T: LogEncoder](
       key: String,
       value: => T
   ): WhenEnabledLogBuilder[F] = {
@@ -22,7 +22,7 @@ trait WhenEnabledLogBuilder[F[_]] { self =>
     }
   }
 
-  def computeArg[T: StructureEncoder](key: String)(
+  def computeArg[T: LogEncoder](key: String)(
       fv: F[T]
   )(implicit F: FlatMap[F]): WhenEnabledLogBuilder[F] = {
     new WhenEnabledLogBuilder[F] {

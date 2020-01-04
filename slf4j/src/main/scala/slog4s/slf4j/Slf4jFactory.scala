@@ -3,7 +3,7 @@ package slog4s.slf4j
 import cats.effect.Sync
 import cats.mtl.ApplicativeAsk
 import org.slf4j.Marker
-import slog4s.{Logger, LoggerFactory, StructureEncoder}
+import slog4s.{Logger, LoggerFactory, LogEncoder}
 import MarkerStructureBuilder._
 
 object Slf4jFactory {
@@ -49,14 +49,14 @@ object Slf4jFactory {
       )
     }
 
-    def withArg[T: StructureEncoder](
+    def withArg[T: LogEncoder](
         key: String,
         value: T
     ): Slf4jFactoryBuilderWithContext[F, C] = {
       new Slf4jFactoryBuilderWithContext[F, C](
         ask,
         extractArgs,
-        defaultArgs.updated(key, StructureEncoder[T].encode(value)),
+        defaultArgs.updated(key, LogEncoder[T].encode(value)),
         extractMarker
       )
     }

@@ -6,7 +6,7 @@ position: 2
 
 # ADT support
 
-`slog4s` provides built-in support for automatic derivation of `StructureEncoder` typeclass, which allows one to use
+`slog4s` provides built-in support for automatic derivation of `LogEncoder` typeclass, which allows one to use
 `case class` or `sealed trait` as additional arguments for logging. It supports both fully automatic derivation, and semi
 automatic derivation.
 
@@ -51,18 +51,18 @@ logger.info
 
 ## Semi automatic derivation
 
-Sometimes it might be more convenient to have `StructureEncoder` instance have defined directly in a code. You can use
+Sometimes it might be more convenient to have `LogEncoder` instance have defined directly in a code. You can use
 semi automatic derivation for that:
 
 ```scala mdoc:evallog
 import slog4s.generic.semi._
 
 object Foo {
-  implicit val fooEncoder: StructureEncoder[Foo] = structureEncoder[Foo]
+  implicit val fooEncoder: LogEncoder[Foo] = logEncoder[Foo]
 }
 
 object Bar {
-  implicit val barEncoder: StructureEncoder[Bar] = structureEncoder[Bar]
+  implicit val barEncoder: LogEncoder[Bar] = logEncoder[Bar]
 }
 
 logger.info

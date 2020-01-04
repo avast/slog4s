@@ -76,14 +76,14 @@ class Example[F[_]](
     class Inner
     final case class Outer(inner: Inner)
 
-    // StructureEncoder[Outer]
-    // fails with: could not find implicit value for parameter ev: slog.StructureEncoder[Outer]
+    // LogEncoder[Outer]
+    // fails with: could not find implicit value for parameter ev: slog4s.LogEncoder[Outer]
 
     // You just need to call derivation method directly and it should help you debug it:
-    // genStructureEncoder[Outer]
-    // fails with: magnolia: could not find StructureEncoder.Typeclass for type Inner
+    // genLogEncoder[Outer]
+    // fails with: magnolia: could not find LogEncoder.Typeclass for type Inner
     //    in parameter 'inner' of product type Outer
-    //    genStructureEncoder[Outer]
+    //    genLogEncoder[Outer]
     F.unit
   }
 }

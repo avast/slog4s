@@ -1,6 +1,6 @@
 package slog4s.slf4j
 
-import slog4s.{LoggingContext, StructureEncoder}
+import slog4s.{LoggingContext, LogEncoder}
 import MarkerStructureBuilder._
 import cats.mtl.ApplicativeLocal
 
@@ -13,16 +13,16 @@ private[slf4j] class Slf4jLoggingContext[F[_]](
       extends LoggingContext.LoggingBuilder[F] {
     override def use[T](fv: F[T]): F[T] = applicativeLocal.scope(args)(fv)
 
-    override def withArg[T: StructureEncoder](
+    override def withArg[T: LogEncoder](
         key: String,
         value: T
     ): LoggingContext.LoggingBuilder[F] =
-      new Builder(args.updated(key, StructureEncoder[T].encode(value)))
+      new Builder(args.updated(key, LogEncoder[T].encode(value)))
   }
 
-  override def withArg[T: StructureEncoder](
+  override def withArg[T: LogEncoder](
       key: String,
       value: T
   ): LoggingContext.LoggingBuilder[F] =
-    new Builder(Map(key -> StructureEncoder[T].encode(value)))
+    new Builder(Map(key -> LogEncoder[T].encode(value)))
 }

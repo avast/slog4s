@@ -1,12 +1,12 @@
 package slog4s.generic
 
 import org.scalatest.funspec.AnyFunSpec
-import slog4s.{StructureBuilder, StructureEncoder}
+import slog4s.{StructureBuilder, LogEncoder}
 
 class DerivationTest extends AnyFunSpec {
   import auto._
 
-  describe("StructureEncoder") {
+  describe("LogEncoder") {
     describe("is derived for") {
       it("Int") {
         test[Int](42, 42)
@@ -64,8 +64,8 @@ class DerivationTest extends AnyFunSpec {
     }
   }
 
-  def test[T: StructureEncoder](value: T, expected: Any): Unit = {
-    val result = StructureEncoder[T].encode(value)
+  def test[T: LogEncoder](value: T, expected: Any): Unit = {
+    val result = LogEncoder[T].encode(value)
     assert(result == expected)
   }
 
