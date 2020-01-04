@@ -15,4 +15,6 @@ jobs:
     - name: Compile
       run: sbt +compile
     - name: Run tests
-      run: sbt scalafmtCheckAll +test
+      run: sbt +test
+    - name: Run checks
+      run: sbt check
