@@ -78,7 +78,7 @@ logger.info
       .unsafeRunSync()
 ``` 
 
-Additional arguments are type safe. Following code will file in compile time:
+Additional arguments are type safe. Following code will fail in compile time:
 
 ```scala mdoc:fail
 class That(value: String)
