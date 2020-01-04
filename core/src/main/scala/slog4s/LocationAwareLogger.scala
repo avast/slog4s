@@ -20,7 +20,7 @@ object LocationAwareLogger {
 
         override def log(ex: Throwable, msg: String): F[Unit] = F.unit
 
-        override def withArg[T: StructureEncoder](
+        override def withArg[T: LogEncoder](
             key: String,
             value: => T
         ): LogBuilder[F] = self
@@ -36,7 +36,7 @@ object LocationAwareLogger {
 
         override def apply(ex: Throwable, msg: String): F[Unit] = F.unit
 
-        override def withArg[T: StructureEncoder](
+        override def withArg[T: LogEncoder](
             key: String,
             value: => T
         ): LogBuilder[F] = log

@@ -33,12 +33,12 @@ private[slf4j] class Slf4jLogger[F[_], C](
     override def apply(ex: Throwable, msg: String): F[Unit] =
       self.log(doLog, isLogEnabled, args, msg, ex)
 
-    override def withArg[T: StructureEncoder](
+    override def withArg[T: LogEncoder](
         key: String,
         value: => T
     ): LogBuilder[F] = {
       new Log(
-        args.updated(key, () => StructureEncoder[T].encode(value)),
+        args.updated(key, () => LogEncoder[T].encode(value)),
         doLog,
         isLogEnabled
       )
@@ -56,12 +56,12 @@ private[slf4j] class Slf4jLogger[F[_], C](
     override def log(ex: Throwable, msg: String): F[Unit] =
       self.log(doLog, isLogEnabled, args, msg, ex)
 
-    override def withArg[T: StructureEncoder](
+    override def withArg[T: LogEncoder](
         key: String,
         value: => T
     ): LogBuilder[F] = {
       new Log(
-        args.updated(key, () => StructureEncoder[T].encode(value)),
+        args.updated(key, () => LogEncoder[T].encode(value)),
         doLog,
         isLogEnabled
       )

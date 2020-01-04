@@ -1,14 +1,14 @@
 package slog4s.generic
 
 import magnolia.{CaseClass, SealedTrait}
-import slog4s.StructureEncoder
+import slog4s.LogEncoder
 import slog4s.`export`.Exported
 import slog4s.generic.internal.Common
 
 import scala.language.experimental.macros
 
 object auto {
-  type Typeclass[T] = StructureEncoder[T]
+  type Typeclass[T] = LogEncoder[T]
   def combine[T](caseClass: CaseClass[Typeclass, T]): Typeclass[T] = {
     Common.combine(caseClass)
   }
@@ -16,7 +16,7 @@ object auto {
     Common.dispatch(sealedTrait)
   }
 
-  implicit def genStructureEncoder[T]: Exported[StructureEncoder[T]] =
+  implicit def genLogEncoder[T]: Exported[LogEncoder[T]] =
     macro internal.Macros.exportEncoder[T]
 
 }

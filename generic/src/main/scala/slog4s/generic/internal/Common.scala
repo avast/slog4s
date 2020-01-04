@@ -1,13 +1,13 @@
 package slog4s.generic.internal
 
 import magnolia.{CaseClass, SealedTrait}
-import slog4s.{StructureBuilder, StructureEncoder}
+import slog4s.{StructureBuilder, LogEncoder}
 
 private[generic] object Common {
   def combine[T](
-      caseClass: CaseClass[StructureEncoder, T]
-  ): StructureEncoder[T] = {
-    new StructureEncoder[T] {
+      caseClass: CaseClass[LogEncoder, T]
+  ): LogEncoder[T] = {
+    new LogEncoder[T] {
       override def encode[O](
           value: T
       )(implicit structureBuilder: StructureBuilder[O]): O = {
@@ -19,9 +19,9 @@ private[generic] object Common {
     }
   }
   def dispatch[T](
-      sealedTrait: SealedTrait[StructureEncoder, T]
-  ): StructureEncoder[T] = {
-    new StructureEncoder[T] {
+      sealedTrait: SealedTrait[LogEncoder, T]
+  ): LogEncoder[T] = {
+    new LogEncoder[T] {
       override def encode[O](
           value: T
       )(implicit structureBuilder: StructureBuilder[O]): O = {
