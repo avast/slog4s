@@ -120,3 +120,6 @@ lazy val site = (project in file("site"))
     )
   )
   .dependsOn(api, core, generic, monix, slf4j, siteUtils)
+
+addCommandAlias("check", "; scalafmtSbtCheck; scalafmtCheckAll; site/makeMdoc")
+addCommandAlias("fix", "; scalafmtSbt; scalafmtAll")
