@@ -101,10 +101,9 @@ private[slog] trait StructureEncoderImplicits {
         value: Map[K, V]
     )(implicit structureBuilder: StructureBuilder[O]): O = {
       structureBuilder.map(
-        value.map(
-          tuple =>
-            StructureEncoder[K].encode(tuple._1) -> StructureEncoder[V]
-              .encode(tuple._2)
+        value.map(tuple =>
+          StructureEncoder[K].encode(tuple._1) -> StructureEncoder[V]
+            .encode(tuple._2)
         )
       )
     }
