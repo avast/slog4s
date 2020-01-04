@@ -12,8 +12,8 @@ mean we are limited to JVM or logback! Au contraire!
 Add new library dependencies to your `build.sbt` 
 
 ```scala
-libraryDependencies ++= Seq("com.avast" %% "slog-api" % "@VERSION@", 
-                            "com.avast" %% "slog-slf4j" % "@VERSION@")
+libraryDependencies ++= Seq("com.avast" %% "slog4s-api" % "@VERSION@", 
+                            "com.avast" %% "slog4s-slf4j" % "@VERSION@")
 ```
 
 We will be using logback with [logstash encoder](https://github.com/logstash/logstash-logback-encoder). So make sure 
@@ -36,12 +36,12 @@ Obligatory imports before we start:
 ```scala mdoc
 import cats.effect._
 import cats.syntax.all._
-import slog._
-import slog.slf4j._
+import slog4s._
+import slog4s.slf4j._
 ``` 
 
 ```scala mdoc:invisible
-import slog.docs.Helpers
+import slog4s.docs.Helpers
 Helpers.init()
 ```
 
