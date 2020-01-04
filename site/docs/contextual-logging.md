@@ -5,7 +5,7 @@ position: 1
 ---
 
 ```scala mdoc:invisible
-import slog.docs.Helpers
+import slog4s.docs.Helpers
 Helpers.init()
 ```
 
@@ -26,7 +26,7 @@ Here is a simple example:
 ```scala mdoc
 import cats.Monad
 import cats.syntax.all._
-import slog._
+import slog4s._
 
 def foo[F[_]:Monad:LoggingContext](loggerFactory: LoggerFactory[F]): F[Unit] = {
     val logger = loggerFactory.make("foo")
@@ -51,7 +51,7 @@ mechanisms (for curious ones: it `TaskLocal` for Monix and `FiberRef` for ZIO)
 import cats.data._
 import cats.effect._
 import cats.mtl.instances.local._
-import slog.slf4j._
+import slog4s.slf4j._
 type Result[T] = ReaderT[IO, Slf4jArgs, T]
 implicit val loggingContext = Slf4jContext.make[Result]
 val loggerFactory = Slf4jFactory[Result].contextAsk.make

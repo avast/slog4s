@@ -6,9 +6,9 @@ import cats.syntax.flatMap._
 import cats.syntax.functor._
 import monix.eval.{Task, TaskLocal}
 import monix.execution.schedulers.CanBlock
-import slog.monix.MonixContext
-import slog.slf4j.{Slf4jArgs, Slf4jContext, Slf4jFactory}
-import slog.{LoggerFactory, LoggingContext}
+import slog4s.monix.MonixContext
+import slog4s.slf4j.{Slf4jArgs, Slf4jContext, Slf4jFactory}
+import slog4s.{LoggerFactory, LoggingContext}
 
 class Example[F[_]](
     loggerFactory: LoggerFactory[F],
@@ -61,11 +61,11 @@ class Example[F[_]](
 
   def bar: F[Unit] = {
     // We can use case classes/sealed traits as context as well!
-    // We use automatic typeclass deriviation here (hence the import), but
+    // We use automatic typeclass derivation here (hence the import), but
     // one can use semi automatic one as well (similar to circe)
     final case class Bar(values: List[Double])
     final case class Foo(value: Int, that: String, bar: Bar)
-    import slog.generic.auto._
+    import slog4s.generic.auto._
     // {"message": "test", "file": "Example.scala", "line": 47, "foo_bar": {"value": 10, "that": "foobar", "bar": {"values": [42.0]}}}
     logger.trace
       .withArg("foo_bar", Foo(10, "foobar", Bar(List(42.0))))

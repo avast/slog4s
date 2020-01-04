@@ -17,7 +17,7 @@ libraryDependencies ++= Seq("com.avast" %% "slog-generic" % "@VERSION@")
 ```
 
 ```scala mdoc:invisible
-import slog.docs.Helpers
+import slog4s.docs.Helpers
 Helpers.init()
 ```
 
@@ -33,7 +33,7 @@ val bar = Bar(42, Foo("Hello!"))
 ```
 
 ```scala mdoc:invisible
-import slog._
+import slog4s._
 import Helpers.instances._
 ```
 
@@ -42,7 +42,7 @@ import Helpers.instances._
 With automatic derivation you just need to include proper import.
 
 ```scala mdoc:evallog
-import slog.generic.auto._
+import slog4s.generic.auto._
 logger.info
       .withArg("bar", bar)
       .log("Logging bar instance")
@@ -55,7 +55,7 @@ Sometimes it might be more convenient to have `StructureEncoder` instance have d
 semi automatic derivation for that:
 
 ```scala mdoc:evallog
-import slog.generic.semi._
+import slog4s.generic.semi._
 
 object Foo {
   implicit val fooEncoder: StructureEncoder[Foo] = structureEncoder[Foo]
