@@ -8,3 +8,6 @@ options:
     url: adt.html
   - title: Integrations
     url: integrations
+    nested_options:
+      - title: Monix
+        url: integrations/monix.html
