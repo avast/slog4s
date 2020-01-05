@@ -21,8 +21,8 @@ private[slf4j] object MarkerStructureBuilder {
 
       override def option(value: Option[Any]): Any = value.orNull
 
-      override def map(values: Map[Any, Any]): Any = values.asJava
+      override def map(values: Map[String, Any]): Any = values.asJava
 
-      override def array(values: Seq[Any]): Any = values.asJava
+      override def array(values: Iterable[Any]): Any = values.asJava
     }
 }

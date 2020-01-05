@@ -1,10 +1,12 @@
 package slog4s.generic
 
+import cats.Show
 import org.scalatest.funspec.AnyFunSpec
-import slog4s.{StructureBuilder, LogEncoder}
+import slog4s.{LogEncoder, StructureBuilder}
 
 class DerivationTest extends AnyFunSpec {
   import auto._
+  import cats.instances.all._
 
   describe("LogEncoder") {
     describe("is derived for") {
@@ -45,10 +47,27 @@ class DerivationTest extends AnyFunSpec {
         test[Option[Int]](None, null)
       }
       it("Set[_]") {
-        test(Set(42), Seq(42))
+        test(Set(42), Set(42))
+      }
+      it("Map[String, _]") {
+        test(Map("key" -> "value"), Map("key" -> "value"))
+      }
+      it("Map[Int, _]") {
+        test(Map(42 -> "value"), Map("42" -> "value"))
+      }
+      it("Map[_:Show, _]") {
+        class Key
+        implicit val keyShow: Show[Key] = _ => "<key>"
+        test(Map(new Key -> "value"), Map("<key>" -> "value"))
       }
       it("Map[_, _]") {
-        test(Map("key" -> "value"), Map("key" -> "value"))
+        case class Key(value: String)
+        val expected: List[List[Any]] =
+          List(List(Map("value" -> "<key>"), "value"))
+        test(
+          Map(Key("<key>") -> "value"),
+          expected
+        )
       }
       it("case class") {
         case class Tmp(value: List[Int])
@@ -84,9 +103,9 @@ class DerivationTest extends AnyFunSpec {
 
     override def option(value: Option[Any]): Any = value.orNull
 
-    override def map(values: Map[Any, Any]): Any = values
+    override def map(values: Map[String, Any]): Any = values
 
-    override def array(values: Seq[Any]): Any = values
+    override def array(values: Iterable[Any]): Any = values
   }
 
 }

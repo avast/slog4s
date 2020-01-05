@@ -1,6 +1,6 @@
 package slog4s
 
-import cats.Contravariant
+import cats.{Contravariant, Show}
 import cats.syntax.contravariant._
 import slog4s.`export`.Exported
 
@@ -21,7 +21,7 @@ trait LogEncoder[T] {
   def encode[O](value: T)(implicit structureBuilder: StructureBuilder[O]): O
 }
 
-object LogEncoder extends LogEncoderImplicits {
+object LogEncoder extends HighPriorityLogEncoderImplicits {
   def apply[T](implicit ev: LogEncoder[T]): LogEncoder[T] = ev
 
   implicit val logEncoderContravariant: Contravariant[LogEncoder] =
@@ -37,7 +37,9 @@ object LogEncoder extends LogEncoderImplicits {
 
 }
 
-private[slog4s] trait LogEncoderImplicits {
+private[slog4s] trait HighPriorityLogEncoderImplicits
+    extends LowPriorityLogEncoderImplicits {
+
   implicit lazy val longEncoder: LogEncoder[Long] =
     new LogEncoder[Long] {
       override def encode[O](value: Long)(
@@ -84,7 +86,7 @@ private[slog4s] trait LogEncoderImplicits {
       override def encode[O](
           value: F[T]
       )(implicit structureBuilder: StructureBuilder[O]): O = {
-        structureBuilder.array(value.map(LogEncoder[T].encode[O]).toSeq)
+        structureBuilder.array(value.map(LogEncoder[T].encode[O]))
       }
     }
 
@@ -108,14 +110,15 @@ private[slog4s] trait LogEncoderImplicits {
     }
   }
 
-  implicit def mapEncoder[K: LogEncoder, V: LogEncoder]: LogEncoder[Map[K, V]] =
+  implicit def mapShowKeyEncoder[K: Show, V: LogEncoder]
+      : LogEncoder[Map[K, V]] =
     new LogEncoder[Map[K, V]] {
       override def encode[O](
           value: Map[K, V]
       )(implicit structureBuilder: StructureBuilder[O]): O = {
         structureBuilder.map(
           value.map(tuple =>
-            LogEncoder[K].encode(tuple._1) -> LogEncoder[V]
+            Show[K].show(tuple._1) -> LogEncoder[V]
               .encode(tuple._2)
           )
         )
@@ -125,4 +128,19 @@ private[slog4s] trait LogEncoderImplicits {
   implicit def fromExported[T](
       implicit ev: Exported[LogEncoder[T]]
   ): LogEncoder[T] = ev.value
+}
+
+private[slog4s] trait LowPriorityLogEncoderImplicits {
+  implicit def genericMapEncoder[K: LogEncoder, V: LogEncoder]
+      : LogEncoder[Map[K, V]] = {
+    new LogEncoder[Map[K, V]] {
+      private[this] val tupleEncoder = LogEncoder[(K, V)]
+      override def encode[O](value: Map[K, V])(
+          implicit structureBuilder: StructureBuilder[O]
+      ): O = {
+        val tuples = value.map(tupleEncoder.encode(_))
+        structureBuilder.array(tuples)
+      }
+    }
+  }
 }
