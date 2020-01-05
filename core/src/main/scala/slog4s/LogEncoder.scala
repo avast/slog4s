@@ -4,7 +4,20 @@ import cats.Contravariant
 import cats.syntax.contravariant._
 import slog4s.`export`.Exported
 
+/**
+  * Typeclass that is able to encode any value of T into logging friendly format.
+  * The type of logging format is determined by provided instance of [[StructureBuilder]].
+  * @tparam T type to be encoded
+  */
 trait LogEncoder[T] {
+
+  /**
+    * Encode value of T into desired value of type O that represents structured logging value.
+    * @param value to be encoded
+    * @param structureBuilder instance of [[StructureBuilder]] typeclass used for building resulting value.
+    * @tparam O type of target structured logging format
+    * @return value encoded into target structured logging format
+    */
   def encode[O](value: T)(implicit structureBuilder: StructureBuilder[O]): O
 }
 

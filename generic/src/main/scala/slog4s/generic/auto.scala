@@ -16,6 +16,9 @@ object auto {
     Common.dispatch(sealedTrait)
   }
 
+  /**
+    * Automatically derives an instance of [[LogEncoder]] for case class or sealed trait.
+    */
   implicit def genLogEncoder[T]: Exported[LogEncoder[T]] =
     macro internal.Macros.exportEncoder[T]
 

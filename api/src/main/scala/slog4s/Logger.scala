@@ -2,6 +2,10 @@ package slog4s
 
 import slog4s.macros.LoggerImpl
 
+/**
+  * Top level user-code logger API. There is a single goal of this class: provide logging
+  * statement file/line location to various implementations of [[LocationAwareLogger]].
+  */
 class Logger[F[_]](val underlying: LocationAwareLogger[F]) {
   import scala.language.experimental.macros
 

@@ -6,11 +6,24 @@ import org.slf4j.Marker
 import slog4s.{Logger, LoggerFactory, LogEncoder}
 import MarkerStructureBuilder._
 
+/**
+  * Slf4j backed [[LoggerFactory]] instance. It's using logstash's
+  * [[net.logstash.logback.marker.MapEntriesAppendingMarker]] to represent structured arguments.
+  * It can optionally add a user-defined children Marker that might be used for advanced filtering.
+  *
+  */
 object Slf4jFactory {
 
+  /**
+    * Builder pattern for [[Slf4jFactory]]. Bounds to a specific effect type.
+    */
   def apply[F[_]: Sync]: Slf4jFactoryBuilder[F] = new Slf4jFactoryBuilder[F]
 
   final class Slf4jFactoryBuilder[F[_]]()(implicit F: Sync[F]) {
+
+    /**
+      * Extracts contextual structured arguments from an instance of [[ApplicativeAsk]].
+      */
     def contextAsk[C: AsArgs](
         implicit ask: ApplicativeAsk[F, C]
     ): Slf4jFactoryBuilderWithContext[F, C] = {
@@ -21,6 +34,9 @@ object Slf4jFactory {
       )
     }
 
+    /**
+      * Don't use any contextual structured arguments for this [[LoggerFactory]].
+      */
     def noContext: Slf4jFactoryBuilderWithContext[F, Unit] = {
       new Slf4jFactoryBuilderWithContext[F, Unit](
         F.unit,
@@ -38,6 +54,10 @@ object Slf4jFactory {
       extractMarker: C => Option[Marker] = (_: C) => None
   )(implicit F: Sync[F]) {
 
+    /**
+      * Defines how extra child [[Marker]] should be extracted from context. Child marker
+      * might be useful for advanced use cases, such as specific log message filtering.
+      */
     def withMarker(
         implicit asMarker: AsMarker[C]
     ): Slf4jFactoryBuilderWithContext[F, C] = {
@@ -49,6 +69,10 @@ object Slf4jFactory {
       )
     }
 
+    /**
+      * Add structured argument to be used by all log statements created by this [[LoggerFactory]].
+      * Typically this will be used for application version and similar universally applicable values.
+      */
     def withArg[T: LogEncoder](
         key: String,
         value: T
@@ -61,6 +85,10 @@ object Slf4jFactory {
       )
     }
 
+    /**
+      * Makes a new instance of [[LoggerFactory]]. There should typically be only a single instance per
+      * application.
+      */
     def make: LoggerFactory[F] = new LoggerFactory[F] {
       override def make(name: String): Logger[F] =
         new Logger[F](
