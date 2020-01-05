@@ -36,6 +36,9 @@ lazy val api = (project in file("api"))
     name := "slog4s-api"
   )
   .settings(commonSettings)
+  .settings(
+    libraryDependencies ++= Seq(scalaTest % Test)
+  )
   .dependsOn(core)
 
 lazy val core = (project in file("core"))
