@@ -43,7 +43,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
 
   private def locationMarker(extraArgs: Slf4jArgs = Slf4jArgs.empty) =
     new MapEntriesAppendingMarker(
-      (Map("x-file" -> sourceFile, "x-line" -> sourceLine) ++ extraArgs).asJava
+      (Map(Slf4jLogger.FileKey -> sourceFile, Slf4jLogger.LineKey -> sourceLine) ++ extraArgs).asJava
     )
 
   private def levelTest(

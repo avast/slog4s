@@ -14,8 +14,8 @@ class EvalLog extends PostModifier {
       .split('\n')
       .map { line =>
         val json = io.circe.parser.parse(line).right.get
-        val file = json.hcursor.downField("x-file").as[String].right.get
-        val lineNumber = json.hcursor.downField("x-line").as[Int].right.get
+        val file = json.hcursor.downField("file").as[String].right.get
+        val lineNumber = json.hcursor.downField("line").as[Int].right.get
         ((file, lineNumber), json.spaces2SortKeys)
       }
     val logMessages =

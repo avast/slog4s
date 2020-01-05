@@ -112,7 +112,10 @@ private[slf4j] class Slf4jLogger[F[_], C](
   }
 
   private def makeInitialArgs(filename: String, line: Int): Args = {
-    Map("x-file" -> (() => filename), "x-line" -> (() => line))
+    Map(
+      Slf4jLogger.FileKey -> (() => filename),
+      Slf4jLogger.LineKey -> (() => line)
+    )
   }
 
   private[this] val doDebug: DoLog = logger.debug
@@ -159,4 +162,9 @@ private[slf4j] class Slf4jLogger[F[_], C](
       isWarn,
       makeInitialArgs(filename, line)
     )
+}
+
+private[slf4j] object Slf4jLogger {
+  val FileKey = "file"
+  val LineKey = "line"
 }
