@@ -42,12 +42,12 @@ trait StructureBuilder[T] {
   /**
     * Converts a [[Map]] of [[String]] keys into desired type.
     */
-  def map(values: Map[T, T]): T
+  def map(values: Map[String, T]): T
 
   /**
     * Converts sequence of values into desired type.
     */
-  def array(values: Seq[T]): T
+  def array(values: Iterable[T]): T
 }
 
 object StructureBuilder {
