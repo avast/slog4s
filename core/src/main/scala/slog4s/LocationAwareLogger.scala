@@ -2,6 +2,12 @@ package slog4s
 
 import cats.Applicative
 
+/**
+  * Logger API that is aware of logging statement location such as file name and
+  * line number. Methods of this trait are typically not called directly but rather
+  * by a macro.
+  * @tparam F
+  */
 trait LocationAwareLogger[F[_]] {
   def debug(filename: String, line: Int): LevelLogBuilder[F]
   def error(filename: String, line: Int): LevelLogBuilder[F]
