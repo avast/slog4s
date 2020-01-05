@@ -60,7 +60,7 @@ It's finally time to log something!
 logger.info("Hello world!").unsafeRunSync()
 ```
 
-That was pretty boring, except `x-file` and `x-line` attributes that denote location of the log message within a file. 
+That was pretty boring, except `file` and `line` attributes that denote location of the log message within a file. 
 We can also provide an exception:
 
 ```scala mdoc:evallog
