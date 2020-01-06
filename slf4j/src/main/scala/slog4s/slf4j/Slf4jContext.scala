@@ -6,8 +6,8 @@ import slog4s.LoggingContext
 object Slf4jContext {
 
   /**
-    * Makes an instance of [[LoggingContext]] that works well with [[Slf4jFactory]]. It is
-    * backed by [[ApplicativeLocal]].
+    * Makes an instance of [[slog4s.LoggingContext]] that works well with [[Slf4jFactory]]. It is
+    * backed by [[cats.mtl.ApplicativeLocal]].
     */
   def make[F[_]](
       implicit applicativeLocal: ApplicativeLocal[F, Slf4jArgs]

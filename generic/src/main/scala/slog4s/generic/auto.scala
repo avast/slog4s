@@ -17,7 +17,7 @@ object auto {
   }
 
   /**
-    * Automatically derives an instance of [[LogEncoder]] for case class or sealed trait.
+    * Automatically derives an instance of [[slog4s.LogEncoder]] for case class or sealed trait.
     */
   implicit def genLogEncoder[T]: Exported[LogEncoder[T]] =
     macro internal.Macros.exportEncoder[T]
