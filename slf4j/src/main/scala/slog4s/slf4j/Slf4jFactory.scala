@@ -7,7 +7,7 @@ import slog4s.{Logger, LoggerFactory, LogEncoder}
 import MarkerStructureBuilder._
 
 /**
-  * Slf4j backed [[LoggerFactory]] instance. It's using logstash's
+  * Slf4j backed [[slog4s.LoggerFactory]] instance. It's using logstash's
   * [[net.logstash.logback.marker.MapEntriesAppendingMarker]] to represent structured arguments.
   * It can optionally add a user-defined children Marker that might be used for advanced filtering.
   *
@@ -15,14 +15,14 @@ import MarkerStructureBuilder._
 object Slf4jFactory {
 
   /**
-    * Builder pattern for [[Slf4jFactory]]. Bounds to a specific effect type.
+    * Builder pattern for [[slog4s.slf4j.Slf4jFactory]]. Bounds to a specific effect type.
     */
   def apply[F[_]: Sync]: Slf4jFactoryBuilder[F] = new Slf4jFactoryBuilder[F]
 
   final class Slf4jFactoryBuilder[F[_]]()(implicit F: Sync[F]) {
 
     /**
-      * Extracts contextual structured arguments from an instance of [[ApplicativeAsk]].
+      * Extracts contextual structured arguments from an instance of [[cats.mtl.ApplicativeAsk]].
       */
     def contextAsk[C: AsArgs](
         implicit ask: ApplicativeAsk[F, C]
@@ -35,7 +35,7 @@ object Slf4jFactory {
     }
 
     /**
-      * Don't use any contextual structured arguments for this [[LoggerFactory]].
+      * Don't use any contextual structured arguments for this [[slog4s.LoggerFactory]].
       */
     def noContext: Slf4jFactoryBuilderWithContext[F, Unit] = {
       new Slf4jFactoryBuilderWithContext[F, Unit](
@@ -55,7 +55,7 @@ object Slf4jFactory {
   )(implicit F: Sync[F]) {
 
     /**
-      * Defines how extra child [[Marker]] should be extracted from context. Child marker
+      * Defines how extra child [[org.slf4j.Marker]] should be extracted from context. Child marker
       * might be useful for advanced use cases, such as specific log message filtering.
       */
     def withMarker(
@@ -70,7 +70,7 @@ object Slf4jFactory {
     }
 
     /**
-      * Add structured argument to be used by all log statements created by this [[LoggerFactory]].
+      * Add structured argument to be used by all log statements created by this [[slog4s.LoggerFactory]].
       * Typically this will be used for application version and similar universally applicable values.
       */
     def withArg[T: LogEncoder](
@@ -86,7 +86,7 @@ object Slf4jFactory {
     }
 
     /**
-      * Makes a new instance of [[LoggerFactory]]. There should typically be only a single instance per
+      * Makes a new instance of [[slog4s.LoggerFactory]]. There should typically be only a single instance per
       * application.
       */
     def make: LoggerFactory[F] = new LoggerFactory[F] {

@@ -5,13 +5,13 @@ import cats.mtl.ApplicativeLocal
 import monix.eval.{Task, TaskLocal}
 
 /**
-  * Monix specific implementations of [[ApplicativeLocal]] that can be used logging
-  * context propagation. [[TaskLocal]] is used to store logging context.
+  * Monix specific implementations of [[cats.mtl.ApplicativeLocal]] that can be used logging
+  * context propagation. [[monix.eval.TaskLocal]] is used to store logging context.
   */
 object MonixContext {
 
   /**
-    * Makes an [[ApplicativeLocal]] based directly on an instance of [[TaskLocal]].
+    * Makes an [[cats.mtl.ApplicativeLocal]] based directly on an instance of [[monix.eval.TaskLocal]].
     */
   def identity[C](taskLocal: TaskLocal[C]): ApplicativeLocal[Task, C] =
     new ApplicativeLocal[Task, C] {
@@ -30,12 +30,12 @@ object MonixContext {
     }
 
   /**
-    * Makes an [[ApplicativeLocal]] based on [[TaskLocal]]. As opposed to [[identity]] it allows
+    * Makes an [[cats.mtl.ApplicativeLocal]] based on [[monix.eval.TaskLocal]]. As opposed to [[identity]] it allows
     * one to modify value using a pair of functions `get` and `set`.
     * @param taskLocal
-    * @param get function used to modify value while reading the context from [[TaskLocal]]
-    * @param set function used to modify value before writing the context to [[TaskLocal]]
-    * @tparam C type of the value in [[TaskLocal]]
+    * @param get function used to modify value while reading the context from [[monix.eval.TaskLocal]]
+    * @param set function used to modify value before writing the context to [[monix.eval.TaskLocal]]
+    * @tparam C type of the value in [[monix.eval.TaskLocal]]
     * @tparam T
     * @return
     */

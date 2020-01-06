@@ -23,7 +23,7 @@ trait StructureBuilder[T] {
   def double(value: Double): T
 
   /**
-    * Converts [[String]] value into desired type.
+    * Converts [[java.lang.String]] value into desired type.
     */
   def string(value: String): T
 
@@ -40,7 +40,7 @@ trait StructureBuilder[T] {
   def option(value: Option[T]): T
 
   /**
-    * Converts a [[Map]] of [[String]] keys into desired type.
+    * Converts a [[scala.collection.Map]] of [[java.lang.String]] keys into desired type.
     */
   def map(values: Map[String, T]): T
 

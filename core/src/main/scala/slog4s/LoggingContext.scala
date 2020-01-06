@@ -1,7 +1,5 @@
 package slog4s
 
-import slog4s.LoggingContext.LoggingBuilder
-
 /**
   * Typeclass used to modify a logging context. The logging context is a list
   * of named structured arguments that should be used by all applicable logging
@@ -16,7 +14,7 @@ trait LoggingContext[F[_]] {
     * @param key name of the argument
     * @param value value to be used as structured argument
     * @tparam T type of structured argument. It needs to implement [[LogEncoder]] typeclass.
-    * @return a new instance of [[LoggingBuilder]] containing provided structured argument
+    * @return a new instance of [[LoggingContext.LoggingBuilder]] containing provided structured argument
     */
   def withArg[T: LogEncoder](
       key: String,
