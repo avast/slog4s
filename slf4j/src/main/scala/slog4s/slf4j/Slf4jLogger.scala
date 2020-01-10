@@ -16,7 +16,7 @@ private[slf4j] class Slf4jLogger[F[_], C](
     extractMarker: C => Option[Marker]
 )(
     implicit F: Sync[F]
-) extends LocationAwareLogger[F] { self =>
+) extends Logger[F] { self =>
 
   private type Args = Map[String, () => Any]
   private type DoLog = (Marker, String, Throwable) => Unit
@@ -27,11 +27,13 @@ private[slf4j] class Slf4jLogger[F[_], C](
       isLogEnabled: IsLogEnabled,
       args: Args
   ) extends LevelLogBuilder[F] {
-    override def apply(msg: String): F[Unit] =
-      self.log(doLog, isLogEnabled, args, msg, null)
+    override def apply(msg: String)(implicit location: Location): F[Unit] =
+      self.log(doLog, isLogEnabled, args, msg, null, location)
 
-    override def apply(ex: Throwable, msg: String): F[Unit] =
-      self.log(doLog, isLogEnabled, args, msg, ex)
+    override def apply(ex: Throwable, msg: String)(
+        implicit location: Location
+    ): F[Unit] =
+      self.log(doLog, isLogEnabled, args, msg, ex, location)
 
     override def withArg[T: LogEncoder](
         key: String,
@@ -50,11 +52,13 @@ private[slf4j] class Slf4jLogger[F[_], C](
 
   private final class Log(args: Args, doLog: DoLog, isLogEnabled: IsLogEnabled)
       extends LogBuilder[F] {
-    override def log(msg: String): F[Unit] =
-      self.log(doLog, isLogEnabled, args, msg, null)
+    override def log(msg: String)(implicit location: Location): F[Unit] =
+      self.log(doLog, isLogEnabled, args, msg, null, location)
 
-    override def log(ex: Throwable, msg: String): F[Unit] =
-      self.log(doLog, isLogEnabled, args, msg, ex)
+    override def log(ex: Throwable, msg: String)(
+        implicit location: Location
+    ): F[Unit] =
+      self.log(doLog, isLogEnabled, args, msg, ex, location)
 
     override def withArg[T: LogEncoder](
         key: String,
@@ -90,15 +94,17 @@ private[slf4j] class Slf4jLogger[F[_], C](
       isLogEnabled: IsLogEnabled,
       args: Args,
       msg: String,
-      throwable: Throwable
+      throwable: Throwable,
+      location: Location
   ): F[Unit] = {
     askContext.flatMap { context =>
       F.delay {
         val contextMarker = extractMarker(context)
         if (isLogEnabled(contextMarker.orNull)) {
-          val allArgs = extractArgs(context) ++ args.map {
-            case (key, value) => key -> value()
-          }
+          val allArgs = makeLocationArgs(location) ++ extractArgs(context) ++ args
+            .map {
+              case (key, value) => key -> value()
+            }
           val marker = new MapEntriesAppendingMarker(allArgs.asJava)
           contextMarker.foreach(m => marker.add(m))
           doLog(
@@ -111,56 +117,61 @@ private[slf4j] class Slf4jLogger[F[_], C](
     }
   }
 
-  private def makeInitialArgs(filename: String, line: Int): Args = {
-    Map(
-      Slf4jLogger.FileKey -> (() => filename),
-      Slf4jLogger.LineKey -> (() => line)
-    )
+  private def makeLocationArgs(location: Location): Slf4jArgs = {
+    location match {
+      case Location.Code(file, line) =>
+        Map(
+          Slf4jLogger.FileKey -> file,
+          Slf4jLogger.LineKey -> line
+        )
+      case Location.NotUsed =>
+        Map.empty
+    }
   }
 
   private[this] val doDebug: DoLog = logger.debug
   private[this] val isDebug: IsLogEnabled = logger.isDebugEnabled
-  override def debug(filename: String, line: Int): LevelLogBuilder[F] =
+  override def debug: LevelLogBuilder[F] =
     new Level(
       doDebug,
       isDebug,
-      makeInitialArgs(filename, line)
+      Map.empty
     )
 
   private[this] val doError: DoLog = logger.error
   private[this] val isError: IsLogEnabled = logger.isErrorEnabled
-  override def error(filename: String, line: Int): LevelLogBuilder[F] =
+  override def error: LevelLogBuilder[F] =
     new Level(
       doError,
       isError,
-      makeInitialArgs(filename, line)
+      Map.empty
     )
 
   private[this] val doInfo: DoLog = logger.info
   private[this] val isInfo: IsLogEnabled = logger.isInfoEnabled
-  override def info(filename: String, line: Int): LevelLogBuilder[F] =
+  override def info: LevelLogBuilder[F] =
     new Level(
       doInfo,
       isInfo,
-      makeInitialArgs(filename, line)
+      Map.empty
     )
 
   private[this] val doTrace: DoLog = logger.trace
   private[this] val isTrace: IsLogEnabled = logger.isTraceEnabled
-  override def trace(filename: String, line: Int): LevelLogBuilder[F] =
+  override def trace: LevelLogBuilder[F] =
     new Level(
       doTrace,
       isTrace,
-      makeInitialArgs(filename, line)
+      Map.empty
     )
 
   private[this] val doWarn: DoLog = logger.warn
   private[this] val isWarn: IsLogEnabled = logger.isWarnEnabled
-  override def warn(filename: String, line: Int): LevelLogBuilder[F] =
+  override def warn: LevelLogBuilder[F] =
     new Level(
       doWarn,
       isWarn,
-      makeInitialArgs(filename, line)
+      Map.empty
     )
 }
 

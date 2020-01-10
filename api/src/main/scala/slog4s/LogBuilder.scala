@@ -12,7 +12,7 @@ trait LogBuilder[F[_]] {
     * @param msg message to be logged
     * @return
     */
-  def log(msg: String): F[Unit]
+  def log(msg: String)(implicit location: Location): F[Unit]
 
   /**
     * Log simple message with an exception.
@@ -20,7 +20,7 @@ trait LogBuilder[F[_]] {
     * @param ex exception to be logged
     * @return
     */
-  def log(ex: Throwable, msg: String): F[Unit]
+  def log(ex: Throwable, msg: String)(implicit location: Location): F[Unit]
 
   /**
     * Extends current logging statement with structured data.

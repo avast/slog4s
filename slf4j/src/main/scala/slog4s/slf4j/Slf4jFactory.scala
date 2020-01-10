@@ -91,13 +91,11 @@ object Slf4jFactory {
       */
     def make: LoggerFactory[F] = new LoggerFactory[F] {
       override def make(name: String): Logger[F] =
-        new Logger[F](
-          new Slf4jLogger[F, C](
-            org.slf4j.LoggerFactory.getLogger(name),
-            ask,
-            extractArgs.andThen(_ ++ defaultArgs),
-            extractMarker
-          )
+        new Slf4jLogger[F, C](
+          org.slf4j.LoggerFactory.getLogger(name),
+          ask,
+          extractArgs.andThen(_ ++ defaultArgs),
+          extractMarker
         )
     }
 

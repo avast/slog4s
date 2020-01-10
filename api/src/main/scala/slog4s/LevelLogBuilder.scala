@@ -11,7 +11,7 @@ trait LevelLogBuilder[F[_]] {
     * @param msg message to be logged
     * @return
     */
-  def apply(msg: String): F[Unit]
+  def apply(msg: String)(implicit location: Location): F[Unit]
 
   /**
     * Log simple message with an exception and no message specific structured argument.
@@ -19,7 +19,7 @@ trait LevelLogBuilder[F[_]] {
     * @param ex exception to be logged
     * @return
     */
-  def apply(ex: Throwable, msg: String): F[Unit]
+  def apply(ex: Throwable, msg: String)(implicit location: Location): F[Unit]
 
   /**
     * Extends current logging statement with structured data.
