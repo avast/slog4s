@@ -29,7 +29,7 @@ lazy val root = (project in file("."))
     name := "slog4s",
     crossScalaVersions := Nil
   )
-  .aggregate(api, core, example, generic, monix, slf4j)
+  .aggregate(api, example, generic, monix, slf4j)
 
 lazy val api = (project in file("api"))
   .settings(
@@ -37,17 +37,9 @@ lazy val api = (project in file("api"))
   )
   .settings(commonSettings)
   .settings(
+    libraryDependencies ++= Seq(catsCore, sourcecode),
     libraryDependencies ++= Seq(scalaTest % Test)
   )
-  .dependsOn(core)
-
-lazy val core = (project in file("core"))
-  .settings(
-    name := "slog4s-core",
-    libraryDependencies += catsCore,
-    libraryDependencies += "org.scala-lang" % "scala-reflect" % scalaVersion.value
-  )
-  .settings(commonSettings)
 
 lazy val example = (project in file("example"))
   .settings(
@@ -67,7 +59,7 @@ lazy val generic = (project in file("generic"))
     )
   )
   .settings(commonSettings)
-  .dependsOn(core)
+  .dependsOn(api)
 
 lazy val monix = (project in file("monix"))
   .settings(
@@ -93,7 +85,7 @@ lazy val slf4j = (project in file("slf4j"))
     )
   )
   .settings(commonSettings)
-  .dependsOn(api, core)
+  .dependsOn(api)
 
 lazy val siteUtils = (project in file("site") / "utils")
   .settings(
@@ -122,7 +114,7 @@ lazy val site = (project in file("site"))
       example
     )
   )
-  .dependsOn(api, core, generic, monix, slf4j, siteUtils)
+  .dependsOn(api, generic, monix, slf4j, siteUtils)
 
 addCommandAlias(
   "check",

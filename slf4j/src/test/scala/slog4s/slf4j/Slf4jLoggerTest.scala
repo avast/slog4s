@@ -9,7 +9,7 @@ import org.scalatest.{Inside, Outcome}
 import org.slf4j.Marker
 import org.slf4j.helpers.BasicMarkerFactory
 import slog4s.slf4j.MockLogger.Message
-import slog4s.{LevelLogBuilder, LocationAwareLogger}
+import slog4s.{LevelLogBuilder, Location, Logger}
 
 import scala.jdk.CollectionConverters._
 
@@ -17,24 +17,26 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
 
   describe("slf4j logger") {
     describe("for trace it") {
-      levelTest(_.trace(sourceFile, sourceLine), _.traceMessages)
+      levelTest(_.trace, _.traceMessages)
     }
     describe("for debug it") {
-      levelTest(_.debug(sourceFile, sourceLine), _.debugMessages)
+      levelTest(_.debug, _.debugMessages)
     }
     describe("for info it") {
-      levelTest(_.info(sourceFile, sourceLine), _.infoMessages)
+      levelTest(_.info, _.infoMessages)
     }
     describe("for warn it") {
-      levelTest(_.warn(sourceFile, sourceLine), _.warnMessages)
+      levelTest(_.warn, _.warnMessages)
     }
     describe("for error it") {
-      levelTest(_.error(sourceFile, sourceLine), _.errorMessages)
+      levelTest(_.error, _.errorMessages)
     }
   }
 
-  override protected def withFixture(test: OneArgTest): Outcome =
+  override protected def withFixture(test: OneArgTest): Outcome = {
+    implicit val location: Location = Location.Code(sourceFile, sourceLine)
     test(new Fixture)
+  }
 
   override type FixtureParam = Fixture
 
@@ -47,7 +49,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
     )
 
   private def levelTest(
-      selectLevel: LocationAwareLogger[IO] => LevelLogBuilder[IO],
+      selectLevel: Logger[IO] => LevelLogBuilder[IO],
       selectRaw: MockLogger => List[Message]
   ): Unit = {
 
@@ -209,12 +211,12 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
   }
 }
 
-class Fixture {
+class Fixture(implicit val location: Location) {
   val rawLogger = new MockLogger
   def makeLogger(
       args: Slf4jArgs = Slf4jArgs.empty,
       marker: Option[Marker] = None
-  ): LocationAwareLogger[IO] = {
+  ): Logger[IO] = {
     new Slf4jLogger[IO, Unit](
       rawLogger,
       IO.unit,

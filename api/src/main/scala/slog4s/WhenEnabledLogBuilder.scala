@@ -8,6 +8,7 @@ import cats.syntax.flatMap._
   * logging becomes expensive. It allows one to perform logging only when we need to, and
   * not do anything when logging for specific combination of logger and logging level is
   * turned off.
+  *
   * @tparam F
   */
 trait WhenEnabledLogBuilder[F[_]] { self =>
@@ -25,14 +26,15 @@ trait WhenEnabledLogBuilder[F[_]] { self =>
     * Log simple message with no exception nor message specific structured argument.
     * @param msg message to be logged
     */
-  def log(msg: String): F[Unit] = apply(_.log(msg))
+  def log(msg: String)(implicit location: Location): F[Unit] = apply(_.log(msg))
 
   /**
     * Log simple message with an exception and no message specific structured argument.
     * @param msg message to be logged
     * @param ex exception to be logged
     */
-  def log(ex: Throwable, msg: String): F[Unit] = apply(_.log(ex, msg))
+  def log(ex: Throwable, msg: String)(implicit location: Location): F[Unit] =
+    apply(_.log(ex, msg))
 
   /**
     * Extends current logging statement with structured data. This is lazy variant that checks

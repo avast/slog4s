@@ -16,5 +16,6 @@ object Dependencies {
   lazy val scalaCollectionCompat = "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.3"
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.1.0"
   lazy val slf4jDepedency = "org.slf4j" % "slf4j-api" % "1.7.30"
+  lazy val sourcecode = "com.lihaoyi" %% "sourcecode" % "0.1.9"
 
 }

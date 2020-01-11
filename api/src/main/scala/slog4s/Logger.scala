@@ -1,17 +1,68 @@
 package slog4s
 
-import slog4s.macros.LoggerImpl
+import cats.Applicative
 
 /**
-  * Top level user-code logger API. There is a single goal of this class: provide logging
-  * statement file/line location to various implementations of [[LocationAwareLogger]].
+  * Basic Logger API. Provides different builders for different log levels.
+  * @tparam F
   */
-class Logger[F[_]](val underlying: LocationAwareLogger[F]) {
-  import scala.language.experimental.macros
+trait Logger[F[_]] {
+  def debug: LevelLogBuilder[F]
+  def error: LevelLogBuilder[F]
+  def info: LevelLogBuilder[F]
+  def trace: LevelLogBuilder[F]
+  def warn: LevelLogBuilder[F]
+}
 
-  def debug: LevelLogBuilder[F] = macro LoggerImpl.debugImpl[F]
-  def error: LevelLogBuilder[F] = macro LoggerImpl.errorImpl[F]
-  def info: LevelLogBuilder[F] = macro LoggerImpl.infoImpl[F]
-  def trace: LevelLogBuilder[F] = macro LoggerImpl.traceImpl[F]
-  def warn: LevelLogBuilder[F] = macro LoggerImpl.warnImpl[F]
+object Logger {
+  def noop[F[_]: Applicative]: Logger[F] =
+    new Logger[F] {
+      private[this] val F = Applicative[F]
+
+      private[this] val log: LogBuilder[F] = new LogBuilder[F] { self =>
+        override def log(msg: String)(implicit location: Location): F[Unit] =
+          F.unit
+
+        override def log(ex: Throwable, msg: String)(
+            implicit location: Location
+        ): F[Unit] = F.unit
+
+        override def withArg[T: LogEncoder](
+            key: String,
+            value: => T
+        ): LogBuilder[F] = self
+      }
+
+      private[this] val whenEnabledLogBuilder: WhenEnabledLogBuilder[F] =
+        new WhenEnabledLogBuilder[F] {
+          override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = F.unit
+        }
+
+      private[this] val level: LevelLogBuilder[F] = new LevelLogBuilder[F] {
+        override def apply(msg: String)(implicit location: Location): F[Unit] =
+          F.unit
+
+        override def apply(ex: Throwable, msg: String)(
+            implicit location: Location
+        ): F[Unit] = F.unit
+
+        override def withArg[T: LogEncoder](
+            key: String,
+            value: => T
+        ): LogBuilder[F] = log
+
+        override def whenEnabled: WhenEnabledLogBuilder[F] =
+          whenEnabledLogBuilder
+      }
+
+      override def debug: LevelLogBuilder[F] = level
+
+      override def error: LevelLogBuilder[F] = level
+
+      override def info: LevelLogBuilder[F] = level
+
+      override def trace: LevelLogBuilder[F] = level
+
+      override def warn: LevelLogBuilder[F] = level
+    }
 }

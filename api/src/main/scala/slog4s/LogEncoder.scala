@@ -1,7 +1,7 @@
 package slog4s
 
-import cats.{Contravariant, Show}
 import cats.syntax.contravariant._
+import cats.{Contravariant, Show}
 import slog4s.`export`.Exported
 
 /**
