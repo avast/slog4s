@@ -1,5 +1,10 @@
 package slog4s
 
+/**
+  * Describes log statement location (file, line...). Might not always be available
+  * as it makes no sense in some context (typically when integrating with other logging
+  * libraries).
+  */
 sealed trait Location
 
 object Location {

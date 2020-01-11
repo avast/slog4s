@@ -24,30 +24,29 @@ private[slf4j] class Slf4jLogger[F[_], C](
 
   private final class Level(
       doLog: DoLog,
-      isLogEnabled: IsLogEnabled,
-      args: Args
+      isLogEnabled: IsLogEnabled
   ) extends LevelLogBuilder[F] {
     override def apply(msg: String)(implicit location: Location): F[Unit] =
-      self.log(doLog, isLogEnabled, args, msg, null, location)
+      self.log(doLog, isLogEnabled, Map.empty, msg, null, location)
 
     override def apply(ex: Throwable, msg: String)(
         implicit location: Location
     ): F[Unit] =
-      self.log(doLog, isLogEnabled, args, msg, ex, location)
+      self.log(doLog, isLogEnabled, Map.empty, msg, ex, location)
 
     override def withArg[T: LogEncoder](
         key: String,
         value: => T
     ): LogBuilder[F] = {
       new Log(
-        args.updated(key, () => LogEncoder[T].encode(value)),
+        Map(key -> (() => LogEncoder[T].encode(value))),
         doLog,
         isLogEnabled
       )
     }
 
     override def whenEnabled: WhenEnabledLogBuilder[F] =
-      new WhenEnabled(isLogEnabled, new Log(args, doLog, isLogEnabled))
+      new WhenEnabled(isLogEnabled, new Log(Map.empty, doLog, isLogEnabled))
   }
 
   private final class Log(args: Args, doLog: DoLog, isLogEnabled: IsLogEnabled)
@@ -134,8 +133,7 @@ private[slf4j] class Slf4jLogger[F[_], C](
   override def debug: LevelLogBuilder[F] =
     new Level(
       doDebug,
-      isDebug,
-      Map.empty
+      isDebug
     )
 
   private[this] val doError: DoLog = logger.error
@@ -143,8 +141,7 @@ private[slf4j] class Slf4jLogger[F[_], C](
   override def error: LevelLogBuilder[F] =
     new Level(
       doError,
-      isError,
-      Map.empty
+      isError
     )
 
   private[this] val doInfo: DoLog = logger.info
@@ -152,8 +149,7 @@ private[slf4j] class Slf4jLogger[F[_], C](
   override def info: LevelLogBuilder[F] =
     new Level(
       doInfo,
-      isInfo,
-      Map.empty
+      isInfo
     )
 
   private[this] val doTrace: DoLog = logger.trace
@@ -161,8 +157,7 @@ private[slf4j] class Slf4jLogger[F[_], C](
   override def trace: LevelLogBuilder[F] =
     new Level(
       doTrace,
-      isTrace,
-      Map.empty
+      isTrace
     )
 
   private[this] val doWarn: DoLog = logger.warn
@@ -170,8 +165,7 @@ private[slf4j] class Slf4jLogger[F[_], C](
   override def warn: LevelLogBuilder[F] =
     new Level(
       doWarn,
-      isWarn,
-      Map.empty
+      isWarn
     )
 }
 
