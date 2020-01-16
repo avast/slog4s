@@ -1,0 +1,131 @@
+<html><head><title>slog4s: Home</title><meta charset="utf-8" /><meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" /><meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="author" content="Jan Strnad" /><meta name="description" content="Structured and contextual logging for Scala" /><meta name="og:image" content="/slog4s/img/poster.png" /><meta name="image" property="og:image" content="/slog4s/img/poster.png" /><meta name="og:title" content="slog4s: Home" /><meta name="title" property="og:title" content="slog4s: Home" /><meta name="og:site_name" content="slog4s" /><meta name="og:url" content="https://github.com/avast/slog4s" /><meta name="og:type" content="website" /><meta name="og:description" content="Structured and contextual logging for Scala" /><link rel="icon" type="image/png" href="/slog4s/img/favicon.png" /><meta name="twitter:title" content="slog4s: Home" /><meta name="twitter:image" content="https://avast.github.io/slog4s/img/poster.png" /><meta name="twitter:description" content="Structured and contextual logging for Scala" /><meta name="twitter:card" content="summary_large_image" /><link rel="icon" type="image/png" sizes="16x16" href="/slog4s/img/favicon16x16.png" /><link rel="icon" type="image/png" sizes="24x24" href="/slog4s/img/favicon24x24.png" /><link rel="icon" type="image/png" sizes="32x32" href="/slog4s/img/favicon32x32.png" /><link rel="icon" type="image/png" sizes="48x48" href="/slog4s/img/favicon48x48.png" /><link rel="icon" type="image/png" sizes="57x57" href="/slog4s/img/favicon57x57.png" /><link rel="icon" type="image/png" sizes="60x60" href="/slog4s/img/favicon60x60.png" /><link rel="icon" type="image/png" sizes="64x64" href="/slog4s/img/favicon64x64.png" /><link rel="icon" type="image/png" sizes="70x70" href="/slog4s/img/favicon70x70.png" /><link rel="icon" type="image/png" sizes="72x72" href="/slog4s/img/favicon72x72.png" /><link rel="icon" type="image/png" sizes="76x76" href="/slog4s/img/favicon76x76.png" /><link rel="icon" type="image/png" sizes="96x96" href="/slog4s/img/favicon96x96.png" /><link rel="icon" type="image/png" sizes="114x114" href="/slog4s/img/favicon114x114.png" /><link rel="icon" type="image/png" sizes="120x120" href="/slog4s/img/favicon120x120.png" /><link rel="icon" type="image/png" sizes="128x128" href="/slog4s/img/favicon128x128.png" /><link rel="icon" type="image/png" sizes="144x144" href="/slog4s/img/favicon144x144.png" /><link rel="icon" type="image/png" sizes="150x150" href="/slog4s/img/favicon150x150.png" /><link rel="icon" type="image/png" sizes="152x152" href="/slog4s/img/favicon152x152.png" /><link rel="icon" type="image/png" sizes="196x196" href="/slog4s/img/favicon196x196.png" /><link rel="icon" type="image/png" sizes="310x310" href="/slog4s/img/favicon310x310.png" /><link rel="icon" type="image/png" sizes="310x150" href="/slog4s/img/favicon310x150.png" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" /><link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" /><link rel="stylesheet" href="/slog4s/highlight/styles/vs.css" /><link rel="stylesheet" href="/slog4s/css/pattern-style.css" /></head><body><header id="site-header"><div class="navbar-wrapper"><div class="container"><div class="row"><div class="col-xs-6"><a href="/slog4s/" class="brand"><div class="icon-wrapper"><span>slog4s</span></div></a></div><div class="col-xs-6"><nav class="text-right"><ul class=""><li><a href="https://github.com/avast/slog4s" target="_blank" rel="noopener noreferrer"><i class="fa fa-github"></i><span class="hidden-xs">GitHub</span></a></li><li><a href="api/latest"><i class="fa fa-file-text"></i><span class="hidden-xs">Documentation</span></a></li></ul></nav></div></div></div></div><div class="jumbotron"><div class="container"><h1 class="text-center">Structured and contextual logging for Scala</h1><h2></h2><p class="text-center"><a href="https://github.com/avast/slog4s" target="_blank" rel="noopener noreferrer" class="btn btn-outline-inverse">View on GitHub</a></p></div></div><div id="horizontal-menu"><ul class="horizontal-nav"><li><a class="" href="/slog4s/overview.html">Overview</a></li><li><a class="" href="/slog4s/contextual-logging.html">Contextual logging</a></li><li><a class="" href="/slog4s/adt.html">ADT support</a></li><li><a class="" href="/slog4s/integrations/">Integrations</a></li></ul></div></header><main id="site-main"><section class="use"><div class="container"><div id="content"><p>This is a quick start with <em>slog4s</em> on the JVM with <a href="http://logback.qos.ch/">logback</a> backend. It doesn’t 
+mean we are limited to JVM or logback! Au contraire!</p>
+
+<h1 id="installation">Installation</h1>
+
+<p>Add new library dependencies to your <code class="highlighter-rouge">build.sbt</code></p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-api"</span> <span class="o">%</span> <span class="s">"0.2.0"</span><span class="o">,</span> 
+                            <span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-slf4j"</span> <span class="o">%</span> <span class="s">"0.2.0"</span><span class="o">)</span>
+</code></pre></div></div>
+
+<p>We will be using logback with <a href="https://github.com/logstash/logstash-logback-encoder">logstash encoder</a>. So make sure 
+it’s in your dependency list and it’s configured properly.</p>
+
+<div class="language-xml highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nt">&lt;configuration&gt;</span>
+    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"STDOUT"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.core.ConsoleAppender"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;encoder</span> <span class="na">class=</span><span class="s">"net.logstash.logback.encoder.LogstashEncoder"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/appender&gt;</span>
+    <span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">"INFO"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"STDOUT"</span> <span class="nt">/&gt;</span>
+    <span class="nt">&lt;/root&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span>
+</code></pre></div></div>
+
+<h1 id="usage">Usage</h1>
+
+<p>Obligatory imports before we start:</p>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">import</span> <span class="nn">cats.effect._</span>
+<span class="k">import</span> <span class="nn">cats.syntax.all._</span>
+<span class="k">import</span> <span class="nn">slog4s._</span>
+<span class="k">import</span> <span class="nn">slog4s.slf4j._</span>
+</code></pre></div></div>
+
+<p>Let’s start by creating a <code class="highlighter-rouge">LoggerFactory</code> that is backed by slf4j (and logback under the hood). With that, we
+can create a named <code class="highlighter-rouge">Logger</code>.</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">loggerFactory</span> <span class="k">=</span> <span class="nc">Slf4jFactory</span><span class="o">[</span><span class="kt">IO</span><span class="o">].</span><span class="py">noContext</span><span class="o">.</span><span class="py">make</span>
+<span class="c1">// loggerFactory: LoggerFactory[IO] = slog4s.slf4j.Slf4jFactory$Slf4jFactoryBuilderWithContext$$anon$1@54f97d25</span>
+<span class="k">val</span> <span class="nv">logger</span> <span class="k">=</span> <span class="nv">loggerFactory</span><span class="o">.</span><span class="py">make</span><span class="o">(</span><span class="s">"test-logger"</span><span class="o">)</span>
+<span class="c1">// logger: Logger[IO] = slog4s.slf4j.Slf4jLogger@75967417</span>
+</code></pre></div></div>
+
+<p>It’s finally time to log something!</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">logger</span><span class="o">.</span><span class="py">info</span><span class="o">(</span><span class="s">"Hello world!"</span><span class="o">).</span><span class="py">unsafeRunSync</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-16T14:38:30.073Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"adt.md"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"foo"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"x"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"y"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"value"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>That was pretty boring, except <code class="highlighter-rouge">file</code> and <code class="highlighter-rouge">line</code> attributes that denote location of the log message within a file. 
+We can also provide an exception:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">logger</span><span class="o">.</span><span class="py">error</span><span class="o">(</span><span class="k">new</span> <span class="nc">Exception</span><span class="o">(</span><span class="s">"Boom!"</span><span class="o">),</span> <span class="s">"Something went horribly wrong."</span><span class="o">).</span><span class="py">unsafeRunSync</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-16T14:38:30.867Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"index.md"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">41</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world!"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Let’s make our message more content rich with additional arguments:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">logger</span><span class="o">.</span><span class="py">info</span>
+      <span class="o">.</span><span class="py">withArg</span><span class="o">(</span><span class="s">"string_value"</span><span class="o">,</span> <span class="s">"&lt;VALUE&gt;"</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">withArg</span><span class="o">(</span><span class="s">"bool_value"</span><span class="o">,</span> <span class="kc">true</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">withArg</span><span class="o">(</span><span class="s">"list_value"</span><span class="o">,</span> <span class="nc">List</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">,</span><span class="mi">3</span><span class="o">))</span>
+      <span class="o">.</span><span class="py">log</span><span class="o">(</span><span class="s">"Message with arguments"</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">unsafeRunSync</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-01-16T14:38:30.870Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"index.md"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"ERROR"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">40000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">47</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Something went horribly wrong."</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"stack_trace"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"java.lang.Exception: Boom!</span><span class="se">\n\t</span><span class="s2">at repl.Session$App.&lt;init&gt;(index.md:47)</span><span class="se">\n\t</span><span class="s2">at repl.Session$.app(index.md:3)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.document.DocumentBuilder$$doc$.$anonfun$build$2(DocumentBuilder.scala:82)</span><span class="se">\n\t</span><span class="s2">at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)</span><span class="se">\n\t</span><span class="s2">at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)</span><span class="se">\n\t</span><span class="s2">at scala.Console$.withErr(Console.scala:196)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.document.DocumentBuilder$$doc$.$anonfun$build$1(DocumentBuilder.scala:82)</span><span class="se">\n\t</span><span class="s2">at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)</span><span class="se">\n\t</span><span class="s2">at scala.util.DynamicVariable.withValue(DynamicVariable.scala:62)</span><span class="se">\n\t</span><span class="s2">at scala.Console$.withOut(Console.scala:167)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.document.DocumentBuilder$$doc$.build(DocumentBuilder.scala:81)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.markdown.MarkdownCompiler$.buildDocument(MarkdownCompiler.scala:53)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.markdown.Processor.processScalaInputs(Processor.scala:133)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.markdown.Processor.processDocument(Processor.scala:48)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.markdown.Markdown$.toMarkdown(Markdown.scala:118)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.cli.MainOps.handleMarkdown(MainOps.scala:62)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.cli.MainOps.handleFile(MainOps.scala:90)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.cli.MainOps.$anonfun$generateCompleteSite$1(MainOps.scala:130)</span><span class="se">\n\t</span><span class="s2">at scala.collection.LinearSeqOptimized.foldLeft(LinearSeqOptimized.scala:126)</span><span class="se">\n\t</span><span class="s2">at scala.collection.LinearSeqOptimized.foldLeft$(LinearSeqOptimized.scala:122)</span><span class="se">\n\t</span><span class="s2">at scala.collection.immutable.List.foldLeft(List.scala:89)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.cli.MainOps.generateCompleteSite(MainOps.scala:128)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.cli.MainOps.run(MainOps.scala:149)</span><span class="se">\n\t</span><span class="s2">at mdoc.internal.cli.MainOps$.process(MainOps.scala:233)</span><span class="se">\n\t</span><span class="s2">at mdoc.Main$.process(Main.scala:26)</span><span class="se">\n\t</span><span class="s2">at mdoc.Main$.process(Main.scala:21)</span><span class="se">\n\t</span><span class="s2">at mdoc.Main$.main(Main.scala:16)</span><span class="se">\n\t</span><span class="s2">at mdoc.Main.main(Main.scala)</span><span class="se">\n\t</span><span class="s2">at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)</span><span class="se">\n\t</span><span class="s2">at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)</span><span class="se">\n\t</span><span class="s2">at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)</span><span class="se">\n\t</span><span class="s2">at java.lang.reflect.Method.invoke(Method.java:498)</span><span class="se">\n\t</span><span class="s2">at sbt.Run.invokeMain(Run.scala:115)</span><span class="se">\n\t</span><span class="s2">at sbt.Run.execute$1(Run.scala:79)</span><span class="se">\n\t</span><span class="s2">at sbt.Run.$anonfun$runWithLoader$4(Run.scala:92)</span><span class="se">\n\t</span><span class="s2">at scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23)</span><span class="se">\n\t</span><span class="s2">at sbt.util.InterfaceUtil$$anon$1.get(InterfaceUtil.scala:10)</span><span class="se">\n\t</span><span class="s2">at sbt.TrapExit$App.run(TrapExit.scala:257)</span><span class="se">\n\t</span><span class="s2">at java.lang.Thread.run(Thread.java:748)</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Additional arguments are type safe. Following code will fail in compile time:</p>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">class</span> <span class="nc">That</span><span class="o">(</span><span class="n">value</span><span class="k">:</span> <span class="kt">String</span><span class="o">)</span>
+<span class="nv">logger</span><span class="o">.</span><span class="py">info</span>
+      <span class="o">.</span><span class="py">withArg</span><span class="o">(</span><span class="s">"that_value"</span><span class="o">,</span> <span class="k">new</span> <span class="nc">That</span><span class="o">(</span><span class="s">"value"</span><span class="o">))</span>
+      <span class="o">.</span><span class="py">log</span><span class="o">(</span><span class="s">"Does not compile"</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">unsafeRunSync</span><span class="o">()</span>
+<span class="c1">// error: could not find implicit value for evidence parameter of type slog4s.LogEncoder[repl.Session.App.That]</span>
+<span class="c1">// logger.info</span>
+<span class="c1">// ^</span>
+</code></pre></div></div>
+
+<p>However there is built-in support for <code class="highlighter-rouge">case class</code>es and <code class="highlighter-rouge">sealed trait</code>s provided by <code class="highlighter-rouge">generic</code> module.</p>
+</div></div></section><section class="technologies"><div class="container"><div class="row"></div></div></section></main><footer id="site-footer"><div class="container"><div class="row"><div class="col-xs-6"><p>slog4s is designed and developed by <a href="https://github.com/avast/slog4s" target="_blank" rel="noopener noreferrer">Jan Strnad</a></p></div><div class="col-xs-6"><p class="text-right"><a href="https://github.com/avast/slog4s" target="_blank" rel="noopener noreferrer"><span class="fa fa-github"></span>View on GitHub</a></p></div></div></div></footer><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/slog4s/highlight/highlight.pack.js"></script><script>hljs.configure({languages:['scala','java','bash']});
+hljs.initHighlightingOnLoad();
+              </script><script>console.info('\x57\x65\x62\x73\x69\x74\x65\x20\x62\x75\x69\x6c\x74\x20\x77\x69\x74\x68\x3a\x0a\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x5f\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x20\x5f\x20\x5f\x5f\x0a\x20\x20\x20\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x5f\x20\x20\x2f\x20\x2f\x5f\x20\x20\x20\x20\x20\x20\x5f\x5f\x5f\x5f\x20\x5f\x5f\x5f\x20\x20\x28\x5f\x29\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x28\x5f\x29\x20\x2f\x5f\x5f\x5f\x5f\x20\x20\x5f\x5f\x5f\x5f\x5f\x0a\x20\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x60\x5f\x5f\x20\x5c\x2f\x20\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x5f\x2f\x20\x5f\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x20\x2f\x20\x5f\x5f\x2f\x20\x5f\x20\x5c\x2f\x20\x5f\x5f\x5f\x2f\x0a\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x5f\x2f\x20\x2f\x20\x2f\x5f\x2f\x5f\x5f\x5f\x5f\x5f\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x20\x2f\x5f\x5f\x2f\x20\x2f\x20\x20\x2f\x20\x2f\x5f\x2f\x20\x28\x5f\x5f\x20\x20\x29\x20\x2f\x20\x2f\x5f\x2f\x20\x20\x5f\x5f\x28\x5f\x5f\x20\x20\x29\x0a\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2e\x5f\x5f\x5f\x2f\x5c\x5f\x5f\x2f\x20\x20\x20\x20\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x20\x2f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x2f\x20\x20\x20\x5c\x5f\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x5f\x2f\x5c\x5f\x5f\x2f\x5c\x5f\x5f\x5f\x2f\x5f\x5f\x5f\x5f\x2f\x0a\x0a\x68\x74\x74\x70\x73\x3a\x2f\x2f\x34\x37\x64\x65\x67\x2e\x67\x69\x74\x68\x75\x62\x2e\x69\x6f\x2f\x73\x62\x74\x2d\x6d\x69\x63\x72\x6f\x73\x69\x74\x65\x73')</script><script src="/slog4s/js/version-selector.js"></script></body></html>
