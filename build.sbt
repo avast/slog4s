@@ -139,6 +139,20 @@ lazy val site = (project in file("site"))
   )
   .dependsOn(api, generic, monix, slf4j, siteUtils)
 
+lazy val zio = (project in file("zio"))
+  .settings(
+    addCompilerPlugin(kindProjector),
+    libraryDependencies ++= Seq(
+      zioDependency,
+      zioInterop
+    ),
+    libraryDependencies ++= Seq(
+      scalaTest % Test
+    )
+  )
+  .settings(commonSettings)
+  .dependsOn(api, shared)
+
 addCommandAlias(
   "check",
   "; scalafmtSbtCheck; scalafmtCheckAll; doc; site/makeMdoc"
