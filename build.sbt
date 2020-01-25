@@ -38,7 +38,10 @@ lazy val api = (project in file("api"))
   .settings(commonSettings)
   .settings(
     libraryDependencies ++= Seq(catsCore, sourcecode),
-    libraryDependencies ++= Seq(scalaTest % Test)
+    libraryDependencies ++= Seq(
+      catsEffect % Test,
+      scalaTest % Test
+    )
   )
 
 lazy val example = (project in file("example"))
@@ -64,10 +67,14 @@ lazy val generic = (project in file("generic"))
 lazy val monix = (project in file("monix"))
   .settings(
     name := "slog4s-monix",
-    libraryDependencies ++= Seq(catsMtl, monixDependency)
+    libraryDependencies ++= Seq(catsMtl, monixDependency),
+    libraryDependencies ++= Seq(
+      diffx % Test,
+      scalaTest % Test
+    )
   )
   .settings(commonSettings)
-  .dependsOn(shared)
+  .dependsOn(shared % "compile->compile;test->test")
 
 lazy val slf4j = (project in file("slf4j"))
   .settings(
@@ -94,10 +101,14 @@ lazy val shared = (project in file("shared"))
       catsCore,
       catsEffect,
       catsMtl
+    ),
+    libraryDependencies ++= Seq(
+      diffx % Test,
+      scalaTest % Test
     )
   )
   .settings(commonSettings)
-  .dependsOn(api)
+  .dependsOn(api % "compile->compile;test->test")
 
 lazy val siteUtils = (project in file("site") / "utils")
   .settings(
