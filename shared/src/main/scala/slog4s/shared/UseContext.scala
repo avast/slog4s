@@ -16,11 +16,11 @@ trait UseContext[F[_], T] {
 }
 
 object UseContext {
-  implicit def fromApplicativeLocal[F[_], T: Monoid](
-      implicit local: ApplicativeLocal[F, T]
-  ): UseContext[F, T] = new UseContext[F, T] {
-    override def use[V](value: T)(fv: F[V]): F[V] = {
-      local.local(v => Monoid[T].combine(v, value))(fv)
+  implicit def fromApplicativeLocal[F[_], T](
+      implicit local: ApplicativeLocal[F, Map[String, T]]
+  ): UseContext[F, Map[String, T]] = new UseContext[F, Map[String, T]] {
+    override def use[V](value: Map[String, T])(fv: F[V]): F[V] = {
+      local.local(_ ++ value)(fv)
     }
   }
 }
