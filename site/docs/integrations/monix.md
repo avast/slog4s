@@ -16,14 +16,16 @@ backed by monix's `TaskLocal`.
 ```scala mdoc:silent
 import monix.eval._
 import slog4s._
+import slog4s.shared._
 import slog4s.monix._
 import slog4s.slf4j._
 
 def make: Task[(LoggingContext[Task], LoggerFactory[Task])] = {
   TaskLocal(Slf4jArgs.empty).map { taskLocal =>
-    implicit val applicativeLocal = MonixContext.identity(taskLocal)
+    implicit val asContext: AsContext[Task, Slf4jArgs] = AsMonixContext.identity(taskLocal)
+    implicit val useContext: UseContext[Task, Slf4jArgs] = UseMonixContext.identity(taskLocal)
     val loggingContext = Slf4jContext.make
-    val loggerFactory = Slf4jFactory[Task].contextAsk.make
+    val loggerFactory = Slf4jFactory[Task].useContext.make
     (loggingContext, loggerFactory) 
   }
 }

@@ -1,7 +1,8 @@
 package slog4s.slf4j
 
-import cats.mtl.ApplicativeLocal
 import slog4s.LoggingContext
+import slog4s.shared.{MapLoggingContext, UseContext}
+import slog4s.slf4j.MarkerStructureBuilder._
 
 object Slf4jContext {
 
@@ -10,8 +11,8 @@ object Slf4jContext {
     * backed by [[cats.mtl.ApplicativeLocal]].
     */
   def make[F[_]](
-      implicit applicativeLocal: ApplicativeLocal[F, Slf4jArgs]
+      implicit useContext: UseContext[F, Slf4jArgs]
   ): LoggingContext[F] = {
-    new Slf4jLoggingContext[F]
+    new MapLoggingContext()
   }
 }
