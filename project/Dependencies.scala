@@ -8,6 +8,7 @@ object Dependencies {
   lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.3.16"
   lazy val logback = "ch.qos.logback" % "logback-classic" % "1.2.3"
   lazy val logstash = "net.logstash.logback" % "logstash-logback-encoder" % "6.3"
+  lazy val kindProjector = "org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full
   lazy val magnolia = "com.propensive" %% "magnolia" % "0.12.6"
   lazy val libmdoc = "org.scalameta" %% "mdoc" % "2.0.3" excludeAll (ExclusionRule(
     organization = "org.slf4j"
@@ -17,5 +18,7 @@ object Dependencies {
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.1.0"
   lazy val slf4jDepedency = "org.slf4j" % "slf4j-api" % "1.7.30"
   lazy val sourcecode = "com.lihaoyi" %% "sourcecode" % "0.2.0"
+  lazy val zioDependency = "dev.zio" %% "zio" % "1.0.0-RC17"
+  lazy val zioInterop = "dev.zio" %% "zio-interop-cats" % "2.0.0.0-RC10"
 
 }
