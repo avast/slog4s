@@ -1,6 +1,5 @@
 package slog4s.monix
 
-import cats.kernel.Monoid
 import monix.eval.{Task, TaskLocal}
 import slog4s.shared.UseContext
 
@@ -9,8 +8,8 @@ object UseMonixContext {
   /**
     * Makes an [[slog4s.shared.UseContext]] based directly on an instance of [[monix.eval.TaskLocal]].
     */
-  def identity[T: Monoid](taskLocal: TaskLocal[T]): UseContext[Task, T] =
-    make(taskLocal)(Monoid[T].combine)
+  def identity[T](taskLocal: TaskLocal[T]): UseContext[Task, T] =
+    make[T, T](taskLocal)((_, v) => v)
 
   /**
     * Makes an [[slog4s.shared.UseContext]] based on [[monix.eval.TaskLocal]]. As opposed to [[identity]] it allows
