@@ -21,9 +21,8 @@ import slog4s.monix._
 import slog4s.slf4j._
 
 def make: Task[(LoggingContext[Task], LoggerFactory[Task])] = {
-  TaskLocal(Slf4jArgs.empty).map { taskLocal =>
-    implicit val asContext: AsContext[Task, Slf4jArgs] = AsMonixContext.identity(taskLocal)
-    implicit val useContext: UseContext[Task, Slf4jArgs] = UseMonixContext.identity(taskLocal)
+  MonixContextRuntime.make(Slf4jArgs.empty).map { monixContextRuntime =>
+    import monixContextRuntime._
     val loggingContext = Slf4jContext.make
     val loggerFactory = Slf4jFactory[Task].useContext.make
     (loggingContext, loggerFactory) 

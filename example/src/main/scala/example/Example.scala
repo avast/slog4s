@@ -5,7 +5,7 @@ import cats.syntax.flatMap._
 import cats.syntax.functor._
 import monix.eval.{Task, TaskLocal}
 import monix.execution.schedulers.CanBlock
-import slog4s.monix.{AsMonixContext, UseMonixContext}
+import slog4s.monix.{AsMonixContext, MonixContextRuntime, UseMonixContext}
 import slog4s.shared.{AsContext, UseContext}
 import slog4s.slf4j._
 import slog4s.{LoggerFactory, LoggingContext}
@@ -92,13 +92,9 @@ object Example extends App {
   import monix.execution.Scheduler.Implicits.traced
   implicit val canBlock = CanBlock.permit
 
-  val taskLocal: TaskLocal[Slf4jArgs] =
-    TaskLocal(Slf4jArgs.empty).runSyncUnsafe()
-
-  implicit val asContext: AsContext[Task, Slf4jArgs] =
-    AsMonixContext.identity(taskLocal)
-  implicit val useContext: UseContext[Task, Slf4jArgs] =
-    UseMonixContext.identity(taskLocal)
+  val monixContextRuntime =
+    MonixContextRuntime.make(Slf4jArgs.empty).runSyncUnsafe()
+  import monixContextRuntime._
 
   //implicit val asMarker: AsMarker[Slf4jArgs] = new AsMarker[Slf4jArgs] {
   //  override def extract(v: Slf4jArgs): Option[Marker] =
