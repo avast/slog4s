@@ -8,3 +8,4 @@ position: 3
 
 `slog4s` provides integrations to various libraries.
 - [Monix](monix.html)
+- [ZIO](zio.html)

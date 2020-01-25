@@ -137,7 +137,7 @@ lazy val site = (project in file("site"))
       example
     )
   )
-  .dependsOn(api, generic, monix, slf4j, siteUtils)
+  .dependsOn(api, generic, monix, slf4j, siteUtils, zio)
 
 lazy val zio = (project in file("zio"))
   .settings(

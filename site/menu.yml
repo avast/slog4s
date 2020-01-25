@@ -11,3 +11,5 @@ options:
     nested_options:
       - title: Monix
         url: integrations/monix.html
+      - title: ZIO
+          url: integrations/zio.html
