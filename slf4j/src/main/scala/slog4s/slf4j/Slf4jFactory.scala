@@ -3,8 +3,9 @@ package slog4s.slf4j
 import cats.effect.Sync
 import cats.mtl.ApplicativeAsk
 import org.slf4j.Marker
-import slog4s.{Logger, LoggerFactory, LogEncoder}
+import slog4s.{LogEncoder, Logger, LoggerFactory}
 import MarkerStructureBuilder._
+import slog4s.shared.AsContext
 
 /**
   * Slf4j backed [[slog4s.LoggerFactory]] instance. It's using logstash's
@@ -22,13 +23,13 @@ object Slf4jFactory {
   final class Slf4jFactoryBuilder[F[_]]()(implicit F: Sync[F]) {
 
     /**
-      * Extracts contextual structured arguments from an instance of [[cats.mtl.ApplicativeAsk]].
+      * Extracts contextual structured arguments from an instance of [[slog4s.shared.AsContext]].
       */
-    def contextAsk[C: AsArgs](
-        implicit ask: ApplicativeAsk[F, C]
+    def useContext[C: AsArgs](
+        implicit asContext: AsContext[F, C]
     ): Slf4jFactoryBuilderWithContext[F, C] = {
       new Slf4jFactoryBuilderWithContext[F, C](
-        ask.ask,
+        asContext.get,
         implicitly[AsArgs[C]].convert,
         Map.empty
       )

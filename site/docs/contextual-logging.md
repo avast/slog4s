@@ -54,7 +54,7 @@ import cats.mtl.instances.local._
 import slog4s.slf4j._
 type Result[T] = ReaderT[IO, Slf4jArgs, T]
 implicit val loggingContext = Slf4jContext.make[Result]
-val loggerFactory = Slf4jFactory[Result].contextAsk.make
+val loggerFactory = Slf4jFactory[Result].useContext.make
 ```
 
 No we can finally run it:

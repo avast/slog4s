@@ -1,13 +1,13 @@
 package example
 
 import cats.Monad
-import cats.mtl.ApplicativeLocal
 import cats.syntax.flatMap._
 import cats.syntax.functor._
 import monix.eval.{Task, TaskLocal}
 import monix.execution.schedulers.CanBlock
-import slog4s.monix.MonixContext
-import slog4s.slf4j.{Slf4jArgs, Slf4jContext, Slf4jFactory}
+import slog4s.monix.{AsMonixContext, UseMonixContext}
+import slog4s.shared.{AsContext, UseContext}
+import slog4s.slf4j._
 import slog4s.{LoggerFactory, LoggingContext}
 
 class Example[F[_]](
@@ -95,8 +95,10 @@ object Example extends App {
   val taskLocal: TaskLocal[Slf4jArgs] =
     TaskLocal(Slf4jArgs.empty).runSyncUnsafe()
 
-  implicit val applicativeAsk: ApplicativeLocal[Task, Slf4jArgs] =
-    MonixContext.identity(taskLocal)
+  implicit val asContext: AsContext[Task, Slf4jArgs] =
+    AsMonixContext.identity(taskLocal)
+  implicit val useContext: UseContext[Task, Slf4jArgs] =
+    UseMonixContext.identity(taskLocal)
 
   //implicit val asMarker: AsMarker[Slf4jArgs] = new AsMarker[Slf4jArgs] {
   //  override def extract(v: Slf4jArgs): Option[Marker] =
@@ -105,12 +107,12 @@ object Example extends App {
 
   val loggerFactory =
     Slf4jFactory[Task]
-      .contextAsk[Slf4jArgs]
+      .useContext[Slf4jArgs]
       .withArg("app_version", "0.1.0")
       .make
   //val loggerFactory = Slf4jFactory[Task].noContext.make
 
-  val loggingContext = Slf4jContext.make
+  val loggingContext = Slf4jContext.make[Task]
 
   val example = new Example[Task](loggerFactory, loggingContext)
 
