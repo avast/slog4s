@@ -1,11 +1,17 @@
 package slog4s.slf4j
 
 import cats.effect.Sync
+import cats.syntax.functor._
 import cats.mtl.ApplicativeAsk
 import org.slf4j.Marker
-import slog4s.{LogEncoder, Logger, LoggerFactory}
+import slog4s.{LogEncoder, Logger, LoggerFactory, LoggingContext}
 import MarkerStructureBuilder._
-import slog4s.shared.AsContext
+import slog4s.shared.{
+  AsContext,
+  ContextRuntime,
+  ContextRuntimeBuilder,
+  LoggingRuntime
+}
 
 /**
   * Slf4j backed [[slog4s.LoggerFactory]] instance. It's using logstash's
@@ -44,6 +50,32 @@ object Slf4jFactory {
         _ => Slf4jArgs.empty,
         Map.empty
       )
+    }
+
+    def make(
+        contextRuntime: ContextRuntime[F, Slf4jArgs]
+    ): LoggingRuntime[F] = {
+      import contextRuntime._
+      new LoggingRuntime[F] {
+        override def loggerFactory: LoggerFactory[F] =
+          new LoggerFactory[F] {
+            override def make(name: String): Logger[F] =
+              new Slf4jLogger(
+                org.slf4j.LoggerFactory.getLogger(name),
+                as.get,
+                identity[Slf4jArgs],
+                (_: Slf4jArgs) => None
+              )(F)
+          }
+        override val loggingContext: LoggingContext[F] =
+          Slf4jContext.make
+      }
+    }
+
+    def fromContextBuilder(
+        contextRuntimeBuilder: ContextRuntimeBuilder[F]
+    ): F[LoggingRuntime[F]] = {
+      contextRuntimeBuilder.make(Slf4jArgs.empty).map(make)
     }
 
   }

@@ -14,6 +14,8 @@ trait AsContext[F[_], T] {
 }
 
 object AsContext {
+  def apply[F[_], T](implicit ev: AsContext[F, T]): AsContext[F, T] = ev
+
   implicit def fromApplicativeAsk[F[_], T](
       implicit ask: ApplicativeAsk[F, T]
   ): AsContext[F, T] = new AsContext[F, T] {

@@ -97,6 +97,7 @@ lazy val slf4j = (project in file("slf4j"))
 lazy val shared = (project in file("shared"))
   .settings(
     name := "slog4s-shared",
+    addCompilerPlugin(kindProjector),
     libraryDependencies ++= Seq(
       catsCore,
       catsEffect,

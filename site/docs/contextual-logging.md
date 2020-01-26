@@ -51,10 +51,12 @@ mechanisms (for curious ones: it `TaskLocal` for Monix and `FiberRef` for ZIO)
 import cats.data._
 import cats.effect._
 import cats.mtl.instances.local._
+import slog4s.shared._
 import slog4s.slf4j._
+
 type Result[T] = ReaderT[IO, Slf4jArgs, T]
-implicit val loggingContext = Slf4jContext.make[Result]
-val loggerFactory = Slf4jFactory[Result].useContext.make
+val loggingRuntime = Slf4jFactory[Result].make(ContextRuntime[Result, Slf4jArgs])
+import loggingRuntime._
 ```
 
 No we can finally run it:

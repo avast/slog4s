@@ -10,17 +10,25 @@ import cats.mtl.ApplicativeLocal
 trait UseContext[F[_], T] {
 
   /**
-    * Injects contextual value into an effect. It has append-like semantics.
+    * Injects contextual value into an effect.
     */
-  def use[V](value: T)(fv: F[V]): F[V]
+  def use[V](value: T)(fv: F[V]): F[V] = update(_ => value)(fv)
+
+  /**
+    * Updates contextual value inside an effect.
+    */
+  def update[V](f: T => T)(fv: F[V]): F[V]
 }
 
 object UseContext {
+
+  def apply[F[_], T](implicit ev: UseContext[F, T]): UseContext[F, T] = ev
+
   implicit def fromApplicativeLocal[F[_], T](
-      implicit local: ApplicativeLocal[F, Map[String, T]]
-  ): UseContext[F, Map[String, T]] = new UseContext[F, Map[String, T]] {
-    override def use[V](value: Map[String, T])(fv: F[V]): F[V] = {
-      local.local(_ ++ value)(fv)
+      implicit local: ApplicativeLocal[F, T]
+  ): UseContext[F, T] = new UseContext[F, T] {
+    override def update[V](f: T => T)(fv: F[V]): F[V] = {
+      local.local(f)(fv)
     }
   }
 }

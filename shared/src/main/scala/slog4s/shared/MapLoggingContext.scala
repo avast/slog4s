@@ -19,7 +19,7 @@ class MapLoggingContext[F[_], O: StructureBuilder](
   private final class Builder(values: Map[String, O])
       extends LoggingContext.LoggingBuilder[F] {
 
-    override def use[T](fv: F[T]): F[T] = useContext.use(values)(fv)
+    override def use[T](fv: F[T]): F[T] = useContext.update(_ ++ values)(fv)
 
     override def withArg[T: LogEncoder](
         key: String,

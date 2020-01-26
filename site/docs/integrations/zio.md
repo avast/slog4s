@@ -13,7 +13,7 @@ leverages [`FiberRef`](https://zio.dev/docs/datatypes/datatypes_fiberref) for co
 This example demonstrates how to make an slf4j specific instance of `LoggingContext` and `LoggerFactory` 
 backed by ZIO's `FiberRef`. 
 
-```scala mdoc:silent
+```scala mdoc
 import cats.effect.Sync
 import slog4s._
 import slog4s.shared._
@@ -21,12 +21,7 @@ import slog4s.slf4j._
 import slog4s.zio._
 import _root_.zio._
 
-def make(implicit F: Sync[Task]): UIO[(LoggingContext[Task], LoggerFactory[Task])] = {
-  ZIOContextRuntime.make[Any, Throwable, Slf4jArgs](Slf4jArgs.empty).map { zioContextRuntime =>
-    import zioContextRuntime._
-    val loggingContext = Slf4jContext.make[Task]
-    val loggerFactory = Slf4jFactory[Task].useContext.make
-    (loggingContext, loggerFactory) 
-  }
+def make(implicit F: Sync[Task]): Task[LoggingRuntime[Task]] = {
+  Slf4jFactory[Task].fromContextBuilder(ZIOContextRuntimeBuilder.Task)
 }
 ```
