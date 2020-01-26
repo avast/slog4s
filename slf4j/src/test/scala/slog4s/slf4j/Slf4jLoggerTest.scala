@@ -217,11 +217,10 @@ class Fixture(implicit val location: Location) {
       args: Slf4jArgs = Slf4jArgs.empty,
       marker: Option[Marker] = None
   ): Logger[IO] = {
-    new Slf4jLogger[IO, Unit](
+    new Slf4jLogger[IO](
       rawLogger,
-      IO.unit,
-      _ => args,
-      _ => marker
+      IO.pure(args),
+      IO.pure(marker)
     )
   }
 }

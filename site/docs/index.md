@@ -50,7 +50,7 @@ Let's start by creating a `LoggerFactory` that is backed by slf4j (and logback u
 can create a named `Logger`.
 
 ```scala mdoc
-val loggerFactory = Slf4jFactory[IO].noContext.make
+val loggerFactory = Slf4jFactory[IO].withoutContext.loggerFactory
 val logger = loggerFactory.make("test-logger")
 ``` 
 
