@@ -6,10 +6,10 @@ import slog4s.shared.{AsContext, ContextRuntime, UseContext}
 class MonixContextRuntime[T] private (taskLocal: TaskLocal[T])
     extends ContextRuntime[Task, T] {
   override implicit val as: AsContext[Task, T] =
-    AsMonixContext.identity(taskLocal)
+    AsMonixContext.make(taskLocal)
 
   override implicit val use: UseContext[Task, T] =
-    UseMonixContext.identity(taskLocal)
+    UseMonixContext.make(taskLocal)
 }
 
 object MonixContextRuntime {

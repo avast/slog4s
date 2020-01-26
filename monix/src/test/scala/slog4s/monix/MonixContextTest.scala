@@ -13,8 +13,8 @@ class MonixContextTest extends ContextTest[Task]("Monix") {
       Task.defaultOptions.enableLocalContextPropagation
     )
     val ops = TaskLocal(0).flatMap { taskLocal =>
-      implicit val asContext = AsMonixContext.identity(taskLocal)
-      implicit val useContext = UseMonixContext.identity(taskLocal)
+      implicit val asContext = AsMonixContext.make(taskLocal)
+      implicit val useContext = UseMonixContext.make(taskLocal)
 
       val fixture = new Fixture
       Task.delay(test(fixture))

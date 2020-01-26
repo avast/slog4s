@@ -6,25 +6,15 @@ import slog4s.shared.UseContext
 object UseMonixContext {
 
   /**
-    * Makes an [[slog4s.shared.UseContext]] based directly on an instance of [[monix.eval.TaskLocal]].
+    * Makes an [[slog4s.shared.UseContext]] based on [[monix.eval.TaskLocal]].
     */
-  def identity[T](taskLocal: TaskLocal[T]): UseContext[Task, T] =
-    make[T, T](taskLocal)((_, v) => v)
+  def make[T](taskLocal: TaskLocal[T]): UseContext[Task, T] =
+    new UseContext[Task, T] {
 
-  /**
-    * Makes an [[slog4s.shared.UseContext]] based on [[monix.eval.TaskLocal]]. As opposed to [[identity]] it allows
-    * one to modify value  `set` function.
-    * @param taskLocal
-    * @param set function used to modify value before writing the context to [[monix.eval.TaskLocal]]
-    */
-  def make[I, O](taskLocal: TaskLocal[I])(
-      set: (I, O) => I
-  ): UseContext[Task, O] = new UseContext[Task, O] {
-
-    override def use[V](value: O)(fv: Task[V]): Task[V] = {
-      taskLocal.read.flatMap { input =>
-        taskLocal.bind(set(input, value))(fv)
+      override def update[V](f: T => T)(fv: Task[V]): Task[V] = {
+        taskLocal.read.flatMap { old =>
+          taskLocal.bind(f(old))(fv)
+        }
       }
     }
-  }
 }

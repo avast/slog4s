@@ -6,7 +6,11 @@ import zio.{FiberRef, ZIO}
 object UseZIOContext {
   def make[R, E, T](fiberRef: FiberRef[T]): UseContext[ZIO[R, E, *], T] =
     new UseContext[ZIO[R, E, *], T] {
-      override def use[V](value: T)(fv: ZIO[R, E, V]): ZIO[R, E, V] =
-        fiberRef.locally(value)(fv)
+
+      override def update[V](f: T => T)(fv: ZIO[R, E, V]): ZIO[R, E, V] = {
+        fiberRef.get.flatMap { old =>
+          fiberRef.locally(f(old))(fv)
+        }
+      }
     }
 }
