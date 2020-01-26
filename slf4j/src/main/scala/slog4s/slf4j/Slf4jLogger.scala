@@ -9,11 +9,10 @@ import slog4s.slf4j.MarkerStructureBuilder._
 
 import scala.jdk.CollectionConverters._
 
-private[slf4j] class Slf4jLogger[F[_], C](
+private[slf4j] class Slf4jLogger[F[_]](
     logger: org.slf4j.Logger,
-    askContext: F[C],
-    extractArgs: C => Slf4jArgs,
-    extractMarker: C => Option[Marker]
+    askContext: F[Slf4jArgs],
+    extractMarker: F[Option[Marker]]
 )(
     implicit F: Sync[F]
 ) extends Logger[F] { self =>
@@ -76,9 +75,9 @@ private[slf4j] class Slf4jLogger[F[_], C](
       logBuilder: LogBuilder[F]
   ) extends WhenEnabledLogBuilder[F] {
     override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = {
-      askContext.flatMap { context =>
+      extractMarker.flatMap { maybeMarker =>
         F.suspend {
-          if (isLogEnabled(extractMarker(context).orNull)) {
+          if (isLogEnabled(maybeMarker.orNull)) {
             f(logBuilder)
           } else {
             F.unit
@@ -96,23 +95,28 @@ private[slf4j] class Slf4jLogger[F[_], C](
       throwable: Throwable,
       location: Location
   ): F[Unit] = {
-    askContext.flatMap { context =>
+    extractMarker.flatMap { maybeMarker =>
       F.delay {
-        val contextMarker = extractMarker(context)
-        if (isLogEnabled(contextMarker.orNull)) {
-          val allArgs = makeLocationArgs(location) ++ extractArgs(context) ++ args
-            .map {
-              case (key, value) => key -> value()
+        if (isLogEnabled(maybeMarker.orNull)) {
+          askContext.flatMap { context =>
+            val allArgs = makeLocationArgs(location) ++ context ++ args
+              .map {
+                case (key, value) => key -> value()
+              }
+            val marker = new MapEntriesAppendingMarker(allArgs.asJava)
+            maybeMarker.foreach(m => marker.add(m))
+            F.delay {
+              doLog(
+                marker,
+                msg,
+                throwable
+              )
             }
-          val marker = new MapEntriesAppendingMarker(allArgs.asJava)
-          contextMarker.foreach(m => marker.add(m))
-          doLog(
-            marker,
-            msg,
-            throwable
-          )
+          }
+        } else {
+          F.unit
         }
-      }
+      }.flatten
     }
   }
 

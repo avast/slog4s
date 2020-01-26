@@ -17,7 +17,8 @@ object Helpers {
   }
 
   object instances {
-    val loggerFactory = Slf4jFactory[IO].noContext.make
+
+    val loggerFactory = Slf4jFactory[IO].withoutContext.loggerFactory
     val logger = loggerFactory.make("test-logger")
   }
 }
