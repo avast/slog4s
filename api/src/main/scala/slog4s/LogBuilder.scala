@@ -1,5 +1,7 @@
 package slog4s
 
+import cats.Applicative
+
 /**
   * A part of logging API for a specific logging level. This trait is used to build a list
   * of structured argument to be used for current logging statement.
@@ -30,4 +32,19 @@ trait LogBuilder[F[_]] {
     * @return a new [[LogBuilder]] instance containing provided structured argument
     */
   def withArg[T: LogEncoder](key: String, value: => T): LogBuilder[F]
+}
+
+object LogBuilder {
+  def noop[F[_]](implicit F: Applicative[F]): LogBuilder[F] =
+    new LogBuilder[F] {
+      override def log(msg: String)(implicit location: Location): F[Unit] =
+        F.unit
+      override def log(ex: Throwable, msg: String)(
+          implicit location: Location
+      ): F[Unit] = F.unit
+      override def withArg[T: LogEncoder](
+          key: String,
+          value: => T
+      ): LogBuilder[F] = this
+    }
 }
