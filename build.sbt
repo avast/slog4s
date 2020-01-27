@@ -44,6 +44,20 @@ lazy val api = (project in file("api"))
     )
   )
 
+lazy val console = (project in file("console"))
+  .settings(
+    name := "slog4s-console"
+  )
+  .settings(commonSettings)
+  .settings(
+    libraryDependencies ++= Seq(catsCore, catsEffect),
+    libraryDependencies ++= Seq(scalaTest % Test)
+  )
+  .dependsOn(
+    api % "compile->compile;test->test",
+    shared % "compile->compile;test->test"
+  )
+
 lazy val example = (project in file("example"))
   .settings(
     name := "slog4s-example",
@@ -51,7 +65,7 @@ lazy val example = (project in file("example"))
   )
   .settings(commonSettings)
   .settings(publish / skip := true)
-  .dependsOn(api, generic, slf4j, monix)
+  .dependsOn(api, console, generic, slf4j, monix)
 
 lazy val generic = (project in file("generic"))
   .settings(

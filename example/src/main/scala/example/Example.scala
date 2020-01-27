@@ -5,7 +5,9 @@ import cats.syntax.flatMap._
 import cats.syntax.functor._
 import monix.eval.Task
 import monix.execution.schedulers.CanBlock
+import slog4s.console.{ConsoleConfig, ConsoleFactory, Format, Level}
 import slog4s.monix.MonixContextRuntimeBuilder
+import slog4s.shared.LoggingRuntime
 import slog4s.slf4j._
 import slog4s.{LoggerFactory, LoggingContext}
 
@@ -88,20 +90,27 @@ class Example[F[_]](
 }
 
 object Example extends App {
-  object test_monix {
-    import monix.execution.Scheduler.Implicits.traced
-    implicit val canBlock = CanBlock.permit
+  import monix.execution.Scheduler.Implicits.traced
+  implicit val canBlock = CanBlock.permit
 
-    val loggingRuntime = Slf4jFactory[Task]
-      .withArg("app_version", "0.1.0")
-      .fromContextBuilder(MonixContextRuntimeBuilder)
-      .runSyncUnsafe()
-    import loggingRuntime._
-    val example = new Example[Task](loggerFactory, loggingContext)
+  val slf4jRuntime: LoggingRuntime[Task] = Slf4jFactory[Task]
+    .withArg("app_version", "0.1.0")
+    .fromContextBuilder(MonixContextRuntimeBuilder)
+    .runSyncUnsafe()
 
-    def run(): Unit = (example.foo >> example.bar).runSyncUnsafe()
-  }
+  val consoleRuntime: LoggingRuntime[Task] = ConsoleFactory[Task]
+    .make(
+      Format.Plain,
+      ConsoleConfig.fixed(Level.Trace),
+      MonixContextRuntimeBuilder
+    )
+    .runSyncUnsafe()
 
-  test_monix.run()
+  //import slf4jRuntime._
+  import consoleRuntime._
+
+  val example = new Example[Task](loggerFactory, loggingContext)
+
+  (example.foo >> example.bar).runSyncUnsafe()
 
 }
