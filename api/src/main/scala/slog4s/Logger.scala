@@ -17,52 +17,14 @@ trait Logger[F[_]] {
 object Logger {
   def noop[F[_]: Applicative]: Logger[F] =
     new Logger[F] {
-      private[this] val F = Applicative[F]
+      override val debug: LevelLogBuilder[F] = LevelLogBuilder.noop
 
-      private[this] val log: LogBuilder[F] = new LogBuilder[F] { self =>
-        override def log(msg: String)(implicit location: Location): F[Unit] =
-          F.unit
+      override val error: LevelLogBuilder[F] = LevelLogBuilder.noop
 
-        override def log(ex: Throwable, msg: String)(
-            implicit location: Location
-        ): F[Unit] = F.unit
+      override val info: LevelLogBuilder[F] = LevelLogBuilder.noop
 
-        override def withArg[T: LogEncoder](
-            key: String,
-            value: => T
-        ): LogBuilder[F] = self
-      }
+      override val trace: LevelLogBuilder[F] = LevelLogBuilder.noop
 
-      private[this] val whenEnabledLogBuilder: WhenEnabledLogBuilder[F] =
-        new WhenEnabledLogBuilder[F] {
-          override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = F.unit
-        }
-
-      private[this] val level: LevelLogBuilder[F] = new LevelLogBuilder[F] {
-        override def apply(msg: String)(implicit location: Location): F[Unit] =
-          F.unit
-
-        override def apply(ex: Throwable, msg: String)(
-            implicit location: Location
-        ): F[Unit] = F.unit
-
-        override def withArg[T: LogEncoder](
-            key: String,
-            value: => T
-        ): LogBuilder[F] = log
-
-        override def whenEnabled: WhenEnabledLogBuilder[F] =
-          whenEnabledLogBuilder
-      }
-
-      override def debug: LevelLogBuilder[F] = level
-
-      override def error: LevelLogBuilder[F] = level
-
-      override def info: LevelLogBuilder[F] = level
-
-      override def trace: LevelLogBuilder[F] = level
-
-      override def warn: LevelLogBuilder[F] = level
+      override val warn: LevelLogBuilder[F] = LevelLogBuilder.noop
     }
 }

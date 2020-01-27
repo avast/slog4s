@@ -1,5 +1,7 @@
 package slog4s
 
+import cats.Applicative
+
 /**
   * Top level logging API for a specific logging level.
   * @tparam F
@@ -35,4 +37,25 @@ trait LevelLogBuilder[F[_]] {
     * @return an instance of [[WhenEnabledLogBuilder]]
     */
   def whenEnabled: WhenEnabledLogBuilder[F]
+}
+
+object LevelLogBuilder {
+  def noop[F[_]](implicit F: Applicative[F]): LevelLogBuilder[F] =
+    new LevelLogBuilder[F] {
+
+      override def apply(msg: String)(implicit location: Location): F[Unit] =
+        F.unit
+
+      override def apply(ex: Throwable, msg: String)(
+          implicit location: Location
+      ): F[Unit] = F.unit
+
+      override def withArg[T: LogEncoder](
+          key: String,
+          value: => T
+      ): LogBuilder[F] = LogBuilder.noop
+
+      override val whenEnabled: WhenEnabledLogBuilder[F] =
+        WhenEnabledLogBuilder.noop
+    }
 }

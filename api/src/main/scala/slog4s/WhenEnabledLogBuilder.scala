@@ -1,6 +1,6 @@
 package slog4s
 
-import cats.FlatMap
+import cats.{Applicative, FlatMap}
 import cats.syntax.flatMap._
 
 /**
@@ -77,6 +77,14 @@ trait WhenEnabledLogBuilder[F[_]] { self =>
           }
         }
       }
+    }
+  }
+}
+
+object WhenEnabledLogBuilder {
+  def noop[F[_]](implicit F: Applicative[F]): WhenEnabledLogBuilder[F] = {
+    new WhenEnabledLogBuilder[F] {
+      override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = F.unit
     }
   }
 }
