@@ -100,7 +100,7 @@ object Example extends App {
 
   val consoleRuntime: LoggingRuntime[Task] = ConsoleFactory[Task]
     .make(
-      Format.Plain,
+      Format.Json,
       ConsoleConfig.fixed(Level.Trace),
       MonixContextRuntimeBuilder
     )

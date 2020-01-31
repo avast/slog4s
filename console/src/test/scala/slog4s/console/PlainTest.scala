@@ -8,7 +8,7 @@ class PlainTest extends ConsoleLoggerTest[IO](Format.Plain) {
     makeIOFixture.use(fixture => IO(test(fixture))).unsafeRunSync()
   }
 
-  describe("Plaint console logger") {
+  describe("Plain console logger") {
     it_("shows message") { fixture =>
       import fixture._
       for {

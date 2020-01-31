@@ -50,8 +50,12 @@ lazy val console = (project in file("console"))
   )
   .settings(commonSettings)
   .settings(
-    libraryDependencies ++= Seq(catsCore, catsEffect),
-    libraryDependencies ++= Seq(scalaTest % Test)
+    libraryDependencies ++= Seq(catsCore, catsEffect, circeCore),
+    libraryDependencies ++= Seq(
+      scalaTest % Test,
+      circeLiteral % Test,
+      circeParser % Test
+    )
   )
   .dependsOn(
     api % "compile->compile;test->test",
