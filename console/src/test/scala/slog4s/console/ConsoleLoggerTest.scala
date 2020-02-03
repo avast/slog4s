@@ -74,7 +74,7 @@ abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
       val loggingRuntime = ConsoleFactory[IO]
         .withPrintStream(printStream)
         .make(
-          Format.Plain,
+          format,
           _ => level.get,
           contextRuntimeBuilder
         )

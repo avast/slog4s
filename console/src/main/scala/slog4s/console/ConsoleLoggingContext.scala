@@ -10,4 +10,11 @@ object ConsoleLoggingContext {
     import slog4s.console.internal.PlainFormatter._
     new MapLoggingContext()
   }
+
+  def json[F[_]](
+      implicit useContext: UseContext[F, JsonArgs]
+  ): LoggingContext[F] = {
+    import slog4s.console.internal.JsonFormatter._
+    new MapLoggingContext()
+  }
 }
