@@ -7,7 +7,7 @@ object Dependencies {
   lazy val circeCore = "io.circe" %% "circe-core" % "0.12.3"
   lazy val circeLiteral = "io.circe" %% "circe-literal" % "0.12.3" // used for test only
   lazy val circeParser = "io.circe" %% "circe-parser" % "0.12.3" // used for site only
-  lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.3.16"
+  lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.3.17"
   lazy val logback = "ch.qos.logback" % "logback-classic" % "1.2.3"
   lazy val logstash = "net.logstash.logback" % "logstash-logback-encoder" % "6.3"
   lazy val kindProjector = "org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full
