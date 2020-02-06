@@ -1,4 +1,3 @@
-
 options:
   - title: Overview
     url: overview.html
@@ -12,4 +11,4 @@ options:
       - title: Monix
         url: integrations/monix.html
       - title: ZIO
-          url: integrations/zio.html
+        url: integrations/zio.html
