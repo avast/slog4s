@@ -26,7 +26,9 @@ object ConsoleFactory {
   def apply[F[_]: Concurrent: Clock]: ConsoleFactoryBuilder[F] =
     new ConsoleFactoryBuilder[F](System.out)
 
-  final class ConsoleFactoryBuilder[F[_]](printStream: PrintStream)(
+  final class ConsoleFactoryBuilder[F[_]] private[console] (
+      printStream: PrintStream
+  )(
       implicit F: Concurrent[F],
       C: Clock[F]
   ) {
