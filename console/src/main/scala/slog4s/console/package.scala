@@ -13,8 +13,8 @@ package object console {
   }
 
   /**
-   * This is how our implementation actually expects contextual arguments for JSON format.
-   */
+    * This is how our implementation actually expects contextual arguments for JSON format.
+    */
   type JsonArgs = Map[String, Json]
   object JsonArgs {
     val empty: JsonArgs = Map.empty
