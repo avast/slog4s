@@ -21,8 +21,14 @@ import slog4s.shared.{
 }
 import slog4s.{Logger, LoggerFactory, LoggingContext}
 
+/**
+  * Factory used for console logging.
+  */
 object ConsoleFactory {
 
+  /**
+    * Bounds a builder to a specific effect type.
+    */
   def apply[F[_]: Concurrent: Clock]: ConsoleFactoryBuilder[F] =
     new ConsoleFactoryBuilder[F](System.out)
 
@@ -31,6 +37,9 @@ object ConsoleFactory {
       C: Clock[F]
   ) {
 
+    /**
+      * Makes a new console based [[slog4s.shared.LoggingRuntime]] with desired format.
+      */
     def make(
         format: Format,
         consoleConfig: ConsoleConfig[F],
@@ -53,6 +62,9 @@ object ConsoleFactory {
 
     }
 
+    /**
+      * Makes a new console based [[slog4s.shared.LoggingRuntime]] with plain format.
+      */
     def plain(consoleConfig: ConsoleConfig[F])(
         implicit asContext: AsContext[F, PlainArgs],
         useContext: UseContext[F, PlainArgs]
@@ -74,6 +86,9 @@ object ConsoleFactory {
       }
     }
 
+    /**
+      * Makes a new console based [[slog4s.shared.LoggingRuntime]] with JSON format.
+      */
     def json(consoleConfig: ConsoleConfig[F])(
         implicit asContext: AsContext[F, JsonArgs],
         useContext: UseContext[F, JsonArgs]
