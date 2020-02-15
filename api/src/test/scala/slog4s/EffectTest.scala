@@ -2,6 +2,7 @@ package slog4s
 
 import cats.effect.syntax.all._
 import cats.effect.{ConcurrentEffect, Sync, Timer}
+import cats.syntax.flatMap._
 import org.scalactic.source
 import org.scalatest.funspec.FixtureAnyFunSpec
 
@@ -22,6 +23,10 @@ abstract class EffectTest[F[_]] extends FixtureAnyFunSpec {
       F.toIO(f(fixture).timeout(timeout))
         .unsafeRunSync()
     }
+  }
+
+  def info_(message: String)(f: F[Unit])(implicit F: Sync[F]): F[Unit] = {
+    F.delay(info(message)) >> f
   }
 
   def validate(f: => Unit)(implicit F: Sync[F]): F[Unit] = {

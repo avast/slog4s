@@ -52,7 +52,9 @@ class PlainTest extends ConsoleLoggerTest[IO](Format.Plain) {
         _ <- logger.debug(testMessage)
         _ <- logger.info(testMessage)
         _ <- validateOutput { out =>
-          assert(out.trim === "1970-01-01T00:00:00Z [test-thread] INFO test-logger (TestFile.scala:42) : test message")
+          assert(
+            out.trim === "1970-01-01T00:00:00Z [test-thread] INFO test-logger (TestFile.scala:42) : test message"
+          )
         }
       } yield ()
     }
