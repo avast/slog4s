@@ -1,5 +1,8 @@
 package slog4s.shared
 
+/**
+  * Helper trait that is returned by [[slog4s.LoggingContext]] factories.
+  */
 trait ContextRuntime[F[_], T] {
   implicit def use: UseContext[F, T]
   implicit def as: AsContext[F, T]
