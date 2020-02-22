@@ -36,9 +36,7 @@ private[console] class PlainFormatter[F[_]: Sync](
         .append(" : ")
         .append(msg)
       printStream.println(builder.mkString)
-      throwable.foreach { value =>
-        value.printStackTrace(printStream)
-      }
+      throwable.foreach { value => value.printStackTrace(printStream) }
     }
 
   private def formattedLevel(level: Level): String = {
