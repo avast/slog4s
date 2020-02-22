@@ -151,6 +151,7 @@ lazy val site = (project in file("site"))
   .settings(publish / skip := true)
   .settings(micrositeSettings: _*)
   .settings(
+    addCompilerPlugin(kindProjector),
     // do not provide scaladoc for example
     unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(
       example
@@ -174,6 +175,6 @@ lazy val zio = (project in file("zio"))
 
 addCommandAlias(
   "check",
-  "; scalafmtSbtCheck; scalafmtCheckAll; doc; site/makeMdoc"
+  "; scalafmtSbtCheck; scalafmtCheckAll; doc; site/unidoc; site/makeMdoc"
 )
 addCommandAlias("fix", "; scalafmtSbt; scalafmtAll")
