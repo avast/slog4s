@@ -146,9 +146,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
     it("implements whenEnabled correctly when level if on") { fixture =>
       import fixture._
       selectLevel(makeLogger())
-        .whenEnabled { builder =>
-          builder.log("test")
-        }
+        .whenEnabled { builder => builder.log("test") }
         .unsafeRunSync()
       val result = selectRaw(rawLogger)
       result should matchTo(List(Message(locationMarker(), "test")))

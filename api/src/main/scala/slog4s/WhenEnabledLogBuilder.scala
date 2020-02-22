@@ -50,9 +50,7 @@ trait WhenEnabledLogBuilder[F[_]] { self =>
   ): WhenEnabledLogBuilder[F] = {
     new WhenEnabledLogBuilder[F] {
       override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = {
-        self { logBuilder =>
-          f(logBuilder.withArg(key, value))
-        }
+        self { logBuilder => f(logBuilder.withArg(key, value)) }
       }
     }
   }
@@ -72,9 +70,7 @@ trait WhenEnabledLogBuilder[F[_]] { self =>
     new WhenEnabledLogBuilder[F] {
       override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = {
         self { logBuilder =>
-          fv.flatMap { value =>
-            f(logBuilder.withArg(key, value))
-          }
+          fv.flatMap { value => f(logBuilder.withArg(key, value)) }
         }
       }
     }

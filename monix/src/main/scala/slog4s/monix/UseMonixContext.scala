@@ -12,9 +12,7 @@ object UseMonixContext {
     new UseContext[Task, T] {
 
       override def update[V](f: T => T)(fv: Task[V]): Task[V] = {
-        taskLocal.read.flatMap { old =>
-          taskLocal.bind(f(old))(fv)
-        }
+        taskLocal.read.flatMap { old => taskLocal.bind(f(old))(fv) }
       }
     }
 }
