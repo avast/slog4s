@@ -73,7 +73,7 @@ abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
       val level = Ref.unsafe[IO, Level](Level.Trace)
       val loggingRuntime = ConsoleFactory[IO]
         .withPrintStream(printStream)
-        .make(
+        .makeFromBuilder(
           format,
           _ => level.get,
           contextRuntimeBuilder

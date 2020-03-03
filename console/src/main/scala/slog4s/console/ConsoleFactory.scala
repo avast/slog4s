@@ -2,24 +2,16 @@ package slog4s.console
 
 import java.io.PrintStream
 
-import cats.effect.concurrent.Semaphore
 import cats.effect.{Clock, Concurrent}
 import cats.syntax.flatMap._
 import cats.syntax.functor._
-import io.circe.Json
-import slog4s.console.internal.{
-  ConsoleLogger,
-  JsonFormatter,
-  PlainFormatter,
-  SyncFormatter
-}
+import slog4s.console.internal._
 import slog4s.shared.{
   AsContext,
   ContextRuntimeBuilder,
   LoggingRuntime,
   UseContext
 }
-import slog4s.{Logger, LoggerFactory, LoggingContext}
 
 /**
   * Factory used for console logging.
@@ -42,7 +34,7 @@ object ConsoleFactory {
     /**
       * Makes a new console based [[slog4s.shared.LoggingRuntime]] with desired format.
       */
-    def make(
+    def makeFromBuilder(
         format: Format,
         consoleConfig: ConsoleConfig[F],
         contextRuntimeBuilder: ContextRuntimeBuilder[F]
@@ -70,22 +62,15 @@ object ConsoleFactory {
     def plain(consoleConfig: ConsoleConfig[F])(
         implicit asContext: AsContext[F, PlainArgs],
         useContext: UseContext[F, PlainArgs]
-    ): F[LoggingRuntime[F]] = Semaphore(1).map { semaphore =>
-      new LoggingRuntime[F] {
-        override val loggerFactory: LoggerFactory[F] = new LoggerFactory[F] {
-          import PlainFormatter._
-          private[this] val formatter =
-            new SyncFormatter(semaphore, new PlainFormatter(printStream))
-          override def make(name: String): Logger[F] =
-            new ConsoleLogger[F, String](
-              name,
-              consoleConfig,
-              formatter
-            )
-        }
-        override implicit def loggingContext: LoggingContext[F] =
+    ): F[LoggingRuntime[F]] = {
+      import PlainFormatter._
+      LoggingRuntimeImpl
+        .make(
+          consoleConfig,
+          new PlainFormatter(printStream),
           ConsoleLoggingContext.plain
-      }
+        )
+        .widen
     }
 
     /**
@@ -94,22 +79,15 @@ object ConsoleFactory {
     def json(consoleConfig: ConsoleConfig[F])(
         implicit asContext: AsContext[F, JsonArgs],
         useContext: UseContext[F, JsonArgs]
-    ): F[LoggingRuntime[F]] = Semaphore(1).map { semaphore =>
-      new LoggingRuntime[F] {
-        override val loggerFactory: LoggerFactory[F] = new LoggerFactory[F] {
-          import JsonFormatter._
-          private[this] val formatter =
-            new SyncFormatter(semaphore, new JsonFormatter(printStream))
-          override def make(name: String): Logger[F] =
-            new ConsoleLogger[F, Json](
-              name,
-              consoleConfig,
-              formatter
-            )
-        }
-        override implicit def loggingContext: LoggingContext[F] =
+    ): F[LoggingRuntime[F]] = {
+      import JsonFormatter._
+      LoggingRuntimeImpl
+        .make(
+          consoleConfig,
+          new JsonFormatter(printStream),
           ConsoleLoggingContext.json
-      }
+        )
+        .widen
     }
 
     private[console] def withPrintStream(

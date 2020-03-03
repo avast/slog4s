@@ -47,7 +47,7 @@ object Slf4jFactory {
       }
     }
 
-    def fromContextBuilder(
+    def makeFromBuilder(
         contextRuntimeBuilder: ContextRuntimeBuilder[F]
     ): F[LoggingRuntime[F]] = {
       contextRuntimeBuilder.make(Slf4jArgs.empty).map(make)
