@@ -5,7 +5,7 @@ import cats.syntax.flatMap._
 import cats.syntax.functor._
 import monix.eval.Task
 import monix.execution.schedulers.CanBlock
-import slog4s.console.{ConsoleConfig, ConsoleFactory, Format, Level}
+import slog4s.console._
 import slog4s.monix.MonixContextRuntimeBuilder
 import slog4s.shared.LoggingRuntime
 import slog4s.slf4j._
@@ -95,11 +95,11 @@ object Example extends App {
 
   val slf4jRuntime: LoggingRuntime[Task] = Slf4jFactory[Task]
     .withArg("app_version", "0.1.0")
-    .fromContextBuilder(MonixContextRuntimeBuilder)
+    .makeFromBuilder(MonixContextRuntimeBuilder)
     .runSyncUnsafe()
 
   val consoleRuntime: LoggingRuntime[Task] = ConsoleFactory[Task]
-    .make(
+    .makeFromBuilder(
       Format.Json,
       ConsoleConfig.fixed(Level.Trace),
       MonixContextRuntimeBuilder

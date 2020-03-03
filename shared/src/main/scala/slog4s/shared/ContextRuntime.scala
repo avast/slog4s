@@ -1,5 +1,7 @@
 package slog4s.shared
 
+import cats.Applicative
+
 /**
   * Helper trait that is returned by [[slog4s.LoggingContext]] factories.
   */
@@ -18,4 +20,17 @@ object ContextRuntime {
       override implicit val use: UseContext[F, T] = useContext
       override implicit val as: AsContext[F, T] = asContext
     }
+
+  def alwaysEmpty[F[_], T](
+      value: T
+  )(implicit F: Applicative[F]): ContextRuntime[F, T] = {
+    new ContextRuntime[F, T] {
+      override implicit val use: UseContext[F, T] = new UseContext[F, T] {
+        override def update[V](f: T => T)(fv: F[V]): F[V] = fv
+      }
+      override implicit val as: AsContext[F, T] = new AsContext[F, T] {
+        override def get: F[T] = F.pure(value)
+      }
+    }
+  }
 }

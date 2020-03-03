@@ -22,6 +22,6 @@ import slog4s.zio._
 import _root_.zio._
 
 def make(implicit F: Sync[Task]): Task[LoggingRuntime[Task]] = {
-  Slf4jFactory[Task].fromContextBuilder(ZIOContextRuntimeBuilder.Task)
+  Slf4jFactory[Task].makeFromBuilder(ZIOContextRuntimeBuilder.Task)
 }
 ```

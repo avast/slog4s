@@ -20,5 +20,5 @@ import slog4s.shared._
 import slog4s.monix._
 import slog4s.slf4j._
 
-Slf4jFactory[Task].fromContextBuilder(MonixContextRuntimeBuilder)
+Slf4jFactory[Task].makeFromBuilder(MonixContextRuntimeBuilder)
 ```
