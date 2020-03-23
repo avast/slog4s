@@ -171,7 +171,7 @@ lazy val zio = (project in file("zio"))
     )
   )
   .settings(commonSettings)
-  .dependsOn(api, shared)
+  .dependsOn(api, shared % "compile->compile;test->test")
 
 addCommandAlias(
   "check",
