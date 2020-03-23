@@ -14,14 +14,14 @@ backed by monix’s <code class="highlighter-rouge">TaskLocal</code>.</p>
 <span class="k">import</span> <span class="nn">slog4s.monix._</span>
 <span class="k">import</span> <span class="nn">slog4s.slf4j._</span>
 
-<span class="nc">Slf4jFactory</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">fromContextBuilder</span><span class="o">(</span><span class="nc">MonixContextRuntimeBuilder</span><span class="o">)</span>
+<span class="nc">Slf4jFactory</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">makeFromBuilder</span><span class="o">(</span><span class="nc">MonixContextRuntimeBuilder</span><span class="o">)</span>
 <span class="c1">// res0: Task[LoggingRuntime[Task]] = Map(</span>
 <span class="c1">//   ContextSwitch(</span>
-<span class="c1">//     Eval(monix.eval.TaskLocal$$$Lambda$6609/1418865882@4c48b207),</span>
-<span class="c1">//     monix.eval.TaskLocal$$$Lambda$6608/455747960@51aa394f,</span>
+<span class="c1">//     Eval(monix.eval.TaskLocal$$$Lambda$6721/1962844977@3a320550),</span>
+<span class="c1">//     monix.eval.TaskLocal$$$Lambda$6720/2136333811@72143706,</span>
 <span class="c1">//     null</span>
 <span class="c1">//   ),</span>
-<span class="c1">//   scala.Function1$$Lambda$101/2124643775@567dfb73,</span>
+<span class="c1">//   scala.Function1$$Lambda$68/296347592@12e1ea31,</span>
 <span class="c1">//   1</span>
 <span class="c1">// )</span>
 </code></pre></div></div>

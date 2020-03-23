@@ -5,8 +5,8 @@ mean we are limited to JVM or logback! Au contraire!</p>
 
 <p>Add new library dependencies to your <code class="highlighter-rouge">build.sbt</code></p>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-api"</span> <span class="o">%</span> <span class="s">"0.4.0"</span><span class="o">,</span> 
-                            <span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-slf4j"</span> <span class="o">%</span> <span class="s">"0.4.0"</span><span class="o">)</span>
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-api"</span> <span class="o">%</span> <span class="s">"0.5.0"</span><span class="o">,</span> 
+                            <span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-slf4j"</span> <span class="o">%</span> <span class="s">"0.5.0"</span><span class="o">)</span>
 </code></pre></div></div>
 
 <p>We will be using logback with <a href="https://github.com/logstash/logstash-logback-encoder">logstash encoder</a>. So make sure 
@@ -35,9 +35,9 @@ it’s in your dependency list and it’s configured properly.</p>
 can create a named <code class="highlighter-rouge">Logger</code>.</p>
 
 <div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">val</span> <span class="nv">loggerFactory</span> <span class="k">=</span> <span class="nc">Slf4jFactory</span><span class="o">[</span><span class="kt">IO</span><span class="o">].</span><span class="py">withoutContext</span><span class="o">.</span><span class="py">loggerFactory</span>
-<span class="c1">// loggerFactory: LoggerFactory[IO] = slog4s.slf4j.Slf4jFactory$WithoutContextBuilder$$anon$3@701bcef7</span>
+<span class="c1">// loggerFactory: LoggerFactory[IO] = slog4s.slf4j.Slf4jFactory$WithoutContextBuilder$$anon$3@2dc0c2a6</span>
 <span class="k">val</span> <span class="nv">logger</span> <span class="k">=</span> <span class="nv">loggerFactory</span><span class="o">.</span><span class="py">make</span><span class="o">(</span><span class="s">"test-logger"</span><span class="o">)</span>
-<span class="c1">// logger: Logger[IO] = slog4s.slf4j.Slf4jLogger@21c76cfb</span>
+<span class="c1">// logger: Logger[IO] = slog4s.slf4j.Slf4jLogger@6d36f742</span>
 </code></pre></div></div>
 
 <p>It’s finally time to log something!</p>
@@ -47,7 +47,7 @@ can create a named <code class="highlighter-rouge">Logger</code>.</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-02-22T08:52:45.677Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-23T11:23:37.244Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"correlation_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"generated-correlation-id"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"contextual-logging.md"</span><span class="p">,</span><span class="w">
@@ -68,7 +68,7 @@ We can also provide an exception:</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-02-22T08:52:46.202Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-23T11:23:39.278Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"index.md"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
@@ -92,7 +92,7 @@ We can also provide an exception:</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-02-22T08:52:46.206Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-23T11:23:39.282Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"index.md"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"ERROR"</span><span class="p">,</span><span class="w">

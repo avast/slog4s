@@ -16,7 +16,7 @@ backed by ZIO’s <code class="highlighter-rouge">FiberRef</code>.</p>
 <span class="k">import</span> <span class="nn">_root_.zio._</span>
 
 <span class="k">def</span> <span class="nf">make</span><span class="o">(</span><span class="k">implicit</span> <span class="n">F</span><span class="k">:</span> <span class="kt">Sync</span><span class="o">[</span><span class="kt">Task</span><span class="o">])</span><span class="k">:</span> <span class="kt">Task</span><span class="o">[</span><span class="kt">LoggingRuntime</span><span class="o">[</span><span class="kt">Task</span><span class="o">]]</span> <span class="k">=</span> <span class="o">{</span>
-  <span class="nc">Slf4jFactory</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">fromContextBuilder</span><span class="o">(</span><span class="nv">ZIOContextRuntimeBuilder</span><span class="o">.</span><span class="py">Task</span><span class="o">)</span>
+  <span class="nc">Slf4jFactory</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">makeFromBuilder</span><span class="o">(</span><span class="nv">ZIOContextRuntimeBuilder</span><span class="o">.</span><span class="py">Task</span><span class="o">)</span>
 <span class="o">}</span>
 </code></pre></div></div>
 </section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/slog4s/highlight/highlight.pack.js"></script><script>
