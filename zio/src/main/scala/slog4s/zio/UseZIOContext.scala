@@ -8,9 +8,7 @@ object UseZIOContext {
     new UseContext[ZIO[R, E, *], T] {
 
       override def update[V](f: T => T)(fv: ZIO[R, E, V]): ZIO[R, E, V] = {
-        fiberRef.get.flatMap { old =>
-          fiberRef.locally(f(old))(fv)
-        }
+        fiberRef.get.flatMap { old => fiberRef.locally(f(old))(fv) }
       }
     }
 }
