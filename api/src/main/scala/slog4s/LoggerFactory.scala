@@ -16,6 +16,6 @@ trait LoggerFactory[F[_]] {
 
 object LoggerFactory {
 
-  def noop[F[_]: Applicative]: LoggerFactory[F] = Function.const(Logger.noop[F])
+  def noop[F[_]: Applicative]: LoggerFactory[F] = (_: String) => Logger.noop[F]
 
 }
