@@ -29,7 +29,7 @@ lazy val root = (project in file("."))
     name := "slog4s",
     crossScalaVersions := Nil
   )
-  .aggregate(api, console, example, generic, monix, slf4j)
+  .aggregate(api, console, example, generic, monix, slf4j, shared, zio)
 
 lazy val api = (project in file("api"))
   .settings(
@@ -171,7 +171,7 @@ lazy val zio = (project in file("zio"))
     )
   )
   .settings(commonSettings)
-  .dependsOn(api, shared)
+  .dependsOn(api, shared % "compile->compile;test->test")
 
 addCommandAlias(
   "check",
