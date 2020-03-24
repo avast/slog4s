@@ -76,9 +76,16 @@ class DerivationTest extends AnyFunSpec {
       it("sealed trait") {
         sealed trait Tmp
         object Tmp {
-          case class Value(value: Int)
+          case class Value(value: Int) extends Tmp
         }
         test(Tmp.Value(42), Map("value" -> 42))
+      }
+      it("sealed trait (case object)") {
+        sealed trait Foo
+        case object Bar extends Foo
+        case object Baz extends Foo
+        test(Bar, "Bar")
+        test(Baz, "Baz")
       }
     }
   }
