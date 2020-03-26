@@ -70,22 +70,19 @@ class DerivationTest extends AnyFunSpec {
         )
       }
       it("case class") {
-        case class Tmp(value: List[Int])
-        test(Tmp(List(42)), Map("value" -> List(42)))
+        import TestClasses.CaseClass
+        test(CaseClass(List(42)), Map("value" -> List(42)))
       }
       it("sealed trait") {
-        sealed trait Tmp
-        object Tmp {
-          case class Value(value: Int) extends Tmp
-        }
-        test(Tmp.Value(42), Map("value" -> 42))
+        import TestClasses.SealedTrait
+        test[SealedTrait](SealedTrait.Value(42), Map("value" -> 42))
       }
       it("sealed trait (case object)") {
         sealed trait Foo
         case object Bar extends Foo
         case object Baz extends Foo
-        test(Bar, "Bar")
-        test(Baz, "Baz")
+        test[Foo](Baz, "Baz")
+        test[Foo](Bar, "Bar")
       }
     }
   }
@@ -115,4 +112,14 @@ class DerivationTest extends AnyFunSpec {
     override def array(values: Iterable[Any]): Any = values
   }
 
+}
+
+object TestClasses {
+
+  case class CaseClass(value: List[Int])
+
+  sealed trait SealedTrait
+  object SealedTrait {
+    case class Value(value: Int) extends SealedTrait
+  }
 }
