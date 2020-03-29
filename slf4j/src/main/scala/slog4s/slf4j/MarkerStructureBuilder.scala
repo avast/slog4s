@@ -17,7 +17,7 @@ private[slf4j] object MarkerStructureBuilder {
       override def string(value: String): Any = value
 
       override def structure(name: String, attributes: Map[String, Any]): Any =
-        attributes.asJava
+        (attributes.updated("type", name)).asJava
 
       override def option(value: Option[Any]): Any = value.orNull
 
