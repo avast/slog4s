@@ -75,7 +75,11 @@ class DerivationTest extends AnyFunSpec {
       }
       it("sealed trait") {
         import TestClasses.SealedTrait
-        test[SealedTrait](SealedTrait.Value(42), Map("value" -> 42))
+        test(SealedTrait.Value(42), Map("value" -> 42))
+        test[SealedTrait](
+          SealedTrait.Value(42),
+          Map("value" -> 42, "type" -> "Value")
+        )
       }
       it("sealed trait (case object)") {
         sealed trait Foo
@@ -103,7 +107,7 @@ class DerivationTest extends AnyFunSpec {
     override def string(value: String): Any = value
 
     override def structure(name: String, attributes: Map[String, Any]): Any =
-      attributes
+      attributes.updated("type", name)
 
     override def option(value: Option[Any]): Any = value.orNull
 
