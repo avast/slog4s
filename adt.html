@@ -6,7 +6,7 @@ automatic derivation.</p>
 
 <h2 id="installation">Installation</h2>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-generic"</span> <span class="o">%</span> <span class="s">"0.5.1"</span><span class="o">)</span> 
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-generic"</span> <span class="o">%</span> <span class="s">"0.5.2"</span><span class="o">)</span> 
 </code></pre></div></div>
 
 <h2 id="example">Example</h2>
@@ -32,21 +32,15 @@ automatic derivation.</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-24T15:08:57.592Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-30T08:52:58.760Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bool_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"index.md"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"correlation_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"generated-correlation-id"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"contextual-logging.md"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">57</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"list_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
-    </span><span class="mi">1</span><span class="p">,</span><span class="w">
-    </span><span class="mi">2</span><span class="p">,</span><span class="w">
-    </span><span class="mi">3</span><span class="w">
-  </span><span class="p">],</span><span class="w">
-  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Message with arguments"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"string_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;VALUE&gt;"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">37</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"bar"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hellow from bar!"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
@@ -74,7 +68,7 @@ semi automatic derivation for that:</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-24T15:09:00.290Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-30T08:53:01.176Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"bar"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"barValue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
@@ -117,7 +111,7 @@ as a real map/dictionary. Otherwise we represent it as an array of key/value pai
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-24T15:09:00.305Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-30T08:53:01.191Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"bar"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"barValue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
@@ -145,7 +139,7 @@ as a real map/dictionary. Otherwise we represent it as an array of key/value pai
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-24T15:09:00.508Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-30T08:53:01.397Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"bar"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"42"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w">
