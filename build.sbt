@@ -159,6 +159,16 @@ lazy val site = (project in file("site"))
   )
   .dependsOn(api, generic, monix, slf4j, siteUtils, zio)
 
+lazy val testkit = (project in file("testkit"))
+  .settings(
+    name := "slog4s-testkit",
+    libraryDependencies ++= Seq(
+      Dependencies.catsEffect
+    )
+  )
+  .settings(commonSettings)
+  .dependsOn(api % "compile->compile;test->test", shared)
+
 lazy val zio = (project in file("zio"))
   .settings(
     addCompilerPlugin(kindProjector),

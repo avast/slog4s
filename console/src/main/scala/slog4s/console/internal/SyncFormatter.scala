@@ -3,8 +3,7 @@ package slog4s.console.internal
 import java.time.Instant
 
 import cats.effect.concurrent.Semaphore
-import slog4s.Location
-import slog4s.console.Level
+import slog4s.{Level, Location}
 
 private[console] class SyncFormatter[F[_], T](
     semaphore: Semaphore[F],

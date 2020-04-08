@@ -9,7 +9,7 @@ import slog4s.console._
 import slog4s.monix.MonixContextRuntimeBuilder
 import slog4s.shared.LoggingRuntime
 import slog4s.slf4j._
-import slog4s.{LoggerFactory, LoggingContext}
+import slog4s.{Level, LoggerFactory, LoggingContext}
 
 class Example[F[_]](
     loggerFactory: LoggerFactory[F],

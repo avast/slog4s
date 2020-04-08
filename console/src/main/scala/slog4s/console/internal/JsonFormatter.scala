@@ -5,8 +5,8 @@ import java.time.Instant
 
 import cats.effect.Sync
 import io.circe.Json
-import slog4s.console.{JsonArgs, Level}
-import slog4s.{Location, StructureBuilder}
+import slog4s.console.JsonArgs
+import slog4s.{Level, Location, StructureBuilder}
 
 private[console] class JsonFormatter[F[_]: Sync](printStream: PrintStream)
     extends Formatter[F, Json] {

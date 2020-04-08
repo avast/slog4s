@@ -4,8 +4,7 @@ import java.io.PrintStream
 import java.time.Instant
 
 import cats.effect.Sync
-import slog4s.console.Level
-import slog4s.{Location, StructureBuilder}
+import slog4s.{Level, Location, StructureBuilder}
 
 private[console] class PlainFormatter[F[_]: Sync](
     printStream: PrintStream
