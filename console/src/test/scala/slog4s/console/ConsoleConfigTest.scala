@@ -5,7 +5,7 @@ import cats.syntax.functor._
 import cats.syntax.flatMap._
 import org.scalactic.source.Position
 import org.scalatest.Outcome
-import slog4s.EffectTest
+import slog4s.{EffectTest, Level}
 import slog4s.console.ConsoleConfigTest.Fixture
 
 import scala.concurrent.ExecutionContext

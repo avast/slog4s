@@ -1,4 +1,4 @@
-package slog4s.console
+package slog4s
 
 import cats.Order
 import cats.instances.int._
@@ -6,7 +6,7 @@ import cats.instances.int._
 /**
   * Describes a log severity level.
   */
-sealed abstract class Level(private[console] val value: Int)
+sealed abstract class Level(private[slog4s] val value: Int)
 object Level {
   case object Trace extends Level(10)
   case object Debug extends Level(20)

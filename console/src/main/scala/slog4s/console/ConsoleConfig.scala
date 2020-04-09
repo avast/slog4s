@@ -2,6 +2,7 @@ package slog4s.console
 
 import cats.Applicative
 import cats.effect.Sync
+import slog4s.Level
 import slog4s.console.internal.StructuredConsoleConfig
 
 /**

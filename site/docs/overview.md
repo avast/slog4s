@@ -13,3 +13,4 @@ position: 0
 - `slog4s-monix`: provides implementation of `LoggingContext` specialised for [Monix](https://monix.io/)
 - `slog4s-slf4j`: [slf4j](http://www.slf4j.org/) and [logstash-encoder](https://github.com/logstash/logstash-logback-encoder)
 specific implementation of the logging API
+- `slog4s-testkit`: provides mock implementation of API that can be used by unit tests

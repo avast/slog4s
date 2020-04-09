@@ -2,8 +2,9 @@ package slog4s.console.internal
 
 import cats.data.NonEmptyList
 import cats.effect.Sync
+import slog4s.Level
+import slog4s.console.ConsoleConfig
 import slog4s.console.internal.StructuredConsoleConfig.Node
-import slog4s.console.{ConsoleConfig, Level}
 
 private[console] class StructuredConsoleConfig[F[_]](
     rootNode: Node

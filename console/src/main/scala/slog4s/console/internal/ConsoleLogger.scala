@@ -8,7 +8,7 @@ import cats.syntax.flatMap._
 import cats.syntax.functor._
 import cats.syntax.order._
 import slog4s._
-import slog4s.console.{ConsoleConfig, Level}
+import slog4s.console.ConsoleConfig
 import slog4s.shared.AsContext
 
 private[console] class ConsoleLogger[F[_]: Sync: Clock, T: StructureBuilder](

@@ -4,6 +4,7 @@ import cats.effect.IO
 import io.circe.Json
 import io.circe.literal._
 import org.scalatest.{Inside, Outcome}
+import slog4s.Level
 
 class JsonTest extends ConsoleLoggerTest[IO](Format.Json) with Inside {
   override protected def withFixture(test: OneArgTest): Outcome = {

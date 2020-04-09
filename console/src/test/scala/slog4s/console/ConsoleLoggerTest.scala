@@ -1,23 +1,21 @@
 package slog4s.console
 
 import java.io.{ByteArrayOutputStream, PrintStream}
-import java.util.concurrent.{Executors, ThreadFactory, TimeUnit}
+import java.util.concurrent.{Executors, ThreadFactory}
 
-import cats.Monad
 import cats.effect.concurrent.Ref
-import cats.effect.{Clock, ConcurrentEffect, IO, Resource, Sync, Timer}
+import cats.effect.{ConcurrentEffect, IO, Resource, Timer}
 import cats.syntax.all._
-import slog4s.console.ConsoleLoggerTest.{Fixture, MockClock, Output}
+import slog4s.console.ConsoleLoggerTest.{Fixture, Output}
 import slog4s.shared.{
   AsContext,
   ContextRuntime,
   ContextRuntimeBuilder,
   UseContext
 }
-import slog4s.{EffectTest, Location, LoggerFactory, LoggingContext}
+import slog4s._
 
 import scala.concurrent.ExecutionContext
-import scala.concurrent.duration.{Duration, TimeUnit}
 
 abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
   override protected def asEffect(
@@ -115,29 +113,6 @@ object ConsoleLoggerTest {
 
   trait Output[F[_]] {
     def get: F[String]
-  }
-
-  class MockClock[F[_]](val real: Ref[F, Long], val mono: Ref[F, Long])(
-      implicit F: Monad[F]
-  ) extends Clock[F] {
-    def moveForward(duration: Duration): F[Unit] = {
-      val value = duration.toMillis
-      real.update(_ + value) >> mono.update(_ + value).void
-    }
-
-    override def realTime(unit: TimeUnit): F[Long] =
-      real.get.map(Duration(_, TimeUnit.MILLISECONDS).toUnit(unit).toLong)
-    override def monotonic(unit: TimeUnit): F[Long] =
-      mono.get.map(Duration(_, TimeUnit.MILLISECONDS).toUnit(unit).toLong)
-  }
-
-  object MockClock {
-    def make[F[_]: Sync]: F[MockClock[F]] = {
-      for {
-        mono <- Ref.of(0L)
-        real <- Ref.of(0L)
-      } yield new MockClock(mono, real)
-    }
   }
 
 }

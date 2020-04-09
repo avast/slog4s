@@ -2,6 +2,7 @@ package slog4s.console
 
 import cats.effect.IO
 import org.scalatest.Outcome
+import slog4s.Level
 
 class PlainTest extends ConsoleLoggerTest[IO](Format.Plain) {
   override protected def withFixture(test: OneArgTest): Outcome = {
