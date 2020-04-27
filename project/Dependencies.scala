@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
   lazy val catsCore = "org.typelevel" %% "cats-core" % "2.1.1"
-  lazy val catsEffect = "org.typelevel" %% "cats-effect" % "2.1.2"
+  lazy val catsEffect = "org.typelevel" %% "cats-effect" % "2.1.3"
   lazy val catsMtl = "org.typelevel" %% "cats-mtl-core" % "0.7.1"
   lazy val circeCore = "io.circe" %% "circe-core" % "0.13.0"
   lazy val circeLiteral =
@@ -20,7 +20,7 @@ object Dependencies {
     "org.scalameta" %% "mdoc" % "2.0.3" excludeAll (ExclusionRule(
       organization = "org.slf4j"
     ))
-  lazy val monixDependency = "io.monix" %% "monix" % "3.1.0"
+  lazy val monixDependency = "io.monix" %% "monix" % "3.2.0"
   lazy val scalaCollectionCompat =
     "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.6"
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.1.1"
