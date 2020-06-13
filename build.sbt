@@ -74,7 +74,10 @@ lazy val example = (project in file("example"))
 lazy val generic = (project in file("generic"))
   .settings(
     name := "slog4s-generic",
-    libraryDependencies += magnolia,
+    libraryDependencies ++= Seq(
+      magnolia,
+      "org.scala-lang" % "scala-reflect" % scalaVersion.value % Provided
+    ),
     libraryDependencies ++= Seq(
       scalaTest % Test
     )
