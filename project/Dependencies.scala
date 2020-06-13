@@ -9,10 +9,10 @@ object Dependencies {
     "io.circe" %% "circe-literal" % "0.13.0" // used for test only
   lazy val circeParser =
     "io.circe" %% "circe-parser" % "0.13.0" // used for site only
-  lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.3.20"
+  lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.3.28"
   lazy val logback = "ch.qos.logback" % "logback-classic" % "1.2.3"
   lazy val logstash =
-    "net.logstash.logback" % "logstash-logback-encoder" % "6.3"
+    "net.logstash.logback" % "logstash-logback-encoder" % "6.4"
   lazy val kindProjector =
     "org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full
   lazy val magnolia = "com.propensive" %% "magnolia" % "0.12.8"
@@ -20,10 +20,10 @@ object Dependencies {
     "org.scalameta" %% "mdoc" % "2.0.3" excludeAll (ExclusionRule(
       organization = "org.slf4j"
     ))
-  lazy val monixDependency = "io.monix" %% "monix" % "3.2.0"
+  lazy val monixDependency = "io.monix" %% "monix" % "3.2.2"
   lazy val scalaCollectionCompat =
     "org.scala-lang.modules" %% "scala-collection-compat" % "2.1.6"
-  lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.1.1"
+  lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.1.2"
   lazy val slf4jDepedency = "org.slf4j" % "slf4j-api" % "1.7.30"
   lazy val sourcecode = "com.lihaoyi" %% "sourcecode" % "0.2.1"
   lazy val zioDependency = "dev.zio" %% "zio" % "1.0.0-RC17"
