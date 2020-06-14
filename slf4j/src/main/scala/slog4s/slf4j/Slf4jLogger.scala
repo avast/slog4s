@@ -25,25 +25,6 @@ private[slf4j] class Slf4jLogger[F[_]](
       doLog: DoLog,
       isLogEnabled: IsLogEnabled
   ) extends LevelLogBuilder[F] {
-    override def apply(msg: String)(implicit location: Location): F[Unit] =
-      self.log(doLog, isLogEnabled, Map.empty, msg, null, location)
-
-    override def apply(ex: Throwable, msg: String)(
-        implicit location: Location
-    ): F[Unit] =
-      self.log(doLog, isLogEnabled, Map.empty, msg, ex, location)
-
-    override def withArg[T: LogEncoder](
-        key: String,
-        value: => T
-    ): LogBuilder[F] = {
-      new Log(
-        Map(key -> (() => LogEncoder[T].encode(value))),
-        doLog,
-        isLogEnabled
-      )
-    }
-
     override def whenEnabled: WhenEnabledLogBuilder[F] =
       new WhenEnabled(isLogEnabled, new Log(Map.empty, doLog, isLogEnabled))
   }

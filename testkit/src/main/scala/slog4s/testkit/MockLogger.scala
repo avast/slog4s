@@ -4,7 +4,6 @@ import java.io.PrintStream
 import java.time.Instant
 import java.util.concurrent.TimeUnit
 
-import cats.data.Chain
 import cats.effect.concurrent.Ref
 import cats.effect.{Clock, Sync}
 import cats.syntax.flatMap._
@@ -99,18 +98,6 @@ private class LogEventBuilder[F[_]: Monad: Clock](
 private class MockLevelLogBuilder[F[_]](
     logEventBuilder: LogEventBuilder[F]
 ) extends LevelLogBuilder[F] {
-  override def apply(msg: String)(implicit location: Location): F[Unit] =
-    logEventBuilder.make(msg, None, Map.empty)
-
-  override def apply(ex: Throwable, msg: String)(
-      implicit location: Location
-  ): F[Unit] = logEventBuilder.make(msg, Some(ex), Map.empty)
-
-  override def withArg[T: LogEncoder](key: String, value: => T): LogBuilder[F] =
-    new MockLogBuilder(
-      logEventBuilder,
-      Map(key -> LogEncoder[T].encode(value)(ArgumentStructureBuilder))
-    )
   override def whenEnabled: WhenEnabledLogBuilder[F] =
     new MockWhenEnabledLogBuilder(logEventBuilder)
 }
