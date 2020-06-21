@@ -27,6 +27,6 @@ object Dependencies {
   lazy val slf4jDepedency = "org.slf4j" % "slf4j-api" % "1.7.30"
   lazy val sourcecode = "com.lihaoyi" %% "sourcecode" % "0.2.1"
   lazy val zioDependency = "dev.zio" %% "zio" % "1.0.0-RC20"
-  lazy val zioInterop = "dev.zio" %% "zio-interop-cats" % "2.1.3.0-RC15"
+  lazy val zioInterop = "dev.zio" %% "zio-interop-cats" % "2.1.3.0-RC16"
 
 }
