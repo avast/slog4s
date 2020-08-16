@@ -15,7 +15,7 @@ object Dependencies {
     "net.logstash.logback" % "logstash-logback-encoder" % "6.4"
   lazy val kindProjector =
     "org.typelevel" %% "kind-projector" % "0.11.0" cross CrossVersion.full
-  lazy val magnolia = "com.propensive" %% "magnolia" % "0.16.0"
+  lazy val magnolia = "com.propensive" %% "magnolia" % "0.17.0"
   lazy val libmdoc =
     "org.scalameta" %% "mdoc" % "2.0.3" excludeAll (ExclusionRule(
       organization = "org.slf4j"
