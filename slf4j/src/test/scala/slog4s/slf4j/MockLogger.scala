@@ -1,7 +1,6 @@
 package slog4s.slf4j
 
 import cats.PartialOrder
-import cats.instances.int._
 import cats.syntax.partialOrder._
 import org.slf4j.{Logger, Marker}
 import slog4s.slf4j.MockLogger.{Level, Message}

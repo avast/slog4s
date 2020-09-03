@@ -6,7 +6,6 @@ import slog4s.{LogEncoder, StructureBuilder}
 
 class DerivationTest extends AnyFunSpec {
   import auto._
-  import cats.instances.all._
 
   describe("LogEncoder") {
     describe("is derived for") {

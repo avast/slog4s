@@ -1,7 +1,6 @@
 package slog4s
 
 import cats.Order
-import cats.instances.int._
 
 /**
   * Describes a log severity level.
