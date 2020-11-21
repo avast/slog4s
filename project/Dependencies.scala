@@ -20,7 +20,7 @@ object Dependencies {
     "org.scalameta" %% "mdoc" % "2.0.3" excludeAll (ExclusionRule(
       organization = "org.slf4j"
     ))
-  lazy val monixDependency = "io.monix" %% "monix" % "3.2.2"
+  lazy val monixDependency = "io.monix" %% "monix" % "3.3.0"
   lazy val scalaCollectionCompat =
     "org.scala-lang.modules" %% "scala-collection-compat" % "2.3.0"
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.2.1"
