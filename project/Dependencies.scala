@@ -1,7 +1,7 @@
 import sbt._
 
 object Dependencies {
-  lazy val catsCore = "org.typelevel" %% "cats-core" % "2.1.1"
+  lazy val catsCore = "org.typelevel" %% "cats-core" % "2.2.0"
   lazy val catsEffect = "org.typelevel" %% "cats-effect" % "2.2.0"
   lazy val catsMtl = "org.typelevel" %% "cats-mtl-core" % "0.7.1"
   lazy val circeCore = "io.circe" %% "circe-core" % "0.13.0"
@@ -26,7 +26,7 @@ object Dependencies {
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.2.1"
   lazy val slf4jDepedency = "org.slf4j" % "slf4j-api" % "1.7.30"
   lazy val sourcecode = "com.lihaoyi" %% "sourcecode" % "0.2.1"
-  lazy val zioDependency = "dev.zio" %% "zio" % "1.0.0-RC20"
-  lazy val zioInterop = "dev.zio" %% "zio-interop-cats" % "2.1.3.0-RC15"
+  lazy val zioDependency = "dev.zio" %% "zio" % "1.0.3"
+  lazy val zioInterop = "dev.zio" %% "zio-interop-cats" % "2.2.0.1"
 
 }
