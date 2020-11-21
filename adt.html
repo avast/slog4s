@@ -6,7 +6,7 @@ automatic derivation.</p>
 
 <h2 id="installation">Installation</h2>
 
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-generic"</span> <span class="o">%</span> <span class="s">"0.5.2"</span><span class="o">)</span> 
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">libraryDependencies</span> <span class="o">++=</span> <span class="nc">Seq</span><span class="o">(</span><span class="s">"com.avast"</span> <span class="o">%%</span> <span class="s">"slog4s-generic"</span> <span class="o">%</span> <span class="s">"0.6.0"</span><span class="o">)</span> 
 </code></pre></div></div>
 
 <h2 id="example">Example</h2>
@@ -32,15 +32,20 @@ automatic derivation.</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-30T08:52:58.760Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-21T09:22:18.853Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"correlation_id"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"generated-correlation-id"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"contextual-logging.md"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"bar"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+    </span><span class="nl">"barValue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"foo"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nl">"fooValue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello!"</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">},</span><span class="w">
+  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"adt.md"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">37</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"bar"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hellow from bar!"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">43</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Logging bar instance"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">
 </span><span class="p">}</span><span class="w">
 </span></code></pre></div></div>
@@ -68,7 +73,7 @@ semi automatic derivation for that:</p>
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-30T08:53:01.176Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-21T09:22:18.909Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"bar"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"barValue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
@@ -79,7 +84,7 @@ semi automatic derivation for that:</p>
   </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"adt.md"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">43</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">65</span><span class="p">,</span><span class="w">
   </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Logging bar instance"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">
@@ -111,35 +116,7 @@ as a real map/dictionary. Otherwise we represent it as an array of key/value pai
 
 <p>Output:</p>
 <div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-30T08:53:01.191Z"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"bar"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-    </span><span class="nl">"barValue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">42</span><span class="p">,</span><span class="w">
-    </span><span class="nl">"foo"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
-      </span><span class="nl">"fooValue"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello!"</span><span class="w">
-    </span><span class="p">}</span><span class="w">
-  </span><span class="p">},</span><span class="w">
-  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"adt.md"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">65</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Logging bar instance"</span><span class="p">,</span><span class="w">
-  </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">
-</span><span class="p">}</span><span class="w">
-</span></code></pre></div></div>
-
-<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="k">class</span> <span class="nc">OtherKey</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
-
-<span class="nv">logger</span><span class="o">.</span><span class="py">info</span>
-      <span class="o">.</span><span class="py">withArg</span><span class="o">(</span><span class="s">"foo"</span><span class="o">,</span> <span class="nc">Map</span><span class="o">(</span><span class="nc">OtherKey</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="s">"value"</span><span class="o">))</span>
-      <span class="o">.</span><span class="py">log</span><span class="o">(</span><span class="s">"Hello world"</span><span class="o">)</span>
-      <span class="o">.</span><span class="py">unsafeRunSync</span><span class="o">()</span>
-</code></pre></div></div>
-
-<p>Output:</p>
-<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
-  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-03-30T08:53:01.397Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-21T09:22:19.214Z"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"bar"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
     </span><span class="nl">"42"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"value"</span><span class="w">
@@ -154,6 +131,37 @@ as a real map/dictionary. Otherwise we represent it as an array of key/value pai
   </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
   </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">90</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<div class="language-scala highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">case</span> <span class="k">class</span> <span class="nc">OtherKey</span><span class="o">(</span><span class="n">x</span><span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">y</span><span class="k">:</span> <span class="kt">Int</span><span class="o">)</span>
+
+<span class="nv">logger</span><span class="o">.</span><span class="py">info</span>
+      <span class="o">.</span><span class="py">withArg</span><span class="o">(</span><span class="s">"foo"</span><span class="o">,</span> <span class="nc">Map</span><span class="o">(</span><span class="nc">OtherKey</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span><span class="mi">2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="s">"value"</span><span class="o">))</span>
+      <span class="o">.</span><span class="py">log</span><span class="o">(</span><span class="s">"Hello world"</span><span class="o">)</span>
+      <span class="o">.</span><span class="py">unsafeRunSync</span><span class="o">()</span>
+</code></pre></div></div>
+
+<p>Output:</p>
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+  </span><span class="nl">"@timestamp"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"2020-11-21T09:22:19.227Z"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"@version"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"1"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"file"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"adt.md"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"foo"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+    </span><span class="p">[</span><span class="w">
+      </span><span class="p">{</span><span class="w">
+        </span><span class="nl">"x"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w">
+        </span><span class="nl">"y"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">2</span><span class="w">
+      </span><span class="p">},</span><span class="w">
+      </span><span class="s2">"value"</span><span class="w">
+    </span><span class="p">]</span><span class="w">
+  </span><span class="p">],</span><span class="w">
+  </span><span class="nl">"level"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"INFO"</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"level_value"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">20000</span><span class="p">,</span><span class="w">
+  </span><span class="nl">"line"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="mi">102</span><span class="p">,</span><span class="w">
   </span><span class="nl">"logger_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"test-logger"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"message"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"Hello world"</span><span class="p">,</span><span class="w">
   </span><span class="nl">"thread_name"</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="s2">"run-main-0"</span><span class="w">

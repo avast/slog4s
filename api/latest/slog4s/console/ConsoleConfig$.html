@@ -122,10 +122,6 @@
                         <a class="object" href="package$$JsonArgs$.html" title=""></a>
                         <a href="package$$JsonArgs$.html" title="">JsonArgs</a>
                       </li><li class="current-entities indented2">
-                        <a class="object" href="Level$.html" title=""></a>
-                        <a class="class" href="Level.html" title="Describes a log severity level."></a>
-                        <a href="Level.html" title="Describes a log severity level.">Level</a>
-                      </li><li class="current-entities indented2">
                         <span class="separator"></span>
                         <a class="object" href="package$$PlainArgs$.html" title=""></a>
                         <a href="package$$PlainArgs$.html" title="">PlainArgs</a>
@@ -359,9 +355,9 @@
               
         </dd></dl></div>
     </li><li name="slog4s.console.ConsoleConfig#fixed" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
-      <a id="fixed[F[_]](fixedLevel:slog4s.console.Level)(implicitF:cats.Applicative[F]):slog4s.console.ConsoleConfig[F]"></a><a id="fixed[F[_]](Level)(Applicative[F]):ConsoleConfig[F]"></a>
+      <a id="fixed[F[_]](fixedLevel:slog4s.Level)(implicitF:cats.Applicative[F]):slog4s.console.ConsoleConfig[F]"></a><a id="fixed[F[_]](Level)(Applicative[F]):ConsoleConfig[F]"></a>
       <span class="permalink">
-      <a href="../../slog4s/console/ConsoleConfig$.html#fixed[F[_]](fixedLevel:slog4s.console.Level)(implicitF:cats.Applicative[F]):slog4s.console.ConsoleConfig[F]" title="Permalink">
+      <a href="../../slog4s/console/ConsoleConfig$.html#fixed[F[_]](fixedLevel:slog4s.Level)(implicitF:cats.Applicative[F]):slog4s.console.ConsoleConfig[F]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -370,7 +366,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">fixed</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="fixedLevel">fixedLevel: <a href="Level.html" class="extype" name="slog4s.console.Level">Level</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<span class="extype" name="slog4s.console.ConsoleConfig.fixed.F">F</span>]</span>)</span><span class="result">: <a href="ConsoleConfig.html" class="extype" name="slog4s.console.ConsoleConfig">ConsoleConfig</a>[<span class="extype" name="slog4s.console.ConsoleConfig.fixed.F">F</span>]</span>
+        <span class="name">fixed</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="fixedLevel">fixedLevel: <a href="../Level.html" class="extype" name="slog4s.Level">Level</a></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="F">F: <a href="http://typelevel.org/cats/api/cats/Applicative.html#cats.Applicative" class="extype" name="cats.Applicative">Applicative</a>[<span class="extype" name="slog4s.console.ConsoleConfig.fixed.F">F</span>]</span>)</span><span class="result">: <a href="ConsoleConfig.html" class="extype" name="slog4s.console.ConsoleConfig">ConsoleConfig</a>[<span class="extype" name="slog4s.console.ConsoleConfig.fixed.F">F</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a <a href="ConsoleConfig.html" class="extype" name="slog4s.console.ConsoleConfig">ConsoleConfig</a> that returns given log level for all loggers.</p>
@@ -483,9 +479,9 @@
               
         </dd></dl></div>
     </li><li name="slog4s.console.ConsoleConfig#structured" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
-      <a id="structured[F[_]](rootLevel:slog4s.console.Level,levels:Map[String,slog4s.console.Level])(implicitevidence$1:cats.effect.Sync[F]):slog4s.console.ConsoleConfig[F]"></a><a id="structured[F[_]](Level,Map[String,Level])(Sync[F]):ConsoleConfig[F]"></a>
+      <a id="structured[F[_]](rootLevel:slog4s.Level,levels:Map[String,slog4s.Level])(implicitevidence$1:cats.effect.Sync[F]):slog4s.console.ConsoleConfig[F]"></a><a id="structured[F[_]](Level,Map[String,Level])(Sync[F]):ConsoleConfig[F]"></a>
       <span class="permalink">
-      <a href="../../slog4s/console/ConsoleConfig$.html#structured[F[_]](rootLevel:slog4s.console.Level,levels:Map[String,slog4s.console.Level])(implicitevidence$1:cats.effect.Sync[F]):slog4s.console.ConsoleConfig[F]" title="Permalink">
+      <a href="../../slog4s/console/ConsoleConfig$.html#structured[F[_]](rootLevel:slog4s.Level,levels:Map[String,slog4s.Level])(implicitevidence$1:cats.effect.Sync[F]):slog4s.console.ConsoleConfig[F]" title="Permalink">
         <i class="material-icons"></i>
       </a>
     </span>
@@ -494,7 +490,7 @@
         <span class="kind">def</span>
       </span>
       <span class="symbol">
-        <span class="name">structured</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="rootLevel">rootLevel: <a href="Level.html" class="extype" name="slog4s.console.Level">Level</a></span>, <span name="levels">levels: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="Level.html" class="extype" name="slog4s.console.Level">Level</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="https://javadoc.io/page/org.typelevel/cats-effect_2.12/2.1.2/cats/effect/Sync.html#cats.effect.Sync" class="extype" name="cats.effect.Sync">Sync</a>[<span class="extype" name="slog4s.console.ConsoleConfig.structured.F">F</span>]</span>)</span><span class="result">: <a href="ConsoleConfig.html" class="extype" name="slog4s.console.ConsoleConfig">ConsoleConfig</a>[<span class="extype" name="slog4s.console.ConsoleConfig.structured.F">F</span>]</span>
+        <span class="name">structured</span><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="params">(<span name="rootLevel">rootLevel: <a href="../Level.html" class="extype" name="slog4s.Level">Level</a></span>, <span name="levels">levels: <span class="extype" name="scala.Predef.Map">Map</span>[<span class="extype" name="scala.Predef.String">String</span>, <a href="../Level.html" class="extype" name="slog4s.Level">Level</a>]</span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="https://javadoc.io/page/org.typelevel/cats-effect_2.12/2.2.0/cats/effect/Sync.html#cats.effect.Sync" class="extype" name="cats.effect.Sync">Sync</a>[<span class="extype" name="slog4s.console.ConsoleConfig.structured.F">F</span>]</span>)</span><span class="result">: <a href="ConsoleConfig.html" class="extype" name="slog4s.console.ConsoleConfig">ConsoleConfig</a>[<span class="extype" name="slog4s.console.ConsoleConfig.structured.F">F</span>]</span>
       </span>
       
       <p class="shortcomment cmt">Creates a <a href="ConsoleConfig.html" class="extype" name="slog4s.console.ConsoleConfig">ConsoleConfig</a> that is based on a concept of parent logger.</p><div class="fullcomment"><div class="comment cmt"><p>Creates a <a href="ConsoleConfig.html" class="extype" name="slog4s.console.ConsoleConfig">ConsoleConfig</a> that is based on a concept of parent logger.

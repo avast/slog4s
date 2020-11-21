@@ -197,6 +197,22 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="slog4s">slog4s</a></dd></dl></div>
+    </li><li name="slog4s.testkit" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="testkit"></a><a id="testkit:testkit"></a>
+      <span class="permalink">
+      <a href="../slog4s/testkit/index.html" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">package</span>
+      </span>
+      <span class="symbol">
+        <a title="" href="testkit/index.html"><span class="name">testkit</span></a>
+      </span>
+      
+      <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="slog4s">slog4s</a></dd></dl></div>
     </li><li name="slog4s.zio" visbl="pub" class="indented2 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="zio"></a><a id="zio:zio"></a>
       <span class="permalink">
@@ -214,6 +230,14 @@
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd><a href="index.html" class="extype" name="slog4s">slog4s</a></dd></dl></div>
     </li><li class="current-entities indented1">
+                        <span class="separator"></span>
+                        <a class="trait" href="ArgLogBuilder.html" title="A part of logging API for a specific logging level."></a>
+                        <a href="ArgLogBuilder.html" title="A part of logging API for a specific logging level.">ArgLogBuilder</a>
+                      </li><li class="current-entities indented1">
+                        <a class="object" href="Level$.html" title=""></a>
+                        <a class="class" href="Level.html" title="Describes a log severity level."></a>
+                        <a href="Level.html" title="Describes a log severity level.">Level</a>
+                      </li><li class="current-entities indented1">
                         <a class="object" href="LevelLogBuilder$.html" title=""></a>
                         <a class="trait" href="" title="Top level logging API for a specific logging level."></a>
                         <a href="" title="Top level logging API for a specific logging level.">LevelLogBuilder</a>
@@ -333,39 +357,7 @@
 
         <div class="values members">
               <h3>Abstract Value Members</h3>
-              <ol><li name="slog4s.LevelLogBuilder#apply" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="apply(ex:Throwable,msg:String)(implicitlocation:slog4s.Location):F[Unit]"></a><a id="apply(Throwable,String)(Location):F[Unit]"></a>
-      <span class="permalink">
-      <a href="../slog4s/LevelLogBuilder.html#apply(ex:Throwable,msg:String)(implicitlocation:slog4s.Location):F[Unit]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="ex">ex: <a href="../scala/index.html#Throwable=Throwable" class="extmbr" name="scala.Throwable">Throwable</a></span>, <span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="location">location: <a href="Location.html" class="extype" name="slog4s.Location">Location</a></span>)</span><span class="result">: <span class="extype" name="slog4s.LevelLogBuilder.F">F</span>[<a href="https://www.scala-lang.org/api/2.12.10/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Log simple message with an exception and no message specific structured argument.</p><div class="fullcomment"><div class="comment cmt"><p>Log simple message with an exception and no message specific structured argument.</p></div><dl class="paramcmts block"><dt class="param">ex</dt><dd class="cmt"><p>exception to be logged</p></dd><dt class="param">msg</dt><dd class="cmt"><p>message to be logged</p></dd></dl></div>
-    </li><li name="slog4s.LevelLogBuilder#apply" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="apply(msg:String)(implicitlocation:slog4s.Location):F[Unit]"></a><a id="apply(String)(Location):F[Unit]"></a>
-      <span class="permalink">
-      <a href="../slog4s/LevelLogBuilder.html#apply(msg:String)(implicitlocation:slog4s.Location):F[Unit]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">apply</span><span class="params">(<span name="msg">msg: <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="location">location: <a href="Location.html" class="extype" name="slog4s.Location">Location</a></span>)</span><span class="result">: <span class="extype" name="slog4s.LevelLogBuilder.F">F</span>[<a href="https://www.scala-lang.org/api/2.12.10/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Log simple message with no exception nor message specific structured argument.</p><div class="fullcomment"><div class="comment cmt"><p>Log simple message with no exception nor message specific structured argument.</p></div><dl class="paramcmts block"><dt class="param">msg</dt><dd class="cmt"><p>message to be logged</p></dd></dl></div>
-    </li><li name="slog4s.LevelLogBuilder#whenEnabled" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
+              <ol><li name="slog4s.LevelLogBuilder#whenEnabled" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="whenEnabled:slog4s.WhenEnabledLogBuilder[F]"></a><a id="whenEnabled:WhenEnabledLogBuilder[F]"></a>
       <span class="permalink">
       <a href="../slog4s/LevelLogBuilder.html#whenEnabled:slog4s.WhenEnabledLogBuilder[F]" title="Permalink">
@@ -381,22 +373,6 @@
       </span>
       
       <p class="shortcomment cmt">Gets an instance of <a href="WhenEnabledLogBuilder.html" class="extype" name="slog4s.WhenEnabledLogBuilder">WhenEnabledLogBuilder</a> associated with current logging level.</p><div class="fullcomment"><div class="comment cmt"><p>Gets an instance of <a href="WhenEnabledLogBuilder.html" class="extype" name="slog4s.WhenEnabledLogBuilder">WhenEnabledLogBuilder</a> associated with current logging level.</p></div><dl class="paramcmts block"><dt>returns</dt><dd class="cmt"><p>an instance of <a href="WhenEnabledLogBuilder.html" class="extype" name="slog4s.WhenEnabledLogBuilder">WhenEnabledLogBuilder</a></p></dd></dl></div>
-    </li><li name="slog4s.LevelLogBuilder#withArg" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
-      <a id="withArg[T](key:String,value:=&gt;T)(implicitevidence$1:slog4s.LogEncoder[T]):slog4s.LogBuilder[F]"></a><a id="withArg[T](String,⇒T)(LogEncoder[T]):LogBuilder[F]"></a>
-      <span class="permalink">
-      <a href="../slog4s/LevelLogBuilder.html#withArg[T](key:String,value:=&gt;T)(implicitevidence$1:slog4s.LogEncoder[T]):slog4s.LogBuilder[F]" title="Permalink">
-        <i class="material-icons"></i>
-      </a>
-    </span>
-      <span class="modifier_kind">
-        <span class="modifier">abstract </span>
-        <span class="kind">def</span>
-      </span>
-      <span class="symbol">
-        <span class="name">withArg</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: ⇒ <span class="extype" name="slog4s.LevelLogBuilder.withArg.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="LogEncoder.html" class="extype" name="slog4s.LogEncoder">LogEncoder</a>[<span class="extype" name="slog4s.LevelLogBuilder.withArg.T">T</span>]</span>)</span><span class="result">: <a href="LogBuilder.html" class="extype" name="slog4s.LogBuilder">LogBuilder</a>[<span class="extype" name="slog4s.LevelLogBuilder.F">F</span>]</span>
-      </span>
-      
-      <p class="shortcomment cmt">Extends current logging statement with structured data.</p><div class="fullcomment"><div class="comment cmt"><p>Extends current logging statement with structured data.</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of structured argument. It needs to implement <a href="LogEncoder.html" class="extype" name="slog4s.LogEncoder">LogEncoder</a> typeclass.</p></dd><dt class="param">key</dt><dd class="cmt"><p>name of the argument</p></dd><dt class="param">value</dt><dd class="cmt"><p>value to be used as structured argument</p></dd><dt>returns</dt><dd class="cmt"><p>a new <a href="LogBuilder.html" class="extype" name="slog4s.LogBuilder">LogBuilder</a> instance containing provided structured argument</p></dd></dl></div>
     </li></ol>
             </div>
 
@@ -451,6 +427,38 @@
       </span>
       
       <div class="fullcomment"><dl class="attributes block"> <dt>Definition Classes</dt><dd>AnyRef → Any</dd></dl></div>
+    </li><li name="slog4s.LevelLogBuilder#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(ex:Throwable,msg:=&gt;String)(implicitlocation:slog4s.Location):F[Unit]"></a><a id="apply(Throwable,⇒String)(Location):F[Unit]"></a>
+      <span class="permalink">
+      <a href="../slog4s/LevelLogBuilder.html#apply(ex:Throwable,msg:=&gt;String)(implicitlocation:slog4s.Location):F[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="ex">ex: <a href="../scala/index.html#Throwable=Throwable" class="extmbr" name="scala.Throwable">Throwable</a></span>, <span name="msg">msg: ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="location">location: <a href="Location.html" class="extype" name="slog4s.Location">Location</a></span>)</span><span class="result">: <span class="extype" name="slog4s.LevelLogBuilder.F">F</span>[<a href="https://www.scala-lang.org/api/2.12.10/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Log simple message with an exception and no message specific structured argument.</p><div class="fullcomment"><div class="comment cmt"><p>Log simple message with an exception and no message specific structured argument.</p></div><dl class="paramcmts block"><dt class="param">ex</dt><dd class="cmt"><p>exception to be logged</p></dd><dt class="param">msg</dt><dd class="cmt"><p>message to be logged</p></dd></dl></div>
+    </li><li name="slog4s.LevelLogBuilder#apply" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="apply(msg:=&gt;String)(implicitlocation:slog4s.Location):F[Unit]"></a><a id="apply(⇒String)(Location):F[Unit]"></a>
+      <span class="permalink">
+      <a href="../slog4s/LevelLogBuilder.html#apply(msg:=&gt;String)(implicitlocation:slog4s.Location):F[Unit]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">apply</span><span class="params">(<span name="msg">msg: ⇒ <span class="extype" name="scala.Predef.String">String</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="location">location: <a href="Location.html" class="extype" name="slog4s.Location">Location</a></span>)</span><span class="result">: <span class="extype" name="slog4s.LevelLogBuilder.F">F</span>[<a href="https://www.scala-lang.org/api/2.12.10/scala/Unit.html#scala.Unit" class="extype" name="scala.Unit">Unit</a>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Log simple message with no exception nor message specific structured argument.</p><div class="fullcomment"><div class="comment cmt"><p>Log simple message with no exception nor message specific structured argument.</p></div><dl class="paramcmts block"><dt class="param">msg</dt><dd class="cmt"><p>message to be logged</p></dd></dl></div>
     </li><li name="scala.Any#asInstanceOf" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
       <a id="asInstanceOf[T0]:T0"></a>
       <span class="permalink">
@@ -753,6 +761,22 @@
                 <span class="name">@native</span><span class="args">()</span>
               
         </dd></dl></div>
+    </li><li name="slog4s.LevelLogBuilder#withArg" visbl="pub" class="indented0 " data-isabs="false" fullComment="yes" group="Ungrouped">
+      <a id="withArg[T](key:String,value:=&gt;T)(implicitevidence$1:slog4s.LogEncoder[T]):slog4s.ArgLogBuilder[F]"></a><a id="withArg[T](String,⇒T)(LogEncoder[T]):ArgLogBuilder[F]"></a>
+      <span class="permalink">
+      <a href="../slog4s/LevelLogBuilder.html#withArg[T](key:String,value:=&gt;T)(implicitevidence$1:slog4s.LogEncoder[T]):slog4s.ArgLogBuilder[F]" title="Permalink">
+        <i class="material-icons"></i>
+      </a>
+    </span>
+      <span class="modifier_kind">
+        <span class="modifier"></span>
+        <span class="kind">def</span>
+      </span>
+      <span class="symbol">
+        <span class="name">withArg</span><span class="tparams">[<span name="T">T</span>]</span><span class="params">(<span name="key">key: <span class="extype" name="scala.Predef.String">String</span></span>, <span name="value">value: ⇒ <span class="extype" name="slog4s.LevelLogBuilder.withArg.T">T</span></span>)</span><span class="params">(<span class="implicit">implicit </span><span name="arg0">arg0: <a href="LogEncoder.html" class="extype" name="slog4s.LogEncoder">LogEncoder</a>[<span class="extype" name="slog4s.LevelLogBuilder.withArg.T">T</span>]</span>)</span><span class="result">: <a href="ArgLogBuilder.html" class="extype" name="slog4s.ArgLogBuilder">ArgLogBuilder</a>[<span class="extype" name="slog4s.LevelLogBuilder.F">F</span>]</span>
+      </span>
+      
+      <p class="shortcomment cmt">Extends current logging statement with structured data.</p><div class="fullcomment"><div class="comment cmt"><p>Extends current logging statement with structured data.</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type of structured argument. It needs to implement <a href="LogEncoder.html" class="extype" name="slog4s.LogEncoder">LogEncoder</a> typeclass.</p></dd><dt class="param">key</dt><dd class="cmt"><p>name of the argument</p></dd><dt class="param">value</dt><dd class="cmt"><p>value to be used as structured argument</p></dd><dt>returns</dt><dd class="cmt"><p>a new <a href="ArgLogBuilder.html" class="extype" name="slog4s.ArgLogBuilder">ArgLogBuilder</a> instance containing provided structured argument</p></dd></dl></div>
     </li>
               </ol>
             </div>

@@ -16,14 +16,44 @@ backed by monix’s <code class="highlighter-rouge">TaskLocal</code>.</p>
 
 <span class="nc">Slf4jFactory</span><span class="o">[</span><span class="kt">Task</span><span class="o">].</span><span class="py">makeFromBuilder</span><span class="o">(</span><span class="nc">MonixContextRuntimeBuilder</span><span class="o">)</span>
 <span class="c1">// res0: Task[LoggingRuntime[Task]] = Map(</span>
-<span class="c1">//   ContextSwitch(</span>
-<span class="c1">//     Eval(monix.eval.TaskLocal$$$Lambda$6714/1209678386@4f72ddf9),</span>
-<span class="c1">//     monix.eval.TaskLocal$$$Lambda$6713/1593701885@4044c752,</span>
-<span class="c1">//     null</span>
-<span class="c1">//   ),</span>
-<span class="c1">//   scala.Function1$$Lambda$101/1571967156@68f7720f,</span>
-<span class="c1">//   1</span>
-<span class="c1">// )</span>
+<span class="c1">//   Map(</span>
+<span class="c1">//     ContextSwitch(</span>
+<span class="c1">//       Eval(monix.eval.TaskLocal$$$Lambda$7021/1144470@3b52a786),</span>
+<span class="c1">//       monix.eval.TaskLocal$$$Lambda$7020/1987045044@558b30a7,</span>
+<span class="c1">//       null</span>
+<span class="c1">//     ),</span>
+<span class="c1">//     slog4s.monix.MonixContextRuntime$$$Lambda$7022/1142563273@27f7a23b,</span>
+<span class="c1">//     StackTrace(</span>
+<span class="c1">//       List(</span>
+<span class="c1">//         monix.eval.internal.TaskTracing$.buildFrame(TaskTracing.scala:52),</span>
+<span class="c1">//         monix.eval.internal.TaskTracing$.buildCachedFrame(TaskTracing.scala:43),</span>
+<span class="c1">//         monix.eval.internal.TaskTracing$.cached(TaskTracing.scala:38),</span>
+<span class="c1">//         monix.eval.Task.map(Task.scala:2027),</span>
+<span class="c1">//         slog4s.monix.MonixContextRuntime$.make(MonixContextRuntime.scala:17),</span>
+<span class="c1">//         slog4s.monix.MonixContextRuntimeBuilder$.make(MonixContextRuntimeBuilder.scala:9),</span>
+<span class="c1">//         slog4s.monix.MonixContextRuntimeBuilder$.make(MonixContextRuntimeBuilder.scala:6),</span>
+<span class="c1">//         slog4s.slf4j.Slf4jFactory$Slf4jFactoryBuilder.makeFromBuilder(Slf4jFactory.scala:50),</span>
+<span class="c1">//         repl.Session$App.&lt;init&gt;(monix.md:23),</span>
+<span class="c1">//         repl.Session$.app(monix.md:3),</span>
+<span class="c1">//         mdoc.internal.document.DocumentBuilder$$doc$.$anonfun$build$2(DocumentBuilder.scala:82),</span>
+<span class="c1">//         scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23),</span>
+<span class="c1">//         scala.util.DynamicVariable.withValue(DynamicVariable.scala:62),</span>
+<span class="c1">//         scala.Console$.withErr(Console.scala:196),</span>
+<span class="c1">//         mdoc.internal.document.DocumentBuilder$$doc$.$anonfun$build$1(DocumentBuilder.scala:82),</span>
+<span class="c1">//         scala.runtime.java8.JFunction0$mcV$sp.apply(JFunction0$mcV$sp.java:23),</span>
+<span class="c1">//         scala.util.DynamicVariable.withValue(DynamicVariable.scala:62),</span>
+<span class="c1">//         scala.Console$.withOut(Console.scala:167),</span>
+<span class="c1">//         mdoc.internal.document.DocumentBuilder$$doc$.build(DocumentBuilder.scala:81),</span>
+<span class="c1">//         mdoc.internal.markdown.MarkdownCompiler$.buildDocument(MarkdownCompiler.scala:53),</span>
+<span class="c1">//         mdoc.internal.markdown.Processor.processScalaInputs(Processor.scala:133),</span>
+<span class="c1">//         mdoc.internal.markdown.Processor.processDocument(Processor.scala:48),</span>
+<span class="c1">//         mdoc.internal.markdown.Markdown$.toMarkdown(Markdown.scala:118),</span>
+<span class="c1">//         mdoc.internal.cli.MainOps.handleMarkdown(MainOps.scala:62),</span>
+<span class="c1">//         mdoc.internal.cli.MainOps.handleFile(MainOps.scala:90),</span>
+<span class="c1">//         mdoc.internal.cli.MainOps.$anonfun$generateCompleteSite$1(MainOps.scala:130),</span>
+<span class="c1">//         scala.collection.LinearSeqOptimized.foldLeft(LinearSeqOptimized.scala:126),</span>
+<span class="c1">//         scala.collection.LinearSeqOptimized.foldLeft$(LinearSeqOptimized.scala:122),</span>
+<span class="c1">// ...</span>
 </code></pre></div></div>
 </section></div></div></div></div><script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script><script src="/slog4s/highlight/highlight.pack.js"></script><script>
 // For all code blocks, copy the language from the containing div
