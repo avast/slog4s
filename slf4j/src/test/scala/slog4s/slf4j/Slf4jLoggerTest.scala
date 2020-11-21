@@ -45,7 +45,10 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
 
   private def locationMarker(extraArgs: Slf4jArgs = Slf4jArgs.empty) =
     new MapEntriesAppendingMarker(
-      (Map(Slf4jLogger.FileKey -> sourceFile, Slf4jLogger.LineKey -> sourceLine) ++ extraArgs).asJava
+      (Map(
+        Slf4jLogger.FileKey -> sourceFile,
+        Slf4jLogger.LineKey -> sourceLine
+      ) ++ extraArgs).asJava
     )
 
   private def levelTest(
@@ -176,9 +179,8 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
       selectLevel(logger)("test").unsafeRunSync()
       val result = selectRaw(rawLogger)
       result should matchTo(List(Message(locationMarker(), "test")))
-      inside(result) {
-        case List(Message(Some(marker), "test", None, Nil)) =>
-          assert(marker.contains(userMarker))
+      inside(result) { case List(Message(Some(marker), "test", None, Nil)) =>
+        assert(marker.contains(userMarker))
       }
     }
 

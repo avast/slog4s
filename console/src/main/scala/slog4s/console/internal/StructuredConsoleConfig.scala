@@ -32,9 +32,8 @@ private[console] object StructuredConsoleConfig {
       levels: Map[String, Level]
   ): StructuredConsoleConfig[F] = {
     val nonEmptyLevels = levels
-      .map {
-        case (name, level) =>
-          NonEmptyList.fromListUnsafe(name.split('.').toList) -> level
+      .map { case (name, level) =>
+        NonEmptyList.fromListUnsafe(name.split('.').toList) -> level
       }
 
     val rootNode = Node(rootLevel, makeNode(rootLevel, nonEmptyLevels))
@@ -45,14 +44,13 @@ private[console] object StructuredConsoleConfig {
       rootLevel: Level,
       levels: Map[NonEmptyList[String], Level]
   ): Map[String, Node] = {
-    levels.groupBy(_._1.head).map {
-      case (name, values) =>
-        val selfLevel = values.getOrElse(NonEmptyList.one(name), rootLevel)
-        val childs = values.collect {
-          case (NonEmptyList(_, next :: rest), level) =>
-            NonEmptyList.of(next, rest: _*) -> level
+    levels.groupBy(_._1.head).map { case (name, values) =>
+      val selfLevel = values.getOrElse(NonEmptyList.one(name), rootLevel)
+      val childs =
+        values.collect { case (NonEmptyList(_, next :: rest), level) =>
+          NonEmptyList.of(next, rest: _*) -> level
         }
-        name -> Node(selfLevel, makeNode(selfLevel, childs))
+      name -> Node(selfLevel, makeNode(selfLevel, childs))
     }
   }
 }

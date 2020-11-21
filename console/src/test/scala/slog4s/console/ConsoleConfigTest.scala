@@ -32,8 +32,8 @@ class ConsoleConfigTest extends EffectTest[IO] {
       import fixture._
       val levels = Map("a.b.c" -> Level.Debug, "a.b" -> Level.Trace)
       val consoleConfig = ConsoleConfig.structured(Level.Info, levels)
-      def assertLevel(name: String, level: Level)(
-          implicit position: Position
+      def assertLevel(name: String, level: Level)(implicit
+          position: Position
       ): IO[Unit] =
         validateLevel(consoleConfig.level(name))(level)
       for {
@@ -55,8 +55,8 @@ class ConsoleConfigTest extends EffectTest[IO] {
 
 object ConsoleConfigTest {
   import org.scalatest.matchers.should.Matchers._
-  class Fixture[F[_]](
-      implicit val F: ConcurrentEffect[F],
+  class Fixture[F[_]](implicit
+      val F: ConcurrentEffect[F],
       val timer: Timer[F]
   ) {
     def validateLevel(

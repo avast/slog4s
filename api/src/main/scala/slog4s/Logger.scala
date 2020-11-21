@@ -2,8 +2,7 @@ package slog4s
 
 import cats.Applicative
 
-/**
-  * Basic Logger API. Provides different builders for different log levels.
+/** Basic Logger API. Provides different builders for different log levels.
   * @tparam F
   */
 trait Logger[F[_]] {

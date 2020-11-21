@@ -98,8 +98,8 @@ object ConsoleLoggerTest {
       val loggingContext: LoggingContext[F],
       val output: Output[F],
       val level: Ref[F, Level]
-  )(
-      implicit val F: ConcurrentEffect[F],
+  )(implicit
+      val F: ConcurrentEffect[F],
       val C: MockClock[F],
       val T: Timer[F]
   ) {

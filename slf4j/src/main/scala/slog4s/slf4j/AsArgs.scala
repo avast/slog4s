@@ -1,7 +1,6 @@
 package slog4s.slf4j
 
-/**
-  * Typeclass that extract [[Slf4jArgs]] from any value of type C provided by the context.
+/** Typeclass that extract [[Slf4jArgs]] from any value of type C provided by the context.
   *
   * @tparam C
   */

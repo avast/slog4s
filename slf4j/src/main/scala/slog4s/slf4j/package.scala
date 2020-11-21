@@ -2,8 +2,7 @@ package slog4s
 
 package object slf4j {
 
-  /**
-    * This is how our implementation actually expects contextual arguments.
+  /** This is how our implementation actually expects contextual arguments.
     */
   type Slf4jArgs = Map[String, Any]
   object Slf4jArgs {

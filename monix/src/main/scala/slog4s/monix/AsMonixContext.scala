@@ -5,8 +5,7 @@ import slog4s.shared.AsContext
 
 object AsMonixContext {
 
-  /**
-    * Makes an [[slog4s.shared.UseContext]] based on [[monix.eval.TaskLocal]].
+  /** Makes an [[slog4s.shared.UseContext]] based on [[monix.eval.TaskLocal]].
     * @param taskLocal
     */
   def make[T](taskLocal: TaskLocal[T]): AsContext[Task, T] =

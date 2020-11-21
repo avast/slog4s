@@ -3,8 +3,7 @@ package slog4s
 import cats.Order
 import cats.instances.int._
 
-/**
-  * Describes a log severity level.
+/** Describes a log severity level.
   */
 sealed abstract class Level(private[slog4s] val value: Int)
 object Level {

@@ -2,11 +2,10 @@ package slog4s.shared
 
 import slog4s._
 
-/**
-  * Common [[LoggingContext]] implementation. Should be good enough for the most of the use cases.
+/** Common [[LoggingContext]] implementation. Should be good enough for the most of the use cases.
   */
-class MapLoggingContext[F[_], O: StructureBuilder](
-    implicit useContext: UseContext[F, Map[String, O]]
+class MapLoggingContext[F[_], O: StructureBuilder](implicit
+    useContext: UseContext[F, Map[String, O]]
 ) extends LoggingContext[F] {
 
   override def withArg[T: LogEncoder](

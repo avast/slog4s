@@ -13,26 +13,23 @@ import slog4s.shared.{
   UseContext
 }
 
-/**
-  * Factory used for console logging.
+/** Factory used for console logging.
   */
 object ConsoleFactory {
 
-  /**
-    * Bounds a builder to a specific effect type.
+  /** Bounds a builder to a specific effect type.
     */
   def apply[F[_]: Concurrent: Clock]: ConsoleFactoryBuilder[F] =
     new ConsoleFactoryBuilder[F](System.out)
 
   final class ConsoleFactoryBuilder[F[_]] private[console] (
       printStream: PrintStream
-  )(
-      implicit F: Concurrent[F],
+  )(implicit
+      F: Concurrent[F],
       C: Clock[F]
   ) {
 
-    /**
-      * Makes a new console based [[slog4s.shared.LoggingRuntime]] with desired format.
+    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with desired format.
       */
     def makeFromBuilder(
         format: Format,
@@ -56,11 +53,10 @@ object ConsoleFactory {
 
     }
 
-    /**
-      * Makes a new console based [[slog4s.shared.LoggingRuntime]] with plain format.
+    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with plain format.
       */
-    def plain(consoleConfig: ConsoleConfig[F])(
-        implicit asContext: AsContext[F, PlainArgs],
+    def plain(consoleConfig: ConsoleConfig[F])(implicit
+        asContext: AsContext[F, PlainArgs],
         useContext: UseContext[F, PlainArgs]
     ): F[LoggingRuntime[F]] = {
       import PlainFormatter._
@@ -73,11 +69,10 @@ object ConsoleFactory {
         .widen
     }
 
-    /**
-      * Makes a new console based [[slog4s.shared.LoggingRuntime]] with JSON format.
+    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with JSON format.
       */
-    def json(consoleConfig: ConsoleConfig[F])(
-        implicit asContext: AsContext[F, JsonArgs],
+    def json(consoleConfig: ConsoleConfig[F])(implicit
+        asContext: AsContext[F, JsonArgs],
         useContext: UseContext[F, JsonArgs]
     ): F[LoggingRuntime[F]] = {
       import JsonFormatter._

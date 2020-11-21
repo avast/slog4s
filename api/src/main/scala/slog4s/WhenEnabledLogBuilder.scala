@@ -3,8 +3,7 @@ package slog4s
 import cats.syntax.flatMap._
 import cats.{Applicative, FlatMap}
 
-/**
-  * A part of logging API for a specific logging level. This trait is useful in case when
+/** A part of logging API for a specific logging level. This trait is useful in case when
   * logging becomes expensive. It allows one to perform logging only when we need to, and
   * not do anything when logging for specific combination of logger and logging level is
   * turned off.
@@ -13,8 +12,7 @@ import cats.{Applicative, FlatMap}
   */
 trait WhenEnabledLogBuilder[F[_]] { self =>
 
-  /**
-    * Basic building block. If target combination of logger and logging level is
+  /** Basic building block. If target combination of logger and logging level is
     * turned off, it return immediately, otherwise it executes provided callback.
     *
     * @param f callback to be used when logging is enabled
@@ -22,22 +20,19 @@ trait WhenEnabledLogBuilder[F[_]] { self =>
     */
   def apply(f: LogBuilder[F] => F[Unit]): F[Unit]
 
-  /**
-    * Log simple message with no exception nor message specific structured argument.
+  /** Log simple message with no exception nor message specific structured argument.
     * @param msg message to be logged
     */
   def log(msg: String)(implicit location: Location): F[Unit] = apply(_.log(msg))
 
-  /**
-    * Log simple message with an exception and no message specific structured argument.
+  /** Log simple message with an exception and no message specific structured argument.
     * @param msg message to be logged
     * @param ex exception to be logged
     */
   def log(ex: Throwable, msg: String)(implicit location: Location): F[Unit] =
     apply(_.log(ex, msg))
 
-  /**
-    * Extends current logging statement with structured data. This is lazy variant that checks
+  /** Extends current logging statement with structured data. This is lazy variant that checks
     * if target logging level is enabled before actually doing anything.
     * @param key name of the argument
     * @param value value to be used as structured argument
@@ -55,8 +50,7 @@ trait WhenEnabledLogBuilder[F[_]] { self =>
     }
   }
 
-  /**
-    * Extends current logging statement with structured argument. This argument might be expensive to
+  /** Extends current logging statement with structured argument. This argument might be expensive to
     * compute, so it's wrapped inside an effect. The effect is only evaluated if need, which means only
     * when target logging level is enabled.
     * @param key name of the argument

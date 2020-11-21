@@ -44,8 +44,8 @@ private class ConsoleWhenEnabledLogBuilder[F[_], O](
     level: Level,
     getCurrentLevel: F[Level],
     formatter: Formatter[F, O]
-)(
-    implicit F: Sync[F],
+)(implicit
+    F: Sync[F],
     C: Clock[F],
     O: StructureBuilder[O],
     asContext: AsContext[F, Map[String, O]]
@@ -104,8 +104,8 @@ private class ConsoleLogBuilder[F[_], O: StructureBuilder](
   override def log(msg: String)(implicit location: Location): F[Unit] =
     f(msg, None, args, location)
 
-  override def log(ex: Throwable, msg: String)(
-      implicit location: Location
+  override def log(ex: Throwable, msg: String)(implicit
+      location: Location
   ): F[Unit] = f(msg, Some(ex), args, location)
 
   override def withArg[T: LogEncoder](

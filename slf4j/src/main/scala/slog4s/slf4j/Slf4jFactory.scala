@@ -7,16 +7,13 @@ import slog4s.shared.{ContextRuntime, ContextRuntimeBuilder, LoggingRuntime}
 import slog4s.slf4j.MarkerStructureBuilder._
 import slog4s.{LogEncoder, Logger, LoggerFactory, LoggingContext}
 
-/**
-  * Slf4j backed [[slog4s.LoggerFactory]] instance. It's using logstash's
+/** Slf4j backed [[slog4s.LoggerFactory]] instance. It's using logstash's
   * [[net.logstash.logback.marker.MapEntriesAppendingMarker]] to represent structured arguments.
   * It can optionally add a user-defined children Marker that might be used for advanced filtering.
-  *
   */
 object Slf4jFactory {
 
-  /**
-    * Builder pattern for [[slog4s.slf4j.Slf4jFactory]]. Bounds to a specific effect type.
+  /** Builder pattern for [[slog4s.slf4j.Slf4jFactory]]. Bounds to a specific effect type.
     */
   def apply[F[_]: Sync]: Slf4jFactoryBuilder[F] =
     new Slf4jFactoryBuilder[F](Sync[F].pure(None), Map.empty)
@@ -24,8 +21,8 @@ object Slf4jFactory {
   final class Slf4jFactoryBuilder[F[_]] private[slf4j] (
       markerF: F[Option[Marker]],
       extraArgs: Slf4jArgs
-  )(
-      implicit F: Sync[F]
+  )(implicit
+      F: Sync[F]
   ) {
 
     def make(
@@ -53,8 +50,7 @@ object Slf4jFactory {
       contextRuntimeBuilder.make(Slf4jArgs.empty).map(make)
     }
 
-    /**
-      * Add structured argument to be used by all log statements created by this [[slog4s.LoggerFactory]].
+    /** Add structured argument to be used by all log statements created by this [[slog4s.LoggerFactory]].
       * Typically this will be used for application version and similar universally applicable values.
       */
     def withArg[T: LogEncoder](
@@ -67,14 +63,12 @@ object Slf4jFactory {
       )
     }
 
-    /**
-      * Use provided [[org.slf4j.Marker]] for each log message.
+    /** Use provided [[org.slf4j.Marker]] for each log message.
       */
     def withMarker(marker: F[Marker]): Slf4jFactoryBuilder[F] =
       withOptionalMarker(marker.map(Some(_)))
 
-    /**
-      * Use provided optional [[org.slf4j.Marker]] for each log message.
+    /** Use provided optional [[org.slf4j.Marker]] for each log message.
       */
     def withOptionalMarker(
         marker: F[Option[Marker]]

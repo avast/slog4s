@@ -2,8 +2,7 @@ package slog4s.shared
 
 import cats.Applicative
 
-/**
-  * Helper trait that is returned by [[slog4s.LoggingContext]] factories.
+/** Helper trait that is returned by [[slog4s.LoggingContext]] factories.
   */
 trait ContextRuntime[F[_], T] {
   implicit def use: UseContext[F, T]
@@ -11,8 +10,7 @@ trait ContextRuntime[F[_], T] {
 }
 
 object ContextRuntime {
-  def apply[F[_], T](
-      implicit
+  def apply[F[_], T](implicit
       useContext: UseContext[F, T],
       asContext: AsContext[F, T]
   ): ContextRuntime[F, T] =

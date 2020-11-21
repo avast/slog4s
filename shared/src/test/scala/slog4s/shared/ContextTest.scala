@@ -108,8 +108,8 @@ abstract class ContextTest[F[_]](runtimeName: String) extends EffectTest[F] {
 }
 
 object ContextTest {
-  final class Fixture[F[_]](
-      implicit val F: ConcurrentEffect[F],
+  final class Fixture[F[_]](implicit
+      val F: ConcurrentEffect[F],
       val T: Timer[F],
       val asContext: AsContext[F, Int],
       val useContext: UseContext[F, Int]

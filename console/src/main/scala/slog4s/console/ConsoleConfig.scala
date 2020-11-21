@@ -5,8 +5,7 @@ import cats.effect.Sync
 import slog4s.Level
 import slog4s.console.internal.StructuredConsoleConfig
 
-/**
-  * Simple method used to determine active log level for particular logger.
+/** Simple method used to determine active log level for particular logger.
   */
 trait ConsoleConfig[F[_]] {
   def level(name: String): F[Level]
@@ -14,8 +13,7 @@ trait ConsoleConfig[F[_]] {
 
 object ConsoleConfig {
 
-  /**
-    * Creates a [[ConsoleConfig]] that returns given log level for all loggers.
+  /** Creates a [[ConsoleConfig]] that returns given log level for all loggers.
     */
   def fixed[F[_]](
       fixedLevel: Level
@@ -23,8 +21,7 @@ object ConsoleConfig {
     override def level(name: String): F[Level] = F.pure(fixedLevel)
   }
 
-  /**
-    * Creates a [[ConsoleConfig]] that is based on a concept of parent logger.
+  /** Creates a [[ConsoleConfig]] that is based on a concept of parent logger.
     * Each logger level can be configured individually. If not configured, parent logger
     * configuration will be used. If it is not configured as well, we are searching all
     * the way up until we reach "root" logger.

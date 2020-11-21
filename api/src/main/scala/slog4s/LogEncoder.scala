@@ -4,15 +4,13 @@ import cats.syntax.contravariant._
 import cats.{Contravariant, Show}
 import slog4s.`export`.Exported
 
-/**
-  * Typeclass that is able to encode any value of T into logging friendly format.
+/** Typeclass that is able to encode any value of T into logging friendly format.
   * The type of logging format is determined by provided instance of [[StructureBuilder]].
   * @tparam T type to be encoded
   */
 trait LogEncoder[T] {
 
-  /**
-    * Encode value of T into desired value of type O that represents structured logging value.
+  /** Encode value of T into desired value of type O that represents structured logging value.
     * @param value to be encoded
     * @param structureBuilder instance of [[StructureBuilder]] typeclass used for building resulting value.
     * @tparam O type of target structured logging format
@@ -29,8 +27,8 @@ object LogEncoder extends HighPriorityLogEncoderImplicits {
       override def contramap[A, B](
           fa: LogEncoder[A]
       )(f: B => A): LogEncoder[B] = new LogEncoder[B] {
-        override def encode[O](value: B)(
-            implicit structureBuilder: StructureBuilder[O]
+        override def encode[O](value: B)(implicit
+            structureBuilder: StructureBuilder[O]
         ): O = fa.encode(f(value))
       }
     }
@@ -42,8 +40,8 @@ private[slog4s] trait HighPriorityLogEncoderImplicits
 
   implicit lazy val longEncoder: LogEncoder[Long] =
     new LogEncoder[Long] {
-      override def encode[O](value: Long)(
-          implicit structureBuilder: StructureBuilder[O]
+      override def encode[O](value: Long)(implicit
+          structureBuilder: StructureBuilder[O]
       ): O = structureBuilder.long(value)
     }
 
@@ -56,16 +54,16 @@ private[slog4s] trait HighPriorityLogEncoderImplicits
 
   implicit lazy val booleanEncoder: LogEncoder[Boolean] = {
     new LogEncoder[Boolean] {
-      override def encode[O](value: Boolean)(
-          implicit structureBuilder: StructureBuilder[O]
+      override def encode[O](value: Boolean)(implicit
+          structureBuilder: StructureBuilder[O]
       ): O = structureBuilder.boolean(value)
     }
   }
 
   implicit lazy val doubleEncoder: LogEncoder[Double] =
     new LogEncoder[Double] {
-      override def encode[O](value: Double)(
-          implicit structureBuilder: StructureBuilder[O]
+      override def encode[O](value: Double)(implicit
+          structureBuilder: StructureBuilder[O]
       ): O = structureBuilder.double(value)
     }
 
@@ -74,13 +72,13 @@ private[slog4s] trait HighPriorityLogEncoderImplicits
 
   implicit lazy val stringEncoder: LogEncoder[String] =
     new LogEncoder[String] {
-      override def encode[O](value: String)(
-          implicit structureBuilder: StructureBuilder[O]
+      override def encode[O](value: String)(implicit
+          structureBuilder: StructureBuilder[O]
       ): O = structureBuilder.string(value)
     }
 
-  implicit def iterableEncoder[T: LogEncoder, F[_]](
-      implicit ev: F[T] <:< Iterable[T]
+  implicit def iterableEncoder[T: LogEncoder, F[_]](implicit
+      ev: F[T] <:< Iterable[T]
   ): LogEncoder[F[T]] =
     new LogEncoder[F[T]] {
       override def encode[O](
@@ -99,12 +97,12 @@ private[slog4s] trait HighPriorityLogEncoderImplicits
       }
     }
 
-  implicit def tuple2Encoder[A, B](
-      implicit ev1: LogEncoder[A],
+  implicit def tuple2Encoder[A, B](implicit
+      ev1: LogEncoder[A],
       ev2: LogEncoder[B]
   ): LogEncoder[(A, B)] = new LogEncoder[(A, B)] {
-    override def encode[O](value: (A, B))(
-        implicit structureBuilder: StructureBuilder[O]
+    override def encode[O](value: (A, B))(implicit
+        structureBuilder: StructureBuilder[O]
     ): O = {
       structureBuilder.array(List(ev1.encode(value._1), ev2.encode(value._2)))
     }
@@ -125,8 +123,8 @@ private[slog4s] trait HighPriorityLogEncoderImplicits
       }
     }
 
-  implicit def fromExported[T](
-      implicit ev: Exported[LogEncoder[T]]
+  implicit def fromExported[T](implicit
+      ev: Exported[LogEncoder[T]]
   ): LogEncoder[T] = ev.value
 }
 
@@ -135,8 +133,8 @@ private[slog4s] trait LowPriorityLogEncoderImplicits {
       : LogEncoder[Map[K, V]] = {
     new LogEncoder[Map[K, V]] {
       private[this] val tupleEncoder = LogEncoder[(K, V)]
-      override def encode[O](value: Map[K, V])(
-          implicit structureBuilder: StructureBuilder[O]
+      override def encode[O](value: Map[K, V])(implicit
+          structureBuilder: StructureBuilder[O]
       ): O = {
         val tuples = value.map(tupleEncoder.encode(_))
         structureBuilder.array(tuples)

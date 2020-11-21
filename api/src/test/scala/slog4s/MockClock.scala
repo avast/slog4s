@@ -10,8 +10,8 @@ import cats.syntax.functor._
 
 import scala.concurrent.duration.Duration
 
-class MockClock[F[_]](val real: Ref[F, Long], val mono: Ref[F, Long])(
-    implicit F: Monad[F]
+class MockClock[F[_]](val real: Ref[F, Long], val mono: Ref[F, Long])(implicit
+    F: Monad[F]
 ) extends Clock[F] {
   def moveForward(duration: Duration): F[Unit] = {
     val value = duration.toMillis

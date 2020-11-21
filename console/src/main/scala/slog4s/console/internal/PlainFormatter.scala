@@ -61,13 +61,12 @@ private[console] class PlainFormatter[F[_]: Sync](
       ""
     } else {
       val builder = new StringBuilder()
-      args.foreach {
-        case (name, value) =>
-          builder
-            .append(" ")
-            .append(name)
-            .append("=")
-            .append(value)
+      args.foreach { case (name, value) =>
+        builder
+          .append(" ")
+          .append(name)
+          .append("=")
+          .append(value)
       }
       builder.mkString
     }

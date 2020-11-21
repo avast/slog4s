@@ -13,8 +13,8 @@ private[slf4j] class Slf4jLogger[F[_]](
     logger: org.slf4j.Logger,
     askContext: F[Slf4jArgs],
     extractMarker: F[Option[Marker]]
-)(
-    implicit F: Sync[F]
+)(implicit
+    F: Sync[F]
 ) extends Logger[F] { self =>
 
   private type Args = Map[String, () => Any]
@@ -34,8 +34,8 @@ private[slf4j] class Slf4jLogger[F[_]](
     override def log(msg: String)(implicit location: Location): F[Unit] =
       self.log(doLog, isLogEnabled, args, msg, null, location)
 
-    override def log(ex: Throwable, msg: String)(
-        implicit location: Location
+    override def log(ex: Throwable, msg: String)(implicit
+        location: Location
     ): F[Unit] =
       self.log(doLog, isLogEnabled, args, msg, ex, location)
 
@@ -81,8 +81,8 @@ private[slf4j] class Slf4jLogger[F[_]](
         if (isLogEnabled(maybeMarker.orNull)) {
           askContext.flatMap { context =>
             val allArgs = makeLocationArgs(location) ++ context ++ args
-              .map {
-                case (key, value) => key -> value()
+              .map { case (key, value) =>
+                key -> value()
               }
             val marker = new MapEntriesAppendingMarker(allArgs.asJava)
             maybeMarker.foreach(m => marker.add(m))

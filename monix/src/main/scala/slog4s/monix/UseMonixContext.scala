@@ -5,8 +5,7 @@ import slog4s.shared.UseContext
 
 object UseMonixContext {
 
-  /**
-    * Makes an [[slog4s.shared.UseContext]] based on [[monix.eval.TaskLocal]].
+  /** Makes an [[slog4s.shared.UseContext]] based on [[monix.eval.TaskLocal]].
     */
   def make[T](taskLocal: TaskLocal[T]): UseContext[Task, T] =
     new UseContext[Task, T] {

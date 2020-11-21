@@ -7,7 +7,9 @@ import slog4s.console.ConsoleConfig
 import slog4s.shared.{AsContext, LoggingRuntime}
 import slog4s.{Logger, LoggerFactory, LoggingContext, StructureBuilder}
 
-private[console] class LoggingRuntimeImpl[F[_]: Sync: Clock, T: StructureBuilder](
+private[console] class LoggingRuntimeImpl[F[
+    _
+]: Sync: Clock, T: StructureBuilder](
     consoleConfig: ConsoleConfig[F],
     semaphore: Semaphore[F],
     underlying: Formatter[F, T],
@@ -32,8 +34,8 @@ private[console] object LoggingRuntimeImpl {
       consoleConfig: ConsoleConfig[F],
       underlying: Formatter[F, T],
       context: LoggingContext[F]
-  )(
-      implicit asContext: AsContext[F, Map[String, T]]
+  )(implicit
+      asContext: AsContext[F, Map[String, T]]
   ): F[LoggingRuntimeImpl[F, T]] = {
     Semaphore[F](1).map { semaphore =>
       new LoggingRuntimeImpl(consoleConfig, semaphore, underlying, context)
