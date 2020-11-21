@@ -15,7 +15,7 @@ class ZIOContextRuntime[R, E, T] private (fiberRef: FiberRef[T])
 object ZIOContextRuntime {
   def make[R, E, T](empty: T): UIO[ZIOContextRuntime[R, E, T]] = {
     FiberRef
-      .make(empty, (first: T, _: T) => first)
+      .make(empty, join = (first: T, _: T) => first)
       .map(new ZIOContextRuntime(_))
   }
 }

@@ -1,7 +1,7 @@
 package slog4s
 
-import cats.{Applicative, FlatMap}
 import cats.syntax.flatMap._
+import cats.{Applicative, FlatMap}
 
 /**
   * A part of logging API for a specific logging level. This trait is useful in case when

@@ -3,9 +3,9 @@ package slog4s.zio
 import org.scalatest.Outcome
 import slog4s.shared.ContextTest
 import slog4s.shared.ContextTest.Fixture
+import zio.Task
 import zio.interop.catz._
 import zio.interop.catz.implicits._
-import zio.{Task, _}
 
 class ZIOContextTest extends ContextTest[Task]("ZIO") {
   override protected def withFixture(test: OneArgTest): Outcome = {
@@ -18,7 +18,6 @@ class ZIOContextTest extends ContextTest[Task]("ZIO") {
             Task.effect(test(fixture))
           }
       }
-    val runtime = new DefaultRuntime {}
-    runtime.unsafeRun(ops)
+    zio.Runtime.default.unsafeRun(ops)
   }
 }

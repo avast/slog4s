@@ -13,7 +13,8 @@ trait LevelLogBuilder[F[_]] {
     * @param msg message to be logged
     * @return
     */
-  def apply(msg: String)(implicit location: Location): F[Unit]
+  def apply(msg: => String)(implicit location: Location): F[Unit] =
+    whenEnabled(_.log(msg))
 
   /**
     * Log simple message with an exception and no message specific structured argument.
@@ -21,16 +22,20 @@ trait LevelLogBuilder[F[_]] {
     * @param ex exception to be logged
     * @return
     */
-  def apply(ex: Throwable, msg: String)(implicit location: Location): F[Unit]
+  def apply(ex: Throwable, msg: => String)(
+      implicit location: Location
+  ): F[Unit] =
+    whenEnabled(_.log(ex, msg))
 
   /**
     * Extends current logging statement with structured data.
     * @param key name of the argument
     * @param value value to be used as structured argument
     * @tparam T type of structured argument. It needs to implement [[LogEncoder]] typeclass.
-    * @return a new [[LogBuilder]] instance containing provided structured argument
+    * @return a new [[ArgLogBuilder]] instance containing provided structured argument
     */
-  def withArg[T: LogEncoder](key: String, value: => T): LogBuilder[F]
+  def withArg[T: LogEncoder](key: String, value: => T): ArgLogBuilder[F] =
+    new DeferredArgLogBuilder[F](whenEnabled.withArg(key, value))
 
   /**
     * Gets an instance of [[WhenEnabledLogBuilder]] associated with current logging level.
@@ -42,19 +47,6 @@ trait LevelLogBuilder[F[_]] {
 object LevelLogBuilder {
   def noop[F[_]](implicit F: Applicative[F]): LevelLogBuilder[F] =
     new LevelLogBuilder[F] {
-
-      override def apply(msg: String)(implicit location: Location): F[Unit] =
-        F.unit
-
-      override def apply(ex: Throwable, msg: String)(
-          implicit location: Location
-      ): F[Unit] = F.unit
-
-      override def withArg[T: LogEncoder](
-          key: String,
-          value: => T
-      ): LogBuilder[F] = LogBuilder.noop
-
       override val whenEnabled: WhenEnabledLogBuilder[F] =
         WhenEnabledLogBuilder.noop
     }

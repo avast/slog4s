@@ -28,33 +28,43 @@ private[console] class ConsoleLogger[F[_]: Sync: Clock, T: StructureBuilder](
   override val warn: LevelLogBuilder[F] = makeBuilder(Level.Warn)
 
   private def makeBuilder(level: Level): LevelLogBuilder[F] =
-    new ConsoleBuilder(
-      name,
-      level,
-      consoleConfig.level(name),
-      formatter,
-      Map.empty
-    )
-
+    new LevelLogBuilder[F] {
+      override val whenEnabled: WhenEnabledLogBuilder[F] =
+        new ConsoleWhenEnabledLogBuilder(
+          name,
+          level,
+          consoleConfig.level(name),
+          formatter
+        )
+    }
 }
 
-private class ConsoleBuilder[F[_], O](
+private class ConsoleWhenEnabledLogBuilder[F[_], O](
     name: String,
     level: Level,
     getCurrentLevel: F[Level],
-    formatter: Formatter[F, O],
-    args: Map[String, O]
+    formatter: Formatter[F, O]
 )(
     implicit F: Sync[F],
     C: Clock[F],
     O: StructureBuilder[O],
     asContext: AsContext[F, Map[String, O]]
-) extends LevelLogBuilder[F]
-    with LogBuilder[F] { self =>
+) extends WhenEnabledLogBuilder[F] {
+
+  private def checkLevel(f: => F[Unit]): F[Unit] = {
+    getCurrentLevel.flatMap { currentLevel =>
+      if (currentLevel <= level) {
+        f
+      } else {
+        F.unit
+      }
+    }
+  }
 
   private def format(
       msg: String,
       ex: Option[Throwable],
+      args: Map[String, O],
       location: Location
   ): F[Unit] = {
     for {
@@ -79,46 +89,32 @@ private class ConsoleBuilder[F[_], O](
     } yield ()
   }
 
-  private def checkLevel(f: => F[Unit]): F[Unit] = {
-    getCurrentLevel.flatMap { currentLevel =>
-      if (currentLevel <= level) {
-        f
-      } else {
-        F.unit
-      }
-    }
+  private[this] val logBuilder =
+    new ConsoleLogBuilder[F, O](Map.empty, format)
+  override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = {
+    checkLevel(f(logBuilder))
   }
+}
 
-  override def apply(msg: String)(implicit location: Location): F[Unit] =
-    log(msg)
-  override def apply(ex: Throwable, msg: String)(
-      implicit location: Location
-  ): F[Unit] = log(ex, msg)
-
-  override val whenEnabled: WhenEnabledLogBuilder[F] =
-    new WhenEnabledLogBuilder[F] {
-      override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = {
-        checkLevel(f(self))
-      }
-    }
+private class ConsoleLogBuilder[F[_], O: StructureBuilder](
+    args: Map[String, O],
+    f: (String, Option[Throwable], Map[String, O], Location) => F[Unit]
+) extends LogBuilder[F] {
 
   override def log(msg: String)(implicit location: Location): F[Unit] =
-    checkLevel(format(msg, None, location))
+    f(msg, None, args, location)
 
   override def log(ex: Throwable, msg: String)(
       implicit location: Location
-  ): F[Unit] = checkLevel(format(msg, Some(ex), location))
+  ): F[Unit] = f(msg, Some(ex), args, location)
 
   override def withArg[T: LogEncoder](
       key: String,
       value: => T
   ): LogBuilder[F] = {
-    new ConsoleBuilder(
-      name,
-      level,
-      getCurrentLevel,
-      formatter,
-      args.updated(key, LogEncoder[T].encode(value))
+    new ConsoleLogBuilder(
+      args.updated(key, LogEncoder[T].encode(value)),
+      f
     )
   }
 }
