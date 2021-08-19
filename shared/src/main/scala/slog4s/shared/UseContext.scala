@@ -3,8 +3,8 @@ package slog4s.shared
 import cats.kernel.Monoid
 import cats.mtl.ApplicativeLocal
 
-/** Simple typeclass used to inject contextual data into an effect.
-  * It's a helper typeclass used by [[MapLoggingContext]].
+/** Simple typeclass used to inject contextual data into an effect. It's a
+  * helper typeclass used by [[MapLoggingContext]].
   */
 trait UseContext[F[_], T] {
 

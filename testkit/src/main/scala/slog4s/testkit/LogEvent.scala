@@ -4,8 +4,7 @@ import java.time.Instant
 
 import slog4s.{Level, Location}
 
-/**
-  * Materialized log statement event.
+/** Materialized log statement event.
   */
 final case class LogEvent(
     message: String,
