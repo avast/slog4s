@@ -8,12 +8,14 @@ import slog4s.slf4j.MarkerStructureBuilder._
 import slog4s.{LogEncoder, Logger, LoggerFactory, LoggingContext}
 
 /** Slf4j backed [[slog4s.LoggerFactory]] instance. It's using logstash's
-  * [[net.logstash.logback.marker.MapEntriesAppendingMarker]] to represent structured arguments.
-  * It can optionally add a user-defined children Marker that might be used for advanced filtering.
+  * [[net.logstash.logback.marker.MapEntriesAppendingMarker]] to represent
+  * structured arguments. It can optionally add a user-defined children Marker
+  * that might be used for advanced filtering.
   */
 object Slf4jFactory {
 
-  /** Builder pattern for [[slog4s.slf4j.Slf4jFactory]]. Bounds to a specific effect type.
+  /** Builder pattern for [[slog4s.slf4j.Slf4jFactory]]. Bounds to a specific
+    * effect type.
     */
   def apply[F[_]: Sync]: Slf4jFactoryBuilder[F] =
     new Slf4jFactoryBuilder[F](Sync[F].pure(None), Map.empty)
@@ -50,8 +52,9 @@ object Slf4jFactory {
       contextRuntimeBuilder.make(Slf4jArgs.empty).map(make)
     }
 
-    /** Add structured argument to be used by all log statements created by this [[slog4s.LoggerFactory]].
-      * Typically this will be used for application version and similar universally applicable values.
+    /** Add structured argument to be used by all log statements created by this
+      * [[slog4s.LoggerFactory]]. Typically this will be used for application
+      * version and similar universally applicable values.
       */
     def withArg[T: LogEncoder](
         key: String,

@@ -23,14 +23,13 @@ class EvalLog extends PostModifier {
         rawMessages
       } else {
         rawMessages
-          .filter {
-            case (location, _) =>
-              !EvalLog.seen.containsKey(location)
+          .filter { case (location, _) =>
+            !EvalLog.seen.containsKey(location)
           }
           .take(1)
       }
-    logMessages.foreach {
-      case (location, _) => EvalLog.seen.putIfAbsent(location, ())
+    logMessages.foreach { case (location, _) =>
+      EvalLog.seen.putIfAbsent(location, ())
     }
     val prettyOutput = logMessages.map(_._2).mkString("\n")
     s"""
