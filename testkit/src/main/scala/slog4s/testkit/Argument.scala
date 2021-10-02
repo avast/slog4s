@@ -28,8 +28,8 @@ protected[this] trait ArgumentImplicitInstances {
     case Argument.String(value)      => value.toString
     case Argument.Boolean(value)     => value.toString
     case Argument.Maybe(value)       => value.map(_.show).getOrElse("null")
-    case Argument.List(value)        => value.map(_.show).mkString("[", ", ", "]")
-    case Argument.Map(value)         => showMap(value)
+    case Argument.List(value) => value.map(_.show).mkString("[", ", ", "]")
+    case Argument.Map(value)  => showMap(value)
     case Argument.Structure(name, value) =>
       showMap(value.updated("type", Argument.String(name)))
 
@@ -37,8 +37,8 @@ protected[this] trait ArgumentImplicitInstances {
 
   private def showMap(value: Map[String, Argument]): String = {
     value
-      .map {
-        case (key, value) => s"$key => ${value.show}"
+      .map { case (key, value) =>
+        s"$key => ${value.show}"
       }
       .mkString("{", ", ", "}")
   }

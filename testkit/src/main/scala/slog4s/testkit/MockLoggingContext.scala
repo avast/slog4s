@@ -6,12 +6,12 @@ import cats.syntax.functor._
 import slog4s.testkit.internal.ArgumentStructureBuilder
 import slog4s.{LogEncoder, LoggingContext}
 
-/**
-  * Mock implementation of [[LoggingContext]]. It's using [[cats.effect.concurrent.Ref]] which
-  * means it DOES NOT support context propagation for concurrent programs.
+/** Mock implementation of [[LoggingContext]]. It's using
+  * [[cats.effect.concurrent.Ref]] which means it DOES NOT support context
+  * propagation for concurrent programs.
   */
-class MockLoggingContext[F[_]](storage: Ref[F, Arguments])(
-    implicit F: Bracket[F, Throwable]
+class MockLoggingContext[F[_]](storage: Ref[F, Arguments])(implicit
+    F: Bracket[F, Throwable]
 ) extends LoggingContext[F] {
   override def withArg[T: LogEncoder](
       key: String,
@@ -22,8 +22,7 @@ class MockLoggingContext[F[_]](storage: Ref[F, Arguments])(
       Map(key -> LogEncoder[T].encode(value)(ArgumentStructureBuilder))
     )
 
-  /**
-    * Gets arguments in current context.
+  /** Gets arguments in current context.
     */
   def currentArguments: F[Arguments] = storage.get
 }
