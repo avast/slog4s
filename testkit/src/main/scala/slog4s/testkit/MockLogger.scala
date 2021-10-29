@@ -12,8 +12,7 @@ import cats.{Applicative, Monad}
 import slog4s._
 import slog4s.testkit.internal.{ArgumentStructureBuilder, Printer}
 
-/**
-  * Mock implementation of [[Logger]] useful for unit testing.
+/** Mock implementation of [[Logger]] useful for unit testing.
   */
 class MockLogger[F[_]: Sync: Clock](
     logEvents: Ref[F, LogEvents],
@@ -30,18 +29,15 @@ class MockLogger[F[_]: Sync: Clock](
 
   override def warn: LevelLogBuilder[F] = make(Level.Warn)
 
-  /**
-    * Gets all log events produced by this logger.
+  /** Gets all log events produced by this logger.
     */
   def events: F[LogEvents] = logEvents.get.map(_.filter(_.logger == name))
 
-  /**
-    * Removes all log events produced by this logger.
+  /** Removes all log events produced by this logger.
     */
   def drain: F[Unit] = logEvents.update(_.filter(_.logger != name))
 
-  /**
-    * Prints all log events produced by this logger to provided stream.
+  /** Prints all log events produced by this logger to provided stream.
     */
   def print(printStream: PrintStream = System.out): F[Unit] = {
     events.flatMap { allEvents =>
@@ -72,8 +68,8 @@ private class LogEventBuilder[F[_]: Monad: Clock](
     logger: String,
     getArguments: F[Arguments]
 ) {
-  def make(msg: String, ex: Option[Throwable], arguments: Arguments)(
-      implicit location: Location
+  def make(msg: String, ex: Option[Throwable], arguments: Arguments)(implicit
+      location: Location
   ): F[Unit] = {
     for {
       contextArguments <- getArguments
@@ -109,8 +105,8 @@ private class MockLogBuilder[F[_]](
   override def log(msg: String)(implicit location: Location): F[Unit] =
     logEventBuilder.make(msg, None, arguments)
 
-  override def log(ex: Throwable, msg: String)(
-      implicit location: Location
+  override def log(ex: Throwable, msg: String)(implicit
+      location: Location
   ): F[Unit] = logEventBuilder.make(msg, Some(ex), arguments)
 
   override def withArg[T: LogEncoder](key: String, value: => T): LogBuilder[F] =
