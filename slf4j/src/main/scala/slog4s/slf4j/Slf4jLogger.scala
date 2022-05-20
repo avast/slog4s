@@ -57,7 +57,7 @@ private[slf4j] class Slf4jLogger[F[_]](
   ) extends WhenEnabledLogBuilder[F] {
     override def apply(f: LogBuilder[F] => F[Unit]): F[Unit] = {
       extractMarker.flatMap { maybeMarker =>
-        F.suspend {
+        F.defer {
           if (isLogEnabled(maybeMarker.orNull)) {
             f(logBuilder)
           } else {
