@@ -70,7 +70,7 @@ private class ConsoleWhenEnabledLogBuilder[F[_], O](
     for {
       now <- C.realTime(TimeUnit.MILLISECONDS)
       contextArgs <- asContext.get
-      _ <- F.suspend {
+      _ <- F.defer {
         val instant = Instant.ofEpochMilli(now)
         val threadName = Thread.currentThread().getName
 
