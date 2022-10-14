@@ -8,7 +8,7 @@ import sbtunidoc.ScalaUnidocPlugin.autoImport._
 
 object BuildSupport {
   lazy val commonSettings = Seq(
-    crossScalaVersions := List("2.12.17", "2.13.1"),
+    crossScalaVersions := List("2.12.17", "2.13.10"),
     scalacOptions := Seq(
       "-encoding",
       "UTF-8",
