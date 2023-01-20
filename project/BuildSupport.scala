@@ -28,7 +28,6 @@ object BuildSupport {
   )
 
   lazy val micrositeSettings = Seq(
-    micrositeCompilingDocsTool := WithMdoc,
     micrositeName := "slog4s",
     micrositeDescription := "Structured and contextual logging for Scala",
     micrositeAuthor := "Jan Strnad",
