@@ -156,7 +156,7 @@ lazy val site = (project in file("site"))
   .settings(
     addCompilerPlugin(kindProjector),
     // do not provide scaladoc for example
-    unidocProjectFilter in (ScalaUnidoc, unidoc) := inAnyProject -- inProjects(
+    ScalaUnidoc / unidoc / unidocProjectFilter := inAnyProject -- inProjects(
       example
     )
   )

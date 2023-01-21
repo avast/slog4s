@@ -22,9 +22,9 @@ object ConsoleConfig {
   }
 
   /** Creates a [[ConsoleConfig]] that is based on a concept of parent logger.
-    * Each logger level can be configured individually. If not configured, parent logger
-    * configuration will be used. If it is not configured as well, we are searching all
-    * the way up until we reach "root" logger.
+    * Each logger level can be configured individually. If not configured,
+    * parent logger configuration will be used. If it is not configured as well,
+    * we are searching all the way up until we reach "root" logger.
     */
   def structured[F[_]: Sync](
       rootLevel: Level,
