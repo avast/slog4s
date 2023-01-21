@@ -24,7 +24,7 @@ object BuildSupport {
       "-deprecation",
       "-Xlint:-unused,_"
     ),
-    scalacOptions in Test --= Seq("-Ywarn-dead-code", "-Ywarn-value-discard")
+    Test / scalacOptions --= Seq("-Ywarn-dead-code", "-Ywarn-value-discard")
   )
 
   lazy val micrositeSettings = Seq(
@@ -39,15 +39,15 @@ object BuildSupport {
     micrositeFooterText := None,
     micrositeGitterChannel := false,
     micrositeTheme := "pattern",
-    fork in mdoc := true,
+    mdoc / fork := true,
     mdocIn := file("site") / "docs",
     mdocVariables := Map("VERSION" -> version.value),
     mdocAutoDependency := false,
     micrositeDataDirectory := file("site"),
-    siteSubdirName in ScalaUnidoc := "api/latest",
+    ScalaUnidoc / siteSubdirName := "api/latest",
     addMappingsToSiteDir(
-      mappings in (ScalaUnidoc, packageDoc),
-      siteSubdirName in ScalaUnidoc
+      ScalaUnidoc / packageDoc / mappings,
+      ScalaUnidoc / siteSubdirName
     )
   )
 
