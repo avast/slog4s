@@ -106,7 +106,7 @@ object Example extends App {
     )
     .runSyncUnsafe()
 
-  //import slf4jRuntime._
+  // import slf4jRuntime._
   import consoleRuntime._
 
   val example = new Example[Task](loggerFactory, loggingContext)

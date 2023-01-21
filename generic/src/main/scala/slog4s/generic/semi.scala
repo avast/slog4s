@@ -14,7 +14,8 @@ object semi {
     Common.dispatch(sealedTrait)
   }
 
-  /** Semi automatic derivation of [[LogEncoder]] instance for case class or sealed trait.
+  /** Semi automatic derivation of [[LogEncoder]] instance for case class or
+    * sealed trait.
     */
   def logEncoder[T]: LogEncoder[T] = macro Magnolia.gen[T]
 }
