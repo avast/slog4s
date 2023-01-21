@@ -17,7 +17,7 @@ object Dependencies {
     "org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full
   lazy val magnolia = "com.propensive" %% "magnolia" % "0.17.0"
   lazy val libmdoc =
-    "org.scalameta" %% "mdoc" % "2.0.3" excludeAll (ExclusionRule(
+    "org.scalameta" %% "mdoc" % "2.3.5" excludeAll (ExclusionRule(
       organization = "org.slf4j"
     ))
   lazy val monixDependency = "io.monix" %% "monix" % "3.4.1"
