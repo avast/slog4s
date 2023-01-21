@@ -1,7 +1,8 @@
 package slog4s
 
-/** Typeclass used to convert well defined values into desired structured logging format.
-  * Typically this will be some sort of recursive data structure similar to JSON.
+/** Typeclass used to convert well defined values into desired structured
+  * logging format. Typically this will be some sort of recursive data structure
+  * similar to JSON.
   * @tparam T
   */
 trait StructureBuilder[T] {
@@ -23,8 +24,10 @@ trait StructureBuilder[T] {
   def string(value: String): T
 
   /** Converts structure-like value into desired type.
-    * @param name name of the structure. Typically a class name.
-    * @param attributes map of field name and its value
+    * @param name
+    *   name of the structure. Typically a class name.
+    * @param attributes
+    *   map of field name and its value
     */
   def structure(name: String, attributes: Map[String, T]): T
 
@@ -32,7 +35,8 @@ trait StructureBuilder[T] {
     */
   def option(value: Option[T]): T
 
-  /** Converts a [[scala.collection.Map]] of [[java.lang.String]] keys into desired type.
+  /** Converts a [[scala.collection.Map]] of [[java.lang.String]] keys into
+    * desired type.
     */
   def map(values: Map[String, T]): T
 
