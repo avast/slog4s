@@ -91,6 +91,7 @@ lazy val monix = (project in file("monix"))
     libraryDependencies ++= Seq(catsMtl, monixDependency),
     libraryDependencies ++= Seq(
       diffx % Test,
+      diffxShould % Test,
       scalaTest % Test
     )
   )
@@ -109,6 +110,7 @@ lazy val slf4j = (project in file("slf4j"))
     ),
     libraryDependencies ++= Seq(
       diffx % Test,
+      diffxShould % Test,
       scalaTest % Test
     )
   )
@@ -126,6 +128,7 @@ lazy val shared = (project in file("shared"))
     ),
     libraryDependencies ++= Seq(
       diffx % Test,
+      diffxShould % Test,
       scalaTest % Test
     )
   )
