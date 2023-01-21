@@ -29,7 +29,8 @@ object ConsoleFactory {
       C: Clock[F]
   ) {
 
-    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with desired format.
+    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with desired
+      * format.
       */
     def makeFromBuilder(
         format: Format,
@@ -53,7 +54,8 @@ object ConsoleFactory {
 
     }
 
-    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with plain format.
+    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with plain
+      * format.
       */
     def plain(consoleConfig: ConsoleConfig[F])(implicit
         asContext: AsContext[F, PlainArgs],
@@ -69,7 +71,8 @@ object ConsoleFactory {
         .widen
     }
 
-    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with JSON format.
+    /** Makes a new console based [[slog4s.shared.LoggingRuntime]] with JSON
+      * format.
       */
     def json(consoleConfig: ConsoleConfig[F])(implicit
         asContext: AsContext[F, JsonArgs],
