@@ -1,7 +1,7 @@
 import BuildSupport._
 import Dependencies._
 
-ThisBuild / scalaVersion := "2.12.10"
+ThisBuild / scalaVersion := "2.12.17"
 ThisBuild / organization := "com.avast"
 ThisBuild / organizationName := "avast"
 
@@ -91,6 +91,7 @@ lazy val monix = (project in file("monix"))
     libraryDependencies ++= Seq(catsMtl, monixDependency),
     libraryDependencies ++= Seq(
       diffx % Test,
+      diffxShould % Test,
       scalaTest % Test
     )
   )
@@ -109,6 +110,7 @@ lazy val slf4j = (project in file("slf4j"))
     ),
     libraryDependencies ++= Seq(
       diffx % Test,
+      diffxShould % Test,
       scalaTest % Test
     )
   )
@@ -126,6 +128,7 @@ lazy val shared = (project in file("shared"))
     ),
     libraryDependencies ++= Seq(
       diffx % Test,
+      diffxShould % Test,
       scalaTest % Test
     )
   )

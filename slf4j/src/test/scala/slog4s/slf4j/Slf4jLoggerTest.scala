@@ -1,7 +1,8 @@
 package slog4s.slf4j
 
 import cats.effect.IO
-import com.softwaremill.diffx.scalatest.DiffMatcher._
+import com.softwaremill.diffx.scalatest.DiffShouldMatcher._
+import com.softwaremill.diffx.generic.auto._
 import net.logstash.logback.marker.MapEntriesAppendingMarker
 import org.scalatest.funspec.FixtureAnyFunSpec
 import org.scalatest.matchers.should.Matchers
@@ -45,7 +46,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
 
   private def locationMarker(extraArgs: Slf4jArgs = Slf4jArgs.empty) =
     new MapEntriesAppendingMarker(
-      (Map(
+      (Map[String, Any](
         Slf4jLogger.FileKey -> sourceFile,
         Slf4jLogger.LineKey -> sourceLine
       ) ++ extraArgs).asJava
@@ -60,7 +61,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
       import fixture._
       selectLevel(makeLogger())("test").unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(List(Message(locationMarker(), "test")))
+      result shouldMatchTo (List(Message(locationMarker(), "test")))
     }
 
     it("logs an exception") { fixture =>
@@ -68,7 +69,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
       val exc = new Exception
       selectLevel(makeLogger())(exc, "test").unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(List(Message(locationMarker(), "test", exc)))
+      result shouldMatchTo (List(Message(locationMarker(), "test", exc)))
     }
 
     it("logs with one arg") { fixture =>
@@ -78,7 +79,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
         .log("test")
         .unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(
+      result shouldMatchTo (
         List(Message(locationMarker(Map("key" -> "value")), "test"))
       )
     }
@@ -91,7 +92,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
         .log(exc, "test")
         .unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(
+      result shouldMatchTo (
         List(Message(locationMarker(Map("key" -> "value")), "test", exc))
       )
     }
@@ -104,7 +105,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
         .log("test")
         .unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(
+      result shouldMatchTo (
         List(
           Message(
             locationMarker(Map("key" -> "value", "key2" -> "value2")),
@@ -123,7 +124,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
         .log(exc, "test")
         .unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(
+      result shouldMatchTo (
         List(
           Message(
             locationMarker(Map("key" -> "value", "key2" -> "value2")),
@@ -152,7 +153,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
         .whenEnabled { builder => builder.log("test") }
         .unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(List(Message(locationMarker(), "test")))
+      result shouldMatchTo (List(Message(locationMarker(), "test")))
     }
 
     it("includes arguments from context") { fixture =>
@@ -160,7 +161,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
       val logger = makeLogger(args = Map("key" -> "value"))
       selectLevel(logger)("test").unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(
+      result shouldMatchTo (
         List(
           Message(
             locationMarker(Map("key" -> "value")),
@@ -178,7 +179,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
       val logger = makeLogger(marker = Some(userMarker))
       selectLevel(logger)("test").unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(List(Message(locationMarker(), "test")))
+      result shouldMatchTo (List(Message(locationMarker(), "test")))
       inside(result) { case List(Message(Some(marker), "test", None, Nil)) =>
         assert(marker.contains(userMarker))
       }
@@ -192,13 +193,13 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
       val logger = makeLogger(marker = Some(allowedMarker))
       rawLogger.expectedMarker = Some(allowedMarker)
       selectLevel(logger)("test").unsafeRunSync()
-      selectRaw(rawLogger).size should matchTo(1)
+      selectRaw(rawLogger).size shouldMatchTo (1)
 
       rawLogger.reset()
 
       rawLogger.expectedMarker = Some(disabledMarker)
       selectLevel(logger)("test").unsafeRunSync()
-      selectRaw(rawLogger).size should matchTo(0)
+      selectRaw(rawLogger).size shouldMatchTo (0)
     }
 
     it("doesn't log if level is disabled") { fixture =>
@@ -206,7 +207,7 @@ class Slf4jLoggerTest extends FixtureAnyFunSpec with Matchers with Inside {
       rawLogger.level = MockLogger.Level.Off
       selectLevel(makeLogger())("test").unsafeRunSync()
       val result = selectRaw(rawLogger)
-      result should matchTo(List.empty[Message])
+      result shouldMatchTo (List.empty[Message])
     }
   }
 }
