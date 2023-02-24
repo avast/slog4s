@@ -351,8 +351,9 @@
         <a title="A part of logging API for a specific logging level." href="ArgLogBuilder.html"><span class="name">ArgLogBuilder</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">A part of logging API for a specific logging level.</p><div class="fullcomment"><div class="comment cmt"><p>A part of logging API for a specific logging level. This trait is used to build a list
-of structured argument to be used for current logging statement.
+      <p class="shortcomment cmt">A part of logging API for a specific logging level.</p><div class="fullcomment"><div class="comment cmt"><p>A part of logging API for a specific logging level. This trait is used to
+build a list of structured argument to be used for current logging
+statement.
 </p></div></div>
     </li><li name="slog4s.Level" visbl="pub" class="indented0 " data-isabs="true" fullComment="no" group="Ungrouped">
       <a id="LevelextendsAnyRef"></a><a id="Level:Level"></a>
@@ -401,9 +402,9 @@ of structured argument to be used for current logging statement.
         <a title="Describes log statement location (file, line...)." href="Location.html"><span class="name">Location</span></a><span class="result"> extends <a href="../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">Describes log statement location (file, line...).</p><div class="fullcomment"><div class="comment cmt"><p>Describes log statement location (file, line...). Might not always be available
-as it makes no sense in some context (typically when integrating with other logging
-libraries).
+      <p class="shortcomment cmt">Describes log statement location (file, line...).</p><div class="fullcomment"><div class="comment cmt"><p>Describes log statement location (file, line...). Might not always be
+available as it makes no sense in some context (typically when integrating
+with other logging libraries).
 </p></div></div>
     </li><li name="slog4s.LogBuilder" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="LogBuilder[F[_]]extendsAnyRef"></a><a id="LogBuilder[F[_]]:LogBuilder[F]"></a>
@@ -420,8 +421,9 @@ libraries).
         <a title="A part of logging API for a specific logging level." href="LogBuilder.html"><span class="name">LogBuilder</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">A part of logging API for a specific logging level.</p><div class="fullcomment"><div class="comment cmt"><p>A part of logging API for a specific logging level. This trait is used to build a list
-of structured argument to be used for current logging statement.</p></div></div>
+      <p class="shortcomment cmt">A part of logging API for a specific logging level.</p><div class="fullcomment"><div class="comment cmt"><p>A part of logging API for a specific logging level. This trait is used to
+build a list of structured argument to be used for current logging
+statement.</p></div></div>
     </li><li name="slog4s.LogEncoder" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="LogEncoder[T]extendsAnyRef"></a><a id="LogEncoder[T]:LogEncoder[T]"></a>
       <span class="permalink">
@@ -437,8 +439,11 @@ of structured argument to be used for current logging statement.</p></div></div>
         <a title="Typeclass that is able to encode any value of T into logging friendly format." href="LogEncoder.html"><span class="name">LogEncoder</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">Typeclass that is able to encode any value of T into logging friendly format.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass that is able to encode any value of T into logging friendly format.
-The type of logging format is determined by provided instance of <a href="StructureBuilder.html" class="extype" name="slog4s.StructureBuilder">StructureBuilder</a>.</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>type to be encoded</p></dd></dl></div>
+      <p class="shortcomment cmt">Typeclass that is able to encode any value of T into logging friendly
+format.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass that is able to encode any value of T into logging friendly
+format. The type of logging format is determined by provided instance of
+<a href="StructureBuilder.html" class="extype" name="slog4s.StructureBuilder">StructureBuilder</a>.</p></div><dl class="paramcmts block"><dt class="tparam">T</dt><dd class="cmt"><p>
+  type to be encoded</p></dd></dl></div>
     </li><li name="slog4s.Logger" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="Logger[F[_]]extendsAnyRef"></a><a id="Logger[F[_]]:Logger[F]"></a>
       <span class="permalink">
@@ -470,7 +475,8 @@ The type of logging format is determined by provided instance of <a href="Struct
         <a title="Our counterpart for http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html." href="LoggerFactory.html"><span class="name">LoggerFactory</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">Our counterpart for http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html.</p>
+      <p class="shortcomment cmt">Our counterpart for
+http://www.slf4j.org/apidocs/org/slf4j/LoggerFactory.html.</p>
     </li><li name="slog4s.LoggingContext" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="LoggingContext[F[_]]extendsAnyRef"></a><a id="LoggingContext[F[_]]:LoggingContext[F]"></a>
       <span class="permalink">
@@ -486,8 +492,8 @@ The type of logging format is determined by provided instance of <a href="Struct
         <a title="Typeclass used to modify a logging context." href="LoggingContext.html"><span class="name">LoggingContext</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">Typeclass used to modify a logging context.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass used to modify a logging context. The logging context is a list
-of named structured arguments that should be used by all applicable logging
+      <p class="shortcomment cmt">Typeclass used to modify a logging context.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass used to modify a logging context. The logging context is a list of
+named structured arguments that should be used by all applicable logging
 statements, typically inside give scope.
 </p></div></div>
     </li><li name="slog4s.StructureBuilder" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
@@ -505,8 +511,10 @@ statements, typically inside give scope.
         <a title="Typeclass used to convert well defined values into desired structured logging format." href="StructureBuilder.html"><span class="name">StructureBuilder</span></a><span class="tparams">[<span name="T">T</span>]</span><span class="result"> extends <a href="../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">Typeclass used to convert well defined values into desired structured logging format.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass used to convert well defined values into desired structured logging format.
-Typically this will be some sort of recursive data structure similar to JSON.</p></div></div>
+      <p class="shortcomment cmt">Typeclass used to convert well defined values into desired structured
+logging format.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass used to convert well defined values into desired structured
+logging format. Typically this will be some sort of recursive data structure
+similar to JSON.</p></div></div>
     </li><li name="slog4s.WhenEnabledLogBuilder" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="WhenEnabledLogBuilder[F[_]]extendsAnyRef"></a><a id="WhenEnabledLogBuilder[F[_]]:WhenEnabledLogBuilder[F]"></a>
       <span class="permalink">
@@ -522,10 +530,10 @@ Typically this will be some sort of recursive data structure similar to JSON.</p
         <a title="A part of logging API for a specific logging level." href="WhenEnabledLogBuilder.html"><span class="name">WhenEnabledLogBuilder</span></a><span class="tparams">[<span name="F">F<span class="tparams">[<span name="_">_</span>]</span></span>]</span><span class="result"> extends <a href="../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">A part of logging API for a specific logging level.</p><div class="fullcomment"><div class="comment cmt"><p>A part of logging API for a specific logging level. This trait is useful in case when
-logging becomes expensive. It allows one to perform logging only when we need to, and
-not do anything when logging for specific combination of logger and logging level is
-turned off.
+      <p class="shortcomment cmt">A part of logging API for a specific logging level.</p><div class="fullcomment"><div class="comment cmt"><p>A part of logging API for a specific logging level. This trait is useful in
+case when logging becomes expensive. It allows one to perform logging only
+when we need to, and not do anything when logging for specific combination
+of logger and logging level is turned off.
 </p></div></div>
     </li></ol>
             </div>

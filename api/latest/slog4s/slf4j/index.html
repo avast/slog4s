@@ -281,7 +281,7 @@
           <span class="toggle">
             Linear Supertypes
           </span>
-          <div class="superTypes hiddenContent"><a href="../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <a href="https://www.scala-lang.org/api/2.12.10/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
+          <div class="superTypes hiddenContent"><a href="../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a>, <a href="https://www.scala-lang.org/api/2.12.17/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></div>
         </div></div>
         
 
@@ -344,7 +344,8 @@
         <a title="Typeclass that extract Slf4jArgs from any value of type C provided by the context." href="AsArgs.html"><span class="name">AsArgs</span></a><span class="tparams">[<span name="C">C</span>]</span><span class="result"> extends <a href="../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">Typeclass that extract <a href="#Slf4jArgs=Map[String,Any]" class="extmbr" name="slog4s.slf4j.Slf4jArgs">Slf4jArgs</a> from any value of type C provided by the context.</p>
+      <p class="shortcomment cmt">Typeclass that extract <a href="#Slf4jArgs=Map[String,Any]" class="extmbr" name="slog4s.slf4j.Slf4jArgs">Slf4jArgs</a> from any value of type C provided by
+the context.</p>
     </li><li name="slog4s.slf4j.AsMarker" visbl="pub" class="indented0 " data-isabs="true" fullComment="yes" group="Ungrouped">
       <a id="AsMarker[C]extendsAnyRef"></a><a id="AsMarker[C]:AsMarker[C]"></a>
       <span class="permalink">
@@ -360,8 +361,10 @@
         <a title="Typeclass that might extract org.slf4j.Marker from any value of type C provided by the context." href="AsMarker.html"><span class="name">AsMarker</span></a><span class="tparams">[<span name="C">C</span>]</span><span class="result"> extends <a href="../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></span>
       </span>
       
-      <p class="shortcomment cmt">Typeclass that might extract <a href="https://javadoc.io/page/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html" class="extype" name="org.slf4j.Marker">org.slf4j.Marker</a> from any value of type C provided by the context.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass that might extract <a href="https://javadoc.io/page/org.slf4j/slf4j-api/1.7.30/org/slf4j/Marker.html" class="extype" name="org.slf4j.Marker">org.slf4j.Marker</a> from any value of type C provided by the context.
-This marker is then used for slf4j logging statement.</p></div></div>
+      <p class="shortcomment cmt">Typeclass that might extract <a href="https://javadoc.io/page/org.slf4j/slf4j-api/1.7.36/org/slf4j/Marker.html" class="extype" name="org.slf4j.Marker">org.slf4j.Marker</a> from any value of type C
+provided by the context.</p><div class="fullcomment"><div class="comment cmt"><p>Typeclass that might extract <a href="https://javadoc.io/page/org.slf4j/slf4j-api/1.7.36/org/slf4j/Marker.html" class="extype" name="org.slf4j.Marker">org.slf4j.Marker</a> from any value of type C
+provided by the context. This marker is then used for slf4j logging
+statement.</p></div></div>
     </li><li name="slog4s.slf4j.Slf4jArgs" visbl="pub" class="indented0 " data-isabs="false" fullComment="no" group="Ungrouped">
       <a id="Slf4jArgs=Map[String,Any]"></a><a id="Slf4jArgs:Slf4jArgs"></a>
       <span class="permalink">
@@ -374,7 +377,7 @@ This marker is then used for slf4j logging statement.</p></div></div>
         <span class="kind">type</span>
       </span>
       <span class="symbol">
-        <span class="name">Slf4jArgs</span><span class="result alias"> = <a href="https://www.scala-lang.org/api/2.12.10/scala/collection/immutable/Map.html#scala.collection.immutable.Map" class="extype" name="scala.collection.immutable.Map">Map</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="https://www.scala-lang.org/api/2.12.10/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>]</span>
+        <span class="name">Slf4jArgs</span><span class="result alias"> = <a href="https://www.scala-lang.org/api/2.12.17/scala/collection/immutable/Map.html#scala.collection.immutable.Map" class="extype" name="scala.collection.immutable.Map">Map</a>[<span class="extype" name="scala.Predef.String">String</span>, <a href="https://www.scala-lang.org/api/2.12.17/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a>]</span>
       </span>
       
       <p class="shortcomment cmt">This is how our implementation actually expects contextual arguments.</p>
@@ -450,8 +453,9 @@ This marker is then used for slf4j logging statement.</p></div></div>
       </span>
       
       <p class="shortcomment cmt">Slf4j backed <a href="../LoggerFactory.html" class="extype" name="slog4s.LoggerFactory">slog4s.LoggerFactory</a> instance.</p><div class="fullcomment"><div class="comment cmt"><p>Slf4j backed <a href="../LoggerFactory.html" class="extype" name="slog4s.LoggerFactory">slog4s.LoggerFactory</a> instance. It's using logstash's
-<a href="https://javadoc.io/page/net.logstash.logback/logstash-logback-encoder/6.4/net/logstash/logback/marker/MapEntriesAppendingMarker.html" class="extype" name="net.logstash.logback.marker.MapEntriesAppendingMarker">net.logstash.logback.marker.MapEntriesAppendingMarker</a> to represent structured arguments.
-It can optionally add a user-defined children Marker that might be used for advanced filtering.
+<a href="https://javadoc.io/page/net.logstash.logback/logstash-logback-encoder/7.3/net/logstash/logback/marker/MapEntriesAppendingMarker.html" class="extype" name="net.logstash.logback.marker.MapEntriesAppendingMarker">net.logstash.logback.marker.MapEntriesAppendingMarker</a> to represent
+structured arguments. It can optionally add a user-defined children Marker
+that might be used for advanced filtering.
 </p></div></div>
     </li>
               </ol>
@@ -466,7 +470,7 @@ It can optionally add a user-defined children Marker that might be used for adva
         <div class="parent" name="scala.AnyRef">
               <h3>Inherited from <a href="../../scala/index.html#AnyRef=Object" class="extmbr" name="scala.AnyRef">AnyRef</a></h3>
             </div><div class="parent" name="scala.Any">
-              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.10/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
+              <h3>Inherited from <a href="https://www.scala-lang.org/api/2.12.17/scala/Any.html#scala.Any" class="extype" name="scala.Any">Any</a></h3>
             </div>
         
         </div>
