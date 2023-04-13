@@ -9,9 +9,9 @@ object Dependencies {
     "io.circe" %% "circe-literal" % "0.14.5" // used for test only
   lazy val circeParser =
     "io.circe" %% "circe-parser" % "0.14.5" // used for site only
-  lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.8.2"
+  lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.8.3"
   lazy val diffxShould =
-    "com.softwaremill.diffx" %% "diffx-scalatest-should" % "0.8.2"
+    "com.softwaremill.diffx" %% "diffx-scalatest-should" % "0.8.3"
   lazy val logback = "ch.qos.logback" % "logback-classic" % "1.4.6"
   lazy val logstash =
     "net.logstash.logback" % "logstash-logback-encoder" % "7.3"
