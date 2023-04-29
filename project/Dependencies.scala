@@ -2,7 +2,7 @@ import sbt._
 
 object Dependencies {
   lazy val catsCore = "org.typelevel" %% "cats-core" % "2.9.0"
-  lazy val catsEffect = "org.typelevel" %% "cats-effect" % "2.5.5"
+  lazy val catsEffect = "org.typelevel" %% "cats-effect" % "3.4.10"
   lazy val catsMtl = "org.typelevel" %% "cats-mtl-core" % "0.7.1"
   lazy val circeCore = "io.circe" %% "circe-core" % "0.14.5"
   lazy val circeLiteral =
