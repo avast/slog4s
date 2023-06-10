@@ -7,7 +7,12 @@ import cats.effect.{ConcurrentEffect, ContextShift, IO, Resource, Timer}
 import cats.syntax.all._
 import slog4s.Location.Code
 import slog4s.console.ConsoleLoggerTest.{Fixture, Output}
-import slog4s.shared.{AsContext, ContextRuntime, ContextRuntimeBuilder, UseContext}
+import slog4s.shared.{
+  AsContext,
+  ContextRuntime,
+  ContextRuntimeBuilder,
+  UseContext
+}
 import slog4s._
 
 import scala.concurrent.ExecutionContext
