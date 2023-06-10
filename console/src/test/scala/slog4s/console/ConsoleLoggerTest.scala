@@ -3,7 +3,7 @@ package slog4s.console
 import java.io.{ByteArrayOutputStream, PrintStream}
 import java.util.concurrent.{Executors, ThreadFactory}
 import cats.effect.concurrent.Ref
-import cats.effect.{ConcurrentEffect, ContextShift, IO, Resource, Timer}
+import cats.effect.{ConcurrentEffect, ContextShift, IO, Resource, Sync, Timer}
 import cats.syntax.all._
 import slog4s.Location.Code
 import slog4s.console.ConsoleLoggerTest.{Fixture, Output}
@@ -44,7 +44,7 @@ abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
     Resource.make(IO(makeExecutor))(e => IO(e.shutdown())).map { executor =>
       val ec = ExecutionContext.fromExecutor(executor)
       implicit val contextShift: ContextShift[IO] = IO.contextShift(ec)
-      implicit val F: ConcurrentEffect[IO] = ConcurrentEffect[IO]
+      implicit val F: Sync[IO] = ConcurrentEffect[IO]
       implicit val mockClock: MockClock[IO] = MockClock.make[IO].unsafeRunSync()
       implicit val timer: Timer[IO] = IO.timer(ec)
       val contextRuntimeBuilder = new ContextRuntimeBuilder[IO] {
