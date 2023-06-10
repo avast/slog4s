@@ -91,7 +91,7 @@ class Example[F[_]](
 
 object Example extends App {
   import monix.execution.Scheduler.Implicits.traced
-  implicit val canBlock = CanBlock.permit
+  implicit val canBlock: CanBlock = CanBlock.permit
 
   val slf4jRuntime: LoggingRuntime[Task] = Slf4jFactory[Task]
     .withArg("app_version", "0.1.0")
