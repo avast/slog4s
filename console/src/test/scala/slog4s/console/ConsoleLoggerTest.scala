@@ -2,17 +2,12 @@ package slog4s.console
 
 import java.io.{ByteArrayOutputStream, PrintStream}
 import java.util.concurrent.{Executors, ThreadFactory}
-
 import cats.effect.concurrent.Ref
-import cats.effect.{ConcurrentEffect, IO, Resource, Timer}
+import cats.effect.{ConcurrentEffect, ContextShift, IO, Resource, Timer}
 import cats.syntax.all._
+import slog4s.Location.Code
 import slog4s.console.ConsoleLoggerTest.{Fixture, Output}
-import slog4s.shared.{
-  AsContext,
-  ContextRuntime,
-  ContextRuntimeBuilder,
-  UseContext
-}
+import slog4s.shared.{AsContext, ContextRuntime, ContextRuntimeBuilder, UseContext}
 import slog4s._
 
 import scala.concurrent.ExecutionContext
@@ -30,7 +25,7 @@ abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
   val testMessage = "test message"
   val testFile = "TestFile.scala"
   val testLine = 42
-  implicit val location = Location.Code(testFile, testLine)
+  implicit val location: Code = Location.Code(testFile, testLine)
   val boom = new Exception("boom!")
   val threadName = "test-thread"
 
@@ -43,10 +38,10 @@ abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
       })
     Resource.make(IO(makeExecutor))(e => IO(e.shutdown())).map { executor =>
       val ec = ExecutionContext.fromExecutor(executor)
-      implicit val contextShift = IO.contextShift(ec)
-      implicit val F = ConcurrentEffect[IO]
-      implicit val mockClock = MockClock.make[IO].unsafeRunSync()
-      implicit val timer = IO.timer(ec)
+      implicit val contextShift: ContextShift[IO] = IO.contextShift(ec)
+      implicit val F: ConcurrentEffect[IO] = ConcurrentEffect[IO]
+      implicit val mockClock: MockClock[IO] = MockClock.make[IO].unsafeRunSync()
+      implicit val timer: Timer[IO] = IO.timer(ec)
       val contextRuntimeBuilder = new ContextRuntimeBuilder[IO] {
         override def make[T](empty: T): IO[ContextRuntime[IO, T]] = {
           Ref.of(empty).map { context =>
