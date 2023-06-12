@@ -3,7 +3,8 @@ package slog4s.console
 import java.io.{ByteArrayOutputStream, PrintStream}
 import java.util.concurrent.{Executors, ThreadFactory}
 
-import cats.effect.{ConcurrentEffect, IO, Resource}
+import cats.effect.concurrent.Ref
+import cats.effect.{ConcurrentEffect, IO, Resource, Timer}
 import cats.syntax.all._
 import slog4s.console.ConsoleLoggerTest.{Fixture, Output}
 import slog4s.shared.{
@@ -15,14 +16,13 @@ import slog4s.shared.{
 import slog4s._
 
 import scala.concurrent.ExecutionContext
-import cats.effect.{ Ref, Temporal }
 
 abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
   override protected def asEffect(
       fixtureParam: FixtureParam
   ): ConcurrentEffect[F] = fixtureParam.F
 
-  override protected def asTimer(fixtureParam: FixtureParam): Temporal[F] =
+  override protected def asTimer(fixtureParam: FixtureParam): Timer[F] =
     fixtureParam.T
 
   override type FixtureParam = ConsoleLoggerTest.Fixture[F]
@@ -101,7 +101,7 @@ object ConsoleLoggerTest {
   )(implicit
       val F: ConcurrentEffect[F],
       val C: MockClock[F],
-      val T: Temporal[F]
+      val T: Timer[F]
   ) {
     val loggerName = "test-logger"
     val logger = loggerFactory.make(loggerName)
