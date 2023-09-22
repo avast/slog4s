@@ -25,7 +25,7 @@ object Dependencies {
   lazy val monixDependency = "io.monix" %% "monix" % "3.4.1"
   lazy val scalaCollectionCompat =
     "org.scala-lang.modules" %% "scala-collection-compat" % "2.11.0"
-  lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.2.16"
+  lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.2.17"
   lazy val slf4jDepedency = "org.slf4j" % "slf4j-api" % "2.0.7"
   lazy val sourcecode = "com.lihaoyi" %% "sourcecode" % "0.3.0"
   lazy val zioDependency = "dev.zio" %% "zio" % "1.0.18"
