@@ -1,11 +1,11 @@
 package slog4s.console.internal
 
+import cats.effect.concurrent.Semaphore
 import cats.effect.{Clock, Concurrent, Sync}
 import cats.syntax.functor._
 import slog4s.console.ConsoleConfig
 import slog4s.shared.{AsContext, LoggingRuntime}
 import slog4s.{Logger, LoggerFactory, LoggingContext, StructureBuilder}
-import cats.effect.std.Semaphore
 
 private[console] class LoggingRuntimeImpl[F[
     _

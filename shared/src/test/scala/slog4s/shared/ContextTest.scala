@@ -1,19 +1,19 @@
 package slog4s.shared
 
+import cats.effect.concurrent.Deferred
 import cats.effect.syntax.all._
-import cats.effect.ConcurrentEffect
+import cats.effect.{Bracket, ConcurrentEffect, Timer}
 import cats.syntax.flatMap._
 import cats.syntax.functor._
 import slog4s.EffectTest
 import slog4s.shared.ContextTest.Fixture
-import cats.effect.{ Deferred, MonadCancel, Temporal }
 
 abstract class ContextTest[F[_]](runtimeName: String) extends EffectTest[F] {
   override type FixtureParam = Fixture[F]
   override protected def asEffect(
       fixtureParam: Fixture[F]
   ): ConcurrentEffect[F] = fixtureParam.F
-  override protected def asTimer(fixtureParam: Fixture[F]): Temporal[F] =
+  override protected def asTimer(fixtureParam: Fixture[F]): Timer[F] =
     fixtureParam.T
 
   describe(s"$runtimeName-based context") {
@@ -95,8 +95,8 @@ abstract class ContextTest[F[_]](runtimeName: String) extends EffectTest[F] {
           promise <- Deferred[F, Unit]
           // promise used to indicate that a fiber has entered inside `guarantee`.
           fiberStarted <- Deferred[F, Unit]
-          fiber <- MonadCancel[F, Throwable]
-            .guarantee(fiberCode(fiberStarted), promise.complete(()))
+          fiber <- Bracket[F, Throwable]
+            .guarantee(fiberCode(fiberStarted))(promise.complete(()))
             .start
           _ <- fiberStarted.get
           _ <- fiber.cancel.start
@@ -110,7 +110,7 @@ abstract class ContextTest[F[_]](runtimeName: String) extends EffectTest[F] {
 object ContextTest {
   final class Fixture[F[_]](implicit
       val F: ConcurrentEffect[F],
-      val T: Temporal[F],
+      val T: Timer[F],
       val asContext: AsContext[F, Int],
       val useContext: UseContext[F, Int]
   )
