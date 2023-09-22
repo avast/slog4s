@@ -12,7 +12,7 @@ object Dependencies {
   lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.8.3"
   lazy val diffxShould =
     "com.softwaremill.diffx" %% "diffx-scalatest-should" % "0.8.3"
-  lazy val logback = "ch.qos.logback" % "logback-classic" % "1.4.9"
+  lazy val logback = "ch.qos.logback" % "logback-classic" % "1.4.11"
   lazy val logstash =
     "net.logstash.logback" % "logstash-logback-encoder" % "7.4"
   lazy val kindProjector =
