@@ -28,7 +28,7 @@ object Dependencies {
   lazy val scalaTest = "org.scalatest" %% "scalatest" % "3.2.17"
   lazy val slf4jDepedency = "org.slf4j" % "slf4j-api" % "2.0.9"
   lazy val sourcecode = "com.lihaoyi" %% "sourcecode" % "0.3.1"
-  lazy val zioDependency = "dev.zio" %% "zio" % "1.0.18"
+  lazy val zioDependency = "dev.zio" %% "zio" % "2.0.21"
   lazy val zioInterop = "dev.zio" %% "zio-interop-cats" % "2.2.0.1"
 
 }
