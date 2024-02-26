@@ -16,7 +16,7 @@ object Dependencies {
   lazy val logstash =
     "net.logstash.logback" % "logstash-logback-encoder" % "7.4"
   lazy val kindProjector =
-    "org.typelevel" %% "kind-projector" % "0.13.2" cross CrossVersion.full
+    "org.typelevel" %% "kind-projector" % "0.13.3" cross CrossVersion.full
   lazy val magnolia = "com.propensive" %% "magnolia" % "0.17.0"
   lazy val libmdoc =
     "org.scalameta" %% "mdoc" % "2.3.5" excludeAll (ExclusionRule(
