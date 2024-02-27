@@ -1,7 +1,7 @@
 import BuildSupport._
 import Dependencies._
 
-ThisBuild / scalaVersion := "2.12.18"
+ThisBuild / scalaVersion := "2.12.19"
 ThisBuild / organization := "com.avast"
 ThisBuild / organizationName := "avast"
 
