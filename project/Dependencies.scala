@@ -4,11 +4,11 @@ object Dependencies {
   lazy val catsCore = "org.typelevel" %% "cats-core" % "2.10.0"
   lazy val catsEffect = "org.typelevel" %% "cats-effect" % "2.5.5"
   lazy val catsMtl = "org.typelevel" %% "cats-mtl-core" % "0.7.1"
-  lazy val circeCore = "io.circe" %% "circe-core" % "0.14.6"
+  lazy val circeCore = "io.circe" %% "circe-core" % "0.14.7"
   lazy val circeLiteral =
-    "io.circe" %% "circe-literal" % "0.14.6" // used for test only
+    "io.circe" %% "circe-literal" % "0.14.7" // used for test only
   lazy val circeParser =
-    "io.circe" %% "circe-parser" % "0.14.6" // used for site only
+    "io.circe" %% "circe-parser" % "0.14.7" // used for site only
   lazy val diffx = "com.softwaremill.diffx" %% "diffx-scalatest" % "0.9.0"
   lazy val diffxShould =
     "com.softwaremill.diffx" %% "diffx-scalatest-should" % "0.9.0"
