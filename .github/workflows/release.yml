@@ -16,11 +16,9 @@ jobs:
           java-version: 11
       - uses: ruby/setup-ruby@v1
         with:
-          ruby-version: '2.6'
+          ruby-version: '3.0'
       - name: Install jekyll
-        run: |
-          gem install ffi -v 1.17.0
-          gem install jekyll -v 4.0.0
+        run: gem install jekyll -v 4.0.0
       - name: Install GPG
         uses: olafurpg/setup-gpg@v3
       - name: Compile
