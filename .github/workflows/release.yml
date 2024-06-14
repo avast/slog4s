@@ -19,7 +19,7 @@ jobs:
           ruby-version: '2.6'
       - name: Install jekyll
         run: |
-          gem update --system
+          gem install ffi -v 1.17.0
           gem install jekyll -v 4.0.0
       - name: Install GPG
         uses: olafurpg/setup-gpg@v3
