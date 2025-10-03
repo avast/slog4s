@@ -3,12 +3,12 @@ package slog4s
 import java.util.concurrent.TimeUnit
 
 import cats.Monad
-import cats.effect.concurrent.Ref
 import cats.effect.{Clock, Sync}
 import cats.syntax.flatMap._
 import cats.syntax.functor._
 
 import scala.concurrent.duration.Duration
+import cats.effect.Ref
 
 class MockClock[F[_]](val real: Ref[F, Long], val mono: Ref[F, Long])(implicit
     F: Monad[F]

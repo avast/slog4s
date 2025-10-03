@@ -1,17 +1,18 @@
 package slog4s
 
 import cats.effect.syntax.all._
-import cats.effect.{ConcurrentEffect, Sync, Timer}
+import cats.effect.{ConcurrentEffect, Sync}
 import cats.syntax.flatMap._
 import org.scalactic.source
 import org.scalatest.funspec.FixtureAnyFunSpec
 
 import scala.concurrent.duration._
+import cats.effect.Temporal
 
 abstract class EffectTest[F[_]] extends FixtureAnyFunSpec {
 
   protected def asEffect(fixtureParam: FixtureParam): ConcurrentEffect[F]
-  protected def asTimer(fixtureParam: FixtureParam): Timer[F]
+  protected def asTimer(fixtureParam: FixtureParam): Temporal[F]
   protected def timeout: FiniteDuration = 10.seconds
 
   def it_(

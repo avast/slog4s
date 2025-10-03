@@ -2,8 +2,7 @@ package slog4s.console
 
 import java.io.{ByteArrayOutputStream, PrintStream}
 import java.util.concurrent.{Executors, ThreadFactory}
-import cats.effect.concurrent.Ref
-import cats.effect.{ConcurrentEffect, ContextShift, IO, Resource, Sync, Timer}
+import cats.effect.{ConcurrentEffect, IO, Resource, Sync}
 import cats.syntax.all._
 import slog4s.Location.Code
 import slog4s.console.ConsoleLoggerTest.{Fixture, Output}
@@ -16,13 +15,14 @@ import slog4s.shared.{
 import slog4s._
 
 import scala.concurrent.ExecutionContext
+import cats.effect.{ Ref, Temporal }
 
 abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
   override protected def asEffect(
       fixtureParam: FixtureParam
   ): ConcurrentEffect[F] = fixtureParam.F
 
-  override protected def asTimer(fixtureParam: FixtureParam): Timer[F] =
+  override protected def asTimer(fixtureParam: FixtureParam): Temporal[F] =
     fixtureParam.T
 
   override type FixtureParam = ConsoleLoggerTest.Fixture[F]
@@ -46,7 +46,7 @@ abstract class ConsoleLoggerTest[F[_]](format: Format) extends EffectTest[F] {
       implicit val contextShift: ContextShift[IO] = IO.contextShift(ec)
       implicit val F: Sync[IO] = ConcurrentEffect[IO]
       implicit val mockClock: MockClock[IO] = MockClock.make[IO].unsafeRunSync()
-      implicit val timer: Timer[IO] = IO.timer(ec)
+      implicit val timer: Temporal[IO] = IO.timer(ec)
       val contextRuntimeBuilder = new ContextRuntimeBuilder[IO] {
         override def make[T](empty: T): IO[ContextRuntime[IO, T]] = {
           Ref.of(empty).map { context =>
@@ -101,7 +101,7 @@ object ConsoleLoggerTest {
   )(implicit
       val F: ConcurrentEffect[F],
       val C: MockClock[F],
-      val T: Timer[F]
+      val T: Temporal[F]
   ) {
     val loggerName = "test-logger"
     val logger = loggerFactory.make(loggerName)
