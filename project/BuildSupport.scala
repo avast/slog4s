@@ -1,10 +1,11 @@
-import com.typesafe.sbt.site.SitePlugin.autoImport._
-import com.typesafe.sbt.site.SiteScaladocPlugin.autoImport._
-import mdoc.MdocPlugin.autoImport._
-import microsites.MicrositesPlugin.autoImport._
-import sbt.Keys._
-import sbt._
-import sbtunidoc.ScalaUnidocPlugin.autoImport._
+import com.typesafe.sbt.site.SitePlugin.autoImport.*
+import mdoc.MdocPlugin.autoImport.*
+import microsites.MicrositesPlugin.autoImport.*
+import sbt.*
+import sbt.Keys.*
+import sbtunidoc.ScalaUnidocPlugin.autoImport.*
+
+import scala.collection.Seq
 
 object BuildSupport {
   lazy val commonSettings = Seq(
@@ -26,7 +27,26 @@ object BuildSupport {
       "-deprecation",
       "-Xlint:-unused,_"
     ),
-    Test / scalacOptions --= Seq("-Ywarn-dead-code", "-Ywarn-value-discard")
+    Test / scalacOptions --= Seq("-Ywarn-dead-code", "-Ywarn-value-discard"),
+    versionScheme := Some("early-semver"),
+
+    // Publishing / Sonatype
+    organization := "com.avast",
+    organizationName := "Avast",
+    homepage := Some(url("https://avast.github.io/slog4s/")),
+    licenses := Seq(
+      "MIT" -> url(
+        "https://raw.githubusercontent.com/avast/slog4s/master/LICENSE"
+      )
+    ),
+    developers := List(
+      Developer(
+        "karry",
+        "Lukas Karas",
+        "lukas.karas@gendigital.com",
+        url("https://www.gendigital.com")
+      )
+    )
   )
 
   lazy val micrositeSettings = Seq(
