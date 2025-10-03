@@ -28,25 +28,7 @@ object BuildSupport {
       "-Xlint:-unused,_"
     ),
     Test / scalacOptions --= Seq("-Ywarn-dead-code", "-Ywarn-value-discard"),
-    versionScheme := Some("early-semver"),
-
-    // Publishing / Sonatype
-    organization := "com.avast",
-    organizationName := "Avast",
-    homepage := Some(url("https://avast.github.io/slog4s/")),
-    licenses := Seq(
-      "MIT" -> url(
-        "https://raw.githubusercontent.com/avast/slog4s/master/LICENSE"
-      )
-    ),
-    developers := List(
-      Developer(
-        "karry",
-        "Lukas Karas",
-        "lukas.karas@gendigital.com",
-        url("https://www.gendigital.com")
-      )
-    )
+    versionScheme := Some("early-semver")
   )
 
   lazy val micrositeSettings = Seq(

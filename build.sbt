@@ -1,5 +1,6 @@
-import BuildSupport._
-import Dependencies._
+import BuildSupport.*
+import Dependencies.*
+import sbt.Keys.organization
 
 ThisBuild / scalaVersion := "2.12.20"
 ThisBuild / organization := "com.avast"
@@ -18,6 +19,12 @@ inThisBuild(
         "Jan Strnad",
         "strnad@avast.com",
         url("https://github.com/hanny24")
+      ),
+      Developer(
+        "karry",
+        "Lukas Karas",
+        "lukas.karas@gendigital.com",
+        url("https://www.gendigital.com")
       )
     )
   )
@@ -27,7 +34,8 @@ lazy val root = (project in file("."))
   .settings(commonSettings)
   .settings(
     name := "slog4s",
-    crossScalaVersions := Nil
+    crossScalaVersions := Nil,
+    publish / skip := true
   )
   .aggregate(api, console, example, generic, monix, slf4j, shared, zio)
 
