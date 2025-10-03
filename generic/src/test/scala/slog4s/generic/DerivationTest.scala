@@ -78,7 +78,7 @@ class DerivationTest extends AnyFunSpec {
         test(SealedTrait.Value(42), Map("value" -> 42))
         test[SealedTrait](
           SealedTrait.Value(42),
-          Map("value" -> 42, "type" -> "Value")
+          Map[String, Any]("value" -> 42, "type" -> "Value")
         )
       }
       it("sealed trait (case object)") {
