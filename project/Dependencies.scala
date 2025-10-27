@@ -14,7 +14,7 @@ object Dependencies {
     "com.softwaremill.diffx" %% "diffx-scalatest-should" % "0.9.0"
   lazy val logback = "ch.qos.logback" % "logback-classic" % "1.5.20"
   lazy val logstash =
-    "net.logstash.logback" % "logstash-logback-encoder" % "8.1"
+    "net.logstash.logback" % "logstash-logback-encoder" % "9.0"
   lazy val kindProjector =
     "org.typelevel" %% "kind-projector" % "0.13.4" cross CrossVersion.full
   lazy val magnolia = "com.propensive" %% "magnolia" % "0.17.0"
