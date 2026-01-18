@@ -9,7 +9,7 @@ import scala.collection.Seq
 
 object BuildSupport {
   lazy val commonSettings = Seq(
-    crossScalaVersions := List("2.12.20", "2.13.16"),
+    crossScalaVersions := List("2.12.21", "2.13.18"),
     scalacOptions := Seq(
       "-release",
       "11",
