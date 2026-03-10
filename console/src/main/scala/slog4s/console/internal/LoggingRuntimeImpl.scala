@@ -1,6 +1,5 @@
 package slog4s.console.internal
 
-import cats.effect.concurrent.Semaphore
 import cats.effect.{Clock, Concurrent, Sync}
 import cats.syntax.functor._
 import slog4s.console.ConsoleConfig
@@ -11,7 +10,7 @@ private[console] class LoggingRuntimeImpl[F[
     _
 ]: Sync: Clock, T: StructureBuilder](
     consoleConfig: ConsoleConfig[F],
-    semaphore: Semaphore[F],
+    semaphore: cats/effect/std/Semaphore[F],
     underlying: Formatter[F, T],
     context: LoggingContext[F]
 )(implicit asContext: AsContext[F, Map[String, T]])
@@ -37,7 +36,7 @@ private[console] object LoggingRuntimeImpl {
   )(implicit
       asContext: AsContext[F, Map[String, T]]
   ): F[LoggingRuntimeImpl[F, T]] = {
-    Semaphore[F](1).map { semaphore =>
+    cats/effect/std/Semaphore[F](1).map { semaphore =>
       new LoggingRuntimeImpl(consoleConfig, semaphore, underlying, context)
     }
   }
