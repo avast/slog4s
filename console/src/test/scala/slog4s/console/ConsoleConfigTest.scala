@@ -1,6 +1,6 @@
 package slog4s.console
 
-import cats.effect.{ConcurrentEffect, ContextShift, IO, Timer}
+import cats.effect.{ConcurrentEffect, IO}
 import cats.syntax.functor._
 import cats.syntax.flatMap._
 import org.scalactic.source.Position
@@ -9,19 +9,20 @@ import slog4s.{EffectTest, Level}
 import slog4s.console.ConsoleConfigTest.Fixture
 
 import scala.concurrent.ExecutionContext
+import cats.effect.Temporal
 
 class ConsoleConfigTest extends EffectTest[IO] {
   override protected def asEffect(
       fixtureParam: FixtureParam
   ): ConcurrentEffect[IO] = fixtureParam.F
 
-  override protected def asTimer(fixtureParam: FixtureParam): Timer[IO] =
+  override protected def asTimer(fixtureParam: FixtureParam): Temporal[IO] =
     fixtureParam.timer
 
   override protected def withFixture(test: OneArgTest): Outcome = {
     implicit val contextShift: ContextShift[IO] =
       IO.contextShift(ExecutionContext.global)
-    implicit val timer: Timer[IO] = IO.timer(ExecutionContext.global)
+    implicit val timer: Temporal[IO] = IO.timer(ExecutionContext.global)
     test(new Fixture[IO]())
   }
 
@@ -57,7 +58,7 @@ object ConsoleConfigTest {
   import org.scalatest.matchers.should.Matchers._
   class Fixture[F[_]](implicit
       val F: ConcurrentEffect[F],
-      val timer: Timer[F]
+      val timer: Temporal[F]
   ) {
     def validateLevel(
         fLevel: F[Level]
